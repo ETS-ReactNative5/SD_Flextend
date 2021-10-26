@@ -1,31 +1,46 @@
-import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { Text, View, StyleSheet, TextInput, Button } from 'react-native';
 
 const LoginScreen = ({ navigation }) => {
-    return (
-        <View style = {styles.container}>
-            <Text style = {styles.title}>
-                Keep your knee strong with Flextend!
-            </Text>
-        </View>
-    )
-}
+    const [phoneNumber, setPhoneNumber] = useState(null);
 
-const styles = StyleSheet.create({
-    container: {
+    return (
+      <View style={styles.screen}>
+        <Text style={styles.title}>Welcome to Flextend</Text>
+        <Text style={styles.text}>Enter Phone Number</Text>
+        <TextInput
+          autoFocus
+          style={styles.input}
+          value={phoneNumber}
+          onChangeText={setPhoneNumber}
+        />
+        <Button title="Phone Number Sign In" />
+      </View>
+    );
+  }
+  
+  const styles = StyleSheet.create({
+    screen: {
       flex: 1,
-      flexDirection: 'column',
-      backgroundColor: '#fff',
+      justifyContent: 'center',
       alignItems: 'center',
-      justifyContent: 'center'
+    },
+    input: {
+      borderWidth: 2,
+      borderColor: 'lightblue',
+      width: 300,
+      marginVertical: 30,
+      fontSize: 25,
+      padding: 10,
+      borderRadius: 8,
+    },
+    text: {
+      fontSize: 25,
     },
     title: {
-        fontSize: 38,
-        fontWeight: 'bold',
-        marginBottom: 50,
-        marginTop: 40,
-        textAlign: 'center'
+      fontSize: 36,
+      marginBottom: 30
     },
-})
+});
 
 export default LoginScreen;
