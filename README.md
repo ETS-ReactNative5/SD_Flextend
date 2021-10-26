@@ -1,6 +1,8 @@
 # SD_Flextend
 Senior Design Project BU ECE
 
+This is Thomas' branch
+
 Instructions for Running on Android:
 
 1) Download Android Studio 
