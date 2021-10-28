@@ -1,22 +1,30 @@
 import * as React from 'react';
+import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import LoginScreen from './screens/LoginScreen';
+//importing components for page routings
+import HomeScreen from "./components/HomeScreen";
+import LiveMeasureScreen from "./components/LiveMeasureScreen";
+import MetricsScreen from "./components/MetricsScreen";
+import ProgressScreen from "./components/ProgressScreen";
+
+
+
 
 const Stack = createNativeStackNavigator();
 
-const App = () => {
+function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen
-          name = "Login Screen"
-          component = { LoginScreen }
-        />
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Live Measure" component={LiveMeasureScreen} />
+        <Stack.Screen name="Metrics" component={MetricsScreen} />
+        <Stack.Screen name="Progress" component={ProgressScreen} />
       </Stack.Navigator>
     </NavigationContainer>
-  )
+  );
 }
 
 export default App;
