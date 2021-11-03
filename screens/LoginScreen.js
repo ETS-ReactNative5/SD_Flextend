@@ -44,7 +44,7 @@ class LoginScreen extends Component {
         .confirm(verificationCode)
         .then(user => {
           this.setState( {userID: user.uid} )
-          alert(`Welcome to Flextend ${user.uid}`)
+          alert('Welcome to Flextend')
         })
         .catch(error => {
           alert(error.message)
