@@ -5,7 +5,7 @@ import styles from '../styles/HomeStyle';
 export default class HomeScreen extends React.Component {
 
     static navigationOptions = {
-        title: 'HomeScreen',
+        title: 'ProgressScreen',
     };
 
     render() {

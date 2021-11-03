@@ -8,7 +8,7 @@ import HomeScreen from "./components/HomeScreen";
 import LiveMeasureScreen from "./components/LiveMeasureScreen";
 import MetricsScreen from "./components/MetricsScreen";
 import ProgressScreen from "./components/ProgressScreen";
-
+import BLEScreen from "./components/BLEScreen";
 
 
 
@@ -22,6 +22,7 @@ function App() {
         <Stack.Screen name="Live Measure" component={LiveMeasureScreen} />
         <Stack.Screen name="Metrics" component={MetricsScreen} />
         <Stack.Screen name="Progress" component={ProgressScreen} />
+        <Stack.Screen name="BLE" component={BLEScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
