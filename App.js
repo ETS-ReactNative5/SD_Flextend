@@ -1,8 +1,6 @@
 import * as React from 'react';
-import LoginScreen from './screens/LoginScreen';
+// import LoginScreen from './screens/LoginScreen';
 
-const App = () => {
-  return (<LoginScreen/>)
 import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -13,6 +11,7 @@ import LiveMeasureScreen from "./components/LiveMeasureScreen";
 import MetricsScreen from "./components/MetricsScreen";
 import ProgressScreen from "./components/ProgressScreen";
 import BLEScreen from "./components/BLEScreen";
+import LoginScreen from "./screens/LoginScreen"
 
 
 
@@ -22,6 +21,7 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Live Measure" component={LiveMeasureScreen} />
         <Stack.Screen name="Metrics" component={MetricsScreen} />

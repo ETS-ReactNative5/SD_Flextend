@@ -3,6 +3,9 @@ import { StyleSheet, SafeAreaView, TouchableOpacity, View, Text, TextInput } fro
 import { firebase } from '@react-native-firebase/auth';
 
 class LoginScreen extends Component {
+
+  const navigate = this.props.navigation.navigate;
+
   state = {
     phone: '',
     confirmResult: null,
@@ -44,7 +47,8 @@ class LoginScreen extends Component {
         .confirm(verificationCode)
         .then(user => {
           this.setState( {userID: user.uid} )
-          alert('Welcome to Flextend')
+          // alert('Welcome to Flextend')
+          navigate( 'Home' )
         })
         .catch(error => {
           alert(error.message)
