@@ -11,9 +11,7 @@ import LiveMeasureScreen from "./components/LiveMeasureScreen";
 import MetricsScreen from "./components/MetricsScreen";
 import ProgressScreen from "./components/ProgressScreen";
 import BLEScreen from "./components/BLEScreen";
-import LoginScreen from "./screens/LoginScreen"
-
-
+import LoginScreen from "./components/LoginScreen";
 
 const Stack = createNativeStackNavigator();
 

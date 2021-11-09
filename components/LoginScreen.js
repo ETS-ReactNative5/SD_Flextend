@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
-import { StyleSheet, SafeAreaView, TouchableOpacity, View, Text, TextInput } from 'react-native';
+import { SafeAreaView, TouchableOpacity, View, Text, TextInput, Image } from 'react-native';
 import { firebase } from '@react-native-firebase/auth';
+import styles from "../styles/LoginStyle"
 
 class LoginScreen extends Component {
-
-  const navigate = this.props.navigation.navigate;
 
   state = {
     phone: '',
@@ -48,7 +47,7 @@ class LoginScreen extends Component {
         .then(user => {
           this.setState( {userID: user.uid} )
           // alert('Welcome to Flextend')
-          navigate( 'Home' )
+          this.props.navigation.navigate("Home")
         })
         .catch(error => {
           alert(error.message)
@@ -86,9 +85,12 @@ class LoginScreen extends Component {
   render() {
     return (
       <SafeAreaView style={[styles.container, {backgroundColor: '#fff'}]}>
-        <Text style = {styles.title}>Welcome to Flextend</Text>
+        <Image 
+          style = {styles.image}
+          source = {require("../images/Logo.png")}
+        />
         <Text style = {styles.text}>Please Enter Your Phone Number to Login</Text>
-        <Text style = {styles.format}>Format: +1 xxxxxxxxxx</Text>
+        <Text style = {styles.format}>Example Format: +1 1111111111</Text>
         <View style={styles.page}>
           <TextInput 
             style = {styles.textInput}
@@ -121,66 +123,5 @@ class LoginScreen extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#bbb'
-  },
-  page: {
-    flex: 1,
-    alignItems: 'center',
-    marginTop: 2
-  },
-  textInput: {
-    marginTop: 20,
-    width: '90%',
-    height: 40,
-    borderColor: '#555',
-    borderWidth: 2,
-    borderRadius: 5,
-    paddingLeft: 10,
-    color: '#000',
-    fontSize: 16
-  },
-  title: {
-    marginTop: 30,
-    paddingLeft: 10,
-    fontSize: 40,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  text: {
-    marginTop: 20,
-    fontSize: 24,
-    textAlign: 'center',
-    paddingLeft: 10
-  },
-  format: {
-    marginTop: 20,
-    fontSize: 18,
-    textAlign: 'center',
-    paddingLeft: 10
-  },
-  themeButton: {
-    width: '90%',
-    height: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#888',
-    borderColor: '#555',
-    borderWidth: 2,
-    borderRadius: 5
-  },
-  themeButtonTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#fff'
-  },
-  verificationView: {
-    width: '100%',
-    alignItems: 'center',
-    marginTop: 30
-  }
-})
   
 export default LoginScreen;

@@ -6,20 +6,18 @@ export default StyleSheet.create({
         alignItems: 'center'
     },
     title: {
-        fontSize: 20,
+        fontSize: 30,
         marginTop: 20,
-        // fontStyle: 'italic',
+        fontStyle: 'italic',
+        fontWeight: 'bold',
         alignSelf: "center",
-        fontWeight: "bold"
+        color: 'black'
     },
     home_image: {
-        // flex: 1,
         height: '100%',
         width: '100%',
-        
         marginBottom: 0, 
         marginLeft: 0,
-    
     },
     input: {
         height: 48,
@@ -65,7 +63,7 @@ export default StyleSheet.create({
     buttonTitle: {
         color: 'black',
         fontSize: 24,
-        // fontWeight: "bold"
+        fontFamily: 'times new roman'
     },
     footerView: {
         flex: 1,
