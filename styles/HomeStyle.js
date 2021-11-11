@@ -11,25 +11,31 @@ export default StyleSheet.create({
         fontStyle: 'italic',
         fontWeight: 'bold',
         alignSelf: "center",
-        color: 'black'
+        color: 'black',
+        //flex: 1
     },
     home_image: {
-        height: '100%',
-        width: '100%',
-        marginBottom: 0, 
-        marginLeft: 0,
+        // // height: '100%',
+        // // width: '100%',
+        // // marginBottom: 0, 
+        // // marginLeft: 0,
+        flex: 1,
+        width: null, 
+        height: null, 
+        resizeMode: 'contain',
+        flexDirection: 'column-reverse'
     },
-    input: {
-        height: 48,
-        borderRadius: 5,
-        overflow: 'hidden',
-        backgroundColor: 'white',
-        marginTop: 10,
-        marginBottom: 10,
-        marginLeft: 30,
-        marginRight: 30,
-        paddingLeft: 16
-    },
+    // input: {
+    //     height: 48,
+    //     borderRadius: 5,
+    //     overflow: 'hidden',
+    //     backgroundColor: 'white',
+    //     marginTop: 10,
+    //     marginBottom: 10,
+    //     marginLeft: 30,
+    //     marginRight: 30,
+    //     paddingLeft: 16
+    // },
     button1: {
         backgroundColor: '#ffb6c1',
         marginLeft: 30,
@@ -65,18 +71,5 @@ export default StyleSheet.create({
         fontSize: 24,
         fontFamily: 'times new roman'
     },
-    footerView: {
-        flex: 1,
-        alignItems: "center",
-        marginTop: 20
-    },
-    footerText: {
-        fontSize: 16,
-        color: '#2e2e2d'
-    },
-    footerLink: {
-        color: "#788eec",
-        fontWeight: "bold",
-        fontSize: 16
-    }
+    
 })

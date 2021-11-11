@@ -14,8 +14,6 @@ var devices = [];
 export default function ble_set_up() {
 
     const scanDevices = () => {
-        // display the Activityindicator
-        // setIsLoading(true);
 
         // scan devices
         manager.startDeviceScan(null, null, (error, scannedDevice) => {
