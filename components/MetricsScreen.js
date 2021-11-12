@@ -2,6 +2,7 @@
 import React, {useState, useEffect} from 'react';
 import { TouchableOpacity, Text, View, Button, Image} from 'react-native';
 import styles from '../styles/HomeStyle';
+import firestore from '@react-native-firebase/firestore';
 
 export default class HomeScreen extends React.Component {
 
@@ -12,15 +13,24 @@ export default class HomeScreen extends React.Component {
     render() {
         const navigate = this.props.navigation.navigate;
 
+        const kneeHealth = async () => {
+            return (
+                firestore()
+                    .collection('knee health')
+                    .add({
+                        flexion: 42,
+                        extension: 20,
+                    })
+            )
+        }
+
         return (
             <View>
                 <Text style={styles.title}> Metrics</Text>
-            {/* <Image
-                style={styles.logo}
-                source={require("../assets/food_logo.png")}
-            /> */}
-            {/* <TouchableOpacity onPress={() => navigate( 'Login' )} style={styles.button}><Text style={styles.buttonTitle}>Log In</Text></TouchableOpacity>
-            <TouchableOpacity onPress={() => navigate( 'Create user')} style={styles.button}><Text style={styles.buttonTitle}>Sign Up</Text></TouchableOpacity> */}
+                <Button
+                    title = "Click to Send to Firebase"
+                    onPress = {() => kneeHealth()}
+                />
             </View>
 
         );
