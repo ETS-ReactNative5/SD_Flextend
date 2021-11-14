@@ -1,6 +1,4 @@
 import * as React from 'react';
-// import LoginScreen from './screens/LoginScreen';
-
 import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -12,6 +10,8 @@ import MetricsScreen from "./components/MetricsScreen";
 import ProgressScreen from "./components/ProgressScreen";
 import BLEScreen from "./components/BLEScreen";
 import LoginScreen from "./components/LoginScreen";
+import DeviceScreen from "./components/DeviceScreen";
+import DeviceCard from "./BLE_components/DeviceCard";
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +25,8 @@ function App() {
         <Stack.Screen name="Metrics" component={MetricsScreen} />
         <Stack.Screen name="Progress" component={ProgressScreen} />
         <Stack.Screen name="BLE" component={BLEScreen} />
+        <Stack.Screen name="Device" component={DeviceScreen} />
+        {/* <Stack.Screen name="DeviceCard" component={DeviceCard} /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

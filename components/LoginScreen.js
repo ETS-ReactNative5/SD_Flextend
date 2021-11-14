@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import { SafeAreaView, TouchableOpacity, View, Text, TextInput, Image } from 'react-native';
+import { SafeAreaView, TouchableOpacity, View, Text, TextInput, Image, ScrollView, KeyboardAvoidingView } from 'react-native';
 import { firebase } from '@react-native-firebase/auth';
 import styles from "../styles/LoginStyle"
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 class LoginScreen extends Component {
 
@@ -91,7 +92,7 @@ class LoginScreen extends Component {
         />
         <Text style = {styles.text}>Please Enter Your Phone Number to Login</Text>
         <Text style = {styles.format}>Example Format: +1 1111111111</Text>
-        <View style={styles.page}>
+        <KeyboardAwareScrollView  resetScrollToCoords={{ x: 0, y: 0 }} contentContainerStyle={styles.page} scrollEnabled={true}>
           <TextInput 
             style = {styles.textInput}
             placeholder = 'Phone Number'
@@ -117,7 +118,7 @@ class LoginScreen extends Component {
           </TouchableOpacity>
 
           {this.state.confirmResult ? this.renderConfirmationView() : null}
-        </View>
+        </KeyboardAwareScrollView>
       </SafeAreaView>
     )
   }

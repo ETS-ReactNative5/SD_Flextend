@@ -19,4 +19,5 @@ Needs to be installed for Bluetooth
 * npm install --save react-native-ble-plx
 * [Follow adittional instructions for Android Set Up](https://github.com/dotintent/react-native-ble-plx)
 
-
+Keyboard
+* npm install react-native-keyboard-aware-scroll-view
