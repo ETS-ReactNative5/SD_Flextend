@@ -1,8 +1,8 @@
-
-import React, {useState, useEffect} from 'react';
-import { TouchableOpacity, Text, View, Button, Image} from 'react-native';
-import styles from '../styles/HomeStyle';
-import firestore from '@react-native-firebase/firestore';
+import React from 'react';
+import { Text, View } from 'react-native';
+import styles from '../styles/MetricStyle';
+import auth from '@react-native-firebase/auth'
+import data from '../components/GetData'
 
 export default class HomeScreen extends React.Component {
 
@@ -12,27 +12,18 @@ export default class HomeScreen extends React.Component {
 
     render() {
         const navigate = this.props.navigation.navigate;
+        const userID = auth().currentUser.phoneNumber;
 
-        const kneeHealth = async () => {
-            return (
-                firestore()
-                    .collection('knee health')
-                    .add({
-                        flexion: 42,
-                        extension: 20,
-                    })
-            )
-        }
+        const kneeData = data["_W"];
+        const flexion = kneeData["flexion"];
+        const extension = kneeData["extension"];
 
         return (
             <View>
-                <Text style={styles.title}> Metrics</Text>
-                <Button
-                    title = "Click to Send to Firebase"
-                    onPress = {() => kneeHealth()}
-                />
+                <Text style={styles.title}>Hello {userID}</Text>
+                <Text style={styles.text}>Your Flexion: {flexion} degrees</Text>
+                <Text style={styles.text}>Your Extension: {extension} degrees</Text>
             </View>
-
         );
     }
 }
