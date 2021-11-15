@@ -62,11 +62,12 @@ class LoginScreen extends Component {
 
   renderConfirmationView = () => {
     return (
-      <View style = {styles.verificationView}>
+      <View >
         <TextInput
           style = {styles.textInput}
           placeholder = 'Verification Code'
           placeholderTextColor = '#000'
+          textAlign ='center'
           value = {this.state.verificationCode}
           keyboardType = 'numeric'
           onChangeText = {verificationCode => {
@@ -85,41 +86,46 @@ class LoginScreen extends Component {
 
   render() {
     return (
-      <SafeAreaView style={[styles.container, {backgroundColor: '#fff'}]}>
-        <Image 
-          style = {styles.image}
-          source = {require("../images/Logo.png")}
-        />
-        <Text style = {styles.text}>Please Enter Your Phone Number to Login</Text>
-        <Text style = {styles.format}>Example Format: +1 1111111111</Text>
-        <KeyboardAwareScrollView  resetScrollToCoords={{ x: 0, y: 0 }} contentContainerStyle={styles.page} scrollEnabled={true}>
-          <TextInput 
-            style = {styles.textInput}
-            placeholder = 'Phone Number'
-            placeholderTextColor = '#000'
-            keyboardType = 'phone-pad'
-            value = {this.state.phone}
-            onChangeText = {phone => {
-              this.setState( {phone} )
-            }}
-            maxLength = {15}
-            editable = {this.state.confirmResult ? false : true}
-          />
-          <TouchableOpacity
-            style = {[styles.themeButton, {marginTop: 20}]}
-            onPress = {
-              this.state.confirmResult
-                ? this.changePhoneNumber
-                : this.handleCode
-            }>
-              <Text style={styles.themeButtonTitle}>
-                {this.state.confirmResult ? 'Change Phone Number' : 'Send Code'}
-              </Text>
-          </TouchableOpacity>
+      <View style={{flex: 1}}>
+        {/* <View style={{flexGrow: 1}}>
+            <Image style = {styles.image} source = {require("../images/Logo.png")}/>
+        </View> */}
+        <KeyboardAwareScrollView  keyboardShouldPersistTaps={'always'} style={{flex:1}} showsVerticalScrollIndicator={false}>
+          <View  contentContainerStyle={styles.page}>
+            <Text style = {styles.text}>Please Enter Your Phone Number to Login</Text>
+            <Text style = {styles.format}>Example Format: +1 1111111111</Text>
+            <TextInput 
+              style = {styles.textInput}
+              placeholder = 'Phone Number'
+              placeholderTextColor = '#000'
+              textAlign ='center'
+              keyboardType = 'phone-pad'
+              value = {this.state.phone}
+              onChangeText = {phone => {
+                this.setState( {phone} )
+              }}
+              maxLength = {15}
+              editable = {this.state.confirmResult ? false : true}
+            />
+            <TouchableOpacity
+              style = {[styles.themeButton, {marginTop: 20}]}
+              onPress = {
+                this.state.confirmResult
+                  ? this.changePhoneNumber
+                  : this.handleCode
+              }>
+                <Text style={styles.themeButtonTitle}>
+                  {this.state.confirmResult ? 'Change Phone Number' : 'Send Code'}
+                </Text>
+            </TouchableOpacity>
 
-          {this.state.confirmResult ? this.renderConfirmationView() : null}
+            {this.state.confirmResult ? this.renderConfirmationView() : null}
+          </View>
         </KeyboardAwareScrollView>
-      </SafeAreaView>
+        {/* <View style={{flexGrow: 1}}>
+            <Image style = {styles.image} source = {require("../images/Logo.png")}/>
+        </View> */}
+      </View>
     )
   }
 }
