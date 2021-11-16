@@ -11,6 +11,7 @@ Needs to be installed for navigation
 Needs to be installed for firebase
 * npm install @react-native-firebase/app
 * npm install @react-native-firebase/auth
+* npm install @react-native-firebase/firestore
 
 Needs to be installed for wifi management 
 * In Progress 
