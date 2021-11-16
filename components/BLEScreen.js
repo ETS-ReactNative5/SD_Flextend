@@ -54,14 +54,13 @@ export default function ble_set_up() {
                 if (scannedDevice.name != null){
                     dispatch({ type: 'ADD_DEVICE', payload: scannedDevice });
                 }
-                
             }
         });
 
         // stop scanning devices after 300 miliseconds
         setTimeout(() => {
             manager.stopDeviceScan();
-        }, 300);
+        }, 5000);
     };
                 
     return (
