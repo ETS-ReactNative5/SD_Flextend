@@ -66,7 +66,6 @@ export default function ble_set_up() {
     return (
         <View>
             <Text style={styles.title}> Set Up BLE  </Text>
-            <Button title="Clear Devices" color="Blue" onPress={() => dispatch({ type: 'CLEAR' })}/>
             <Button title="Scan devices" onPress={scanDevices} />
             <Button title="Clear devices" onPress={() => dispatch({ type: 'CLEAR' })}/>
             <FlatList

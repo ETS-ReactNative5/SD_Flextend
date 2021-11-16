@@ -6,18 +6,23 @@ export default StyleSheet.create({
       backgroundColor: '#bbb'
     },
     page: {
-      flex: 1,
+      flex: 3,
       alignItems: 'center',
       marginTop: 2
     },
     textInput: {
+      marginLeft: 30,
+      marginRight: 30,
       marginTop: 20,
-      width: '90%',
-      height: 40,
+      height: 48,
+
+      //marginTop: 20,
+      //width: '90%',
+      //height: 40,
       borderColor: '#555',
       borderWidth: 2,
       borderRadius: 5,
-      paddingLeft: 10,
+      //paddingLeft: 10,
       color: 'black',
       fontSize: 16,
       fontFamily: 'times new roman'
@@ -40,11 +45,23 @@ export default StyleSheet.create({
       color: 'black'
     },
     themeButton: {
-      width: '90%',
-      height: 50,
-      alignItems: 'center',
-      justifyContent: 'center',
+      // width: '90%',
+      // height: 50,
+      // alignItems: 'center',
+      // justifyContent: 'center',
+      // backgroundColor: '#dda0dd',
+      // borderColor: '#555',
+      // borderWidth: 2,
+      // borderRadius: 5
+
       backgroundColor: '#dda0dd',
+      marginLeft: 30,
+      marginRight: 30,
+      marginTop: 20,
+      height: 48,
+      borderRadius: 5,
+      alignItems: "center",
+      justifyContent: 'center',
       borderColor: '#555',
       borderWidth: 2,
       borderRadius: 5

@@ -1,7 +1,8 @@
-
-import React, {useState, useEffect} from 'react';
-import { TouchableOpacity, Text, View, Button, Image} from 'react-native';
-import styles from '../styles/HomeStyle';
+import React from 'react';
+import { Text, View } from 'react-native';
+import styles from '../styles/MetricStyle';
+import auth from '@react-native-firebase/auth'
+import data from '../components/GetData'
 
 export default class HomeScreen extends React.Component {
 
@@ -11,18 +12,18 @@ export default class HomeScreen extends React.Component {
 
     render() {
         const navigate = this.props.navigation.navigate;
+        const userID = auth().currentUser.phoneNumber;
+
+        const kneeData = data["_W"];
+        const flexion = kneeData["flexion"];
+        const extension = kneeData["extension"];
 
         return (
             <View>
-                <Text style={styles.title}> Metrics</Text>
-            {/* <Image
-                style={styles.logo}
-                source={require("../assets/food_logo.png")}
-            /> */}
-            {/* <TouchableOpacity onPress={() => navigate( 'Login' )} style={styles.button}><Text style={styles.buttonTitle}>Log In</Text></TouchableOpacity>
-            <TouchableOpacity onPress={() => navigate( 'Create user')} style={styles.button}><Text style={styles.buttonTitle}>Sign Up</Text></TouchableOpacity> */}
+                <Text style={styles.title}>Hello {userID}</Text>
+                <Text style={styles.text}>Your Flexion: {flexion} degrees</Text>
+                <Text style={styles.text}>Your Extension: {extension} degrees</Text>
             </View>
-
         );
     }
 }
