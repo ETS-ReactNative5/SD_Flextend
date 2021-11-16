@@ -23,15 +23,15 @@ export default StyleSheet.create({
         //flex: 1
     },
     home_image: {
-        // // height: '100%',
-        // // width: '100%',
-        // // marginBottom: 0, 
-        // // marginLeft: 0,
-        flex: 1,
-        width: null, 
-        height: null, 
-        resizeMode: 'contain',
-        flexDirection: 'column-reverse'
+        height: '100%',
+        width: '100%',
+        marginBottom: 0, 
+        marginLeft: 0,
+        // flex: 1,
+        // width: null, 
+        // height: null, 
+        // resizeMode: 'contain',
+        // //flexDirection: 'column-reverse'
     },
     // input: {
     //     height: 48,

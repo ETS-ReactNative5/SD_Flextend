@@ -33,7 +33,7 @@ const DeviceCard = ({ device }: DeviceCardProps) => {
 
   return (
     <View>
-      <TouchableOpacity onPress={() => disconnectDevice()}> Disconnect Device</TouchableOpacity>
+      {/* <TouchableOpacity onPress={() => disconnectDevice()}> Disconnect Device</TouchableOpacity> */}
       <TouchableOpacity onPress={() => connectDevice()}>
         <Text style={styles.green}>{`Id : ${device.id}`}</Text>
         <Text>{`Name : ${device.name}`}</Text>
