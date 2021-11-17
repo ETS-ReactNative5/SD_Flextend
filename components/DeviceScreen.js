@@ -53,7 +53,7 @@ export default function DeviceScreen({device}){
     return (
         <ScrollView contentContainerStyle={styles.container}>
         <Button title="disconnect" onPress={disconnectDevice} />
-        <View>
+        <View style={styles.container}>
             <View style={styles.header}>
             <Text>{`Id : ${device.id}`}</Text>
             <Text>{`Name : ${device.name}`}</Text>

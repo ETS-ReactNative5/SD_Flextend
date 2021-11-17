@@ -67,7 +67,7 @@ class LoginScreen extends Component {
           style = {styles.textInput}
           placeholder = 'Verification Code'
           placeholderTextColor = '#000'
-          textAlign ='center'
+          textAlign ='left'
           value = {this.state.verificationCode}
           keyboardType = 'numeric'
           onChangeText = {verificationCode => {
@@ -86,10 +86,13 @@ class LoginScreen extends Component {
 
   render() {
     return (
-      <View style={{flex: 1}}>
-        {/* <View style={{flexGrow: 1}}>
-            <Image style = {styles.image} source = {require("../images/Logo.png")}/>
-        </View> */}
+      <View style={styles.container}>
+        <View>
+            <Image 
+              style = {styles.image} 
+              source = {require('../images/Logo.png')}
+            />
+        </View>
         <KeyboardAwareScrollView  keyboardShouldPersistTaps={'always'} style={{flex:1}} showsVerticalScrollIndicator={false}>
           <View  contentContainerStyle={styles.page}>
             <Text style = {styles.text}>Please Enter Your Phone Number to Login</Text>
@@ -98,7 +101,7 @@ class LoginScreen extends Component {
               style = {styles.textInput}
               placeholder = 'Phone Number'
               placeholderTextColor = '#000'
-              textAlign ='center'
+              textAlign ='left'
               keyboardType = 'phone-pad'
               value = {this.state.phone}
               onChangeText = {phone => {
@@ -122,9 +125,6 @@ class LoginScreen extends Component {
             {this.state.confirmResult ? this.renderConfirmationView() : null}
           </View>
         </KeyboardAwareScrollView>
-        {/* <View style={{flexGrow: 1}}>
-            <Image style = {styles.image} source = {require("../images/Logo.png")}/>
-        </View> */}
       </View>
     )
   }

@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native'
 export default StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#bbb'
+      backgroundColor: '#fff'
     },
     page: {
       flex: 3,
@@ -15,14 +15,9 @@ export default StyleSheet.create({
       marginRight: 30,
       marginTop: 20,
       height: 48,
-
-      //marginTop: 20,
-      //width: '90%',
-      //height: 40,
       borderColor: '#555',
       borderWidth: 2,
       borderRadius: 5,
-      //paddingLeft: 10,
       color: 'black',
       fontSize: 16,
       fontFamily: 'times new roman'
@@ -45,15 +40,6 @@ export default StyleSheet.create({
       color: 'black'
     },
     themeButton: {
-      // width: '90%',
-      // height: 50,
-      // alignItems: 'center',
-      // justifyContent: 'center',
-      // backgroundColor: '#dda0dd',
-      // borderColor: '#555',
-      // borderWidth: 2,
-      // borderRadius: 5
-
       backgroundColor: '#dda0dd',
       marginLeft: 30,
       marginRight: 30,
@@ -77,13 +63,11 @@ export default StyleSheet.create({
       marginTop: 30
     },
     image: {
-        // width: 40,
-        // height: 80,
-        // paddingLeft: 410,
-        //marginTop: 10,
-        flex: 1,
-        width: null,
-        height: null,
-        resizeMode: 'contain'
+        width: 60,
+        height: 85,
+        paddingLeft: 410,
+        marginTop: 25,
+        margin: 4,
+        backgroundColor: 'white'
     }
 })
