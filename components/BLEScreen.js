@@ -9,6 +9,8 @@ import { BleManager, Device } from 'react-native-ble-plx';
 
 //create new BLE manager
 const manager = new BleManager();
+let services;
+let characteristic;
 
 export default function ble_set_up() {
 
@@ -93,11 +95,16 @@ export default function ble_set_up() {
                     //begin device connection and data reading
                     manager.connectToDevice(device.id, {autoConnect:true}).then((device) => {
                         (async() => {
-                            const services = await device.discoverAllServicesAndCharacteristics();
-                            const characteristic = await getServicesAndCharacteristics(services);
+                            services = await device.discoverAllServicesAndCharacteristics();
+                            characteristic = await getServicesAndCharacteristics(services).then(
+                                characteristic => console.log(characteristic.value)
+                            )
+                            let val = device.isConnected().then(console.log(val));
                             // value = services.readCharacteristicForService(services.serviceUUIDs, characteristic.uuid).value;
                             // console.log("characteristic value:", value);
-                            console.log(characteristic.value)
+                            // console.log(characteristic.read())
+                            //temp = characteristic.read()
+                            //console.log(temp)
                             // console.log("Discovering all services and characteristics", characteristic.uuid);
                         })();
                         setIsConnected(true);
@@ -106,6 +113,7 @@ export default function ble_set_up() {
                         
                     }).then(() => {
                         console.log("Listening...");
+                        let val = services.isConnected().then(console.log(val));
                     }).catch((error) => {
                         alert("Connection error", error.message);
                     });
@@ -126,7 +134,8 @@ export default function ble_set_up() {
         <View>
             <Text style={styles.title}> Set Up BLE  </Text>
             <Button title="Scan for Flextend" onPress={scanForFlextend} />
-            
+            {/* <Text>{`Connected: ${device.isConnected()}`}</Text> */}
+            {/* <Button title="Read Characteristics" onPress={readDeviceCharacteristics} /> */}
         </View>
     );
 }  
