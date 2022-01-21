@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import { SafeAreaView, TouchableOpacity, View, Text, TextInput, Image } from 'react-native';
+import { SafeAreaView, TouchableOpacity, View, Text, TextInput, Image, ScrollView, KeyboardAvoidingView } from 'react-native';
 import { firebase } from '@react-native-firebase/auth';
 import styles from "../styles/LoginStyle"
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 class LoginScreen extends Component {
 
@@ -61,11 +62,12 @@ class LoginScreen extends Component {
 
   renderConfirmationView = () => {
     return (
-      <View style = {styles.verificationView}>
+      <View >
         <TextInput
           style = {styles.textInput}
           placeholder = 'Verification Code'
           placeholderTextColor = '#000'
+          textAlign ='left'
           value = {this.state.verificationCode}
           keyboardType = 'numeric'
           onChangeText = {verificationCode => {
@@ -84,41 +86,46 @@ class LoginScreen extends Component {
 
   render() {
     return (
-      <SafeAreaView style={[styles.container, {backgroundColor: '#fff'}]}>
-        <Image 
-          style = {styles.image}
-          source = {require("../images/Logo.png")}
-        />
-        <Text style = {styles.text}>Please Enter Your Phone Number to Login</Text>
-        <Text style = {styles.format}>Example Format: +1 1111111111</Text>
-        <View style={styles.page}>
-          <TextInput 
-            style = {styles.textInput}
-            placeholder = 'Phone Number'
-            placeholderTextColor = '#000'
-            keyboardType = 'phone-pad'
-            value = {this.state.phone}
-            onChangeText = {phone => {
-              this.setState( {phone} )
-            }}
-            maxLength = {15}
-            editable = {this.state.confirmResult ? false : true}
-          />
-          <TouchableOpacity
-            style = {[styles.themeButton, {marginTop: 20}]}
-            onPress = {
-              this.state.confirmResult
-                ? this.changePhoneNumber
-                : this.handleCode
-            }>
-              <Text style={styles.themeButtonTitle}>
-                {this.state.confirmResult ? 'Change Phone Number' : 'Send Code'}
-              </Text>
-          </TouchableOpacity>
-
-          {this.state.confirmResult ? this.renderConfirmationView() : null}
+      <View style={styles.container}>
+        <View>
+            <Image 
+              style = {styles.image} 
+              source = {require('../images/Logo.png')}
+            />
         </View>
-      </SafeAreaView>
+        <KeyboardAwareScrollView  keyboardShouldPersistTaps={'always'} style={{flex:1}} showsVerticalScrollIndicator={false}>
+          <View  contentContainerStyle={styles.page}>
+            <Text style = {styles.text}>Please Enter Your Phone Number to Login</Text>
+            <Text style = {styles.format}>Example Format: +1 1111111111</Text>
+            <TextInput 
+              style = {styles.textInput}
+              placeholder = 'Phone Number'
+              placeholderTextColor = '#000'
+              textAlign ='left'
+              keyboardType = 'phone-pad'
+              value = {this.state.phone}
+              onChangeText = {phone => {
+                this.setState( {phone} )
+              }}
+              maxLength = {15}
+              editable = {this.state.confirmResult ? false : true}
+            />
+            <TouchableOpacity
+              style = {[styles.themeButton, {marginTop: 20}]}
+              onPress = {
+                this.state.confirmResult
+                  ? this.changePhoneNumber
+                  : this.handleCode
+              }>
+                <Text style={styles.themeButtonTitle}>
+                  {this.state.confirmResult ? 'Change Phone Number' : 'Send Code'}
+                </Text>
+            </TouchableOpacity>
+
+            {this.state.confirmResult ? this.renderConfirmationView() : null}
+          </View>
+        </KeyboardAwareScrollView>
+      </View>
     )
   }
 }

@@ -24,7 +24,8 @@ export default class HomeScreen extends React.Component {
                     source={require("../images/home_image.jpeg")}
                 />
             </View>
-
+                
+           
         );
     }
 }

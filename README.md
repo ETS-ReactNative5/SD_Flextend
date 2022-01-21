@@ -11,6 +11,7 @@ Needs to be installed for navigation
 Needs to be installed for firebase
 * npm install @react-native-firebase/app
 * npm install @react-native-firebase/auth
+* npm install @react-native-firebase/firestore
 
 Needs to be installed for wifi management 
 * In Progress 
@@ -18,3 +19,6 @@ Needs to be installed for wifi management
 Needs to be installed for Bluetooth 
 * npm install --save react-native-ble-plx
 * [Follow adittional instructions for Android Set Up](https://github.com/dotintent/react-native-ble-plx)
+
+Keyboard
+* npm install react-native-keyboard-aware-scroll-view
