@@ -21,9 +21,9 @@ export default StyleSheet.create({
         color: 'black',
     },
     home_image: {
-        height: '100%',
+        height: '80%',
         width: '100%',
-        marginBottom: 0, 
+        marginTop: 0, 
         marginLeft: 0,
     },
     button1: {
@@ -31,7 +31,7 @@ export default StyleSheet.create({
         marginLeft: 30,
         marginRight: 30,
         marginTop: 20,
-        height: 48,
+        height: 40,
         borderRadius: 5,
         alignItems: "center",
         justifyContent: 'center'
@@ -41,7 +41,7 @@ export default StyleSheet.create({
         marginLeft: 30,
         marginRight: 30,
         marginTop: 20,
-        height: 48,
+        height: 40,
         borderRadius: 5,
         alignItems: "center",
         justifyContent: 'center'
@@ -51,7 +51,7 @@ export default StyleSheet.create({
         marginLeft: 30,
         marginRight: 30,
         marginTop: 20,
-        height: 48,
+        height: 40,
         borderRadius: 5,
         alignItems: "center",
         justifyContent: 'center'
