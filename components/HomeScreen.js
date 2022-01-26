@@ -16,6 +16,7 @@ export default class HomeScreen extends React.Component {
         const logout = () => {
             console.log(firebase.auth().currentUser);
             firebase.auth().signOut().then(() => {
+                console.log(firebase.auth().currentUser);
                 navigate('Login')});
         }
 
@@ -32,8 +33,6 @@ export default class HomeScreen extends React.Component {
                     source={require("../images/home_image.jpeg")}
                 />
             </View>
-                
-           
         );
     }
 }
