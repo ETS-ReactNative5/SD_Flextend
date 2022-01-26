@@ -2,6 +2,7 @@
 import React, {useState, useEffect, useReducer} from 'react';
 import { TouchableOpacity, Text, View, Button, Image, FlatList, ActivityIndicator, Alert} from 'react-native';
 import styles from '../styles/HomeStyle';
+import base64 from 'react-native-base64'
 // import { DeviceCard } from '../BLE_components/DeviceCard';
 
 // Imports for BLE management 
@@ -11,6 +12,8 @@ import { BleManager, Device } from 'react-native-ble-plx';
 const manager = new BleManager();
 let services;
 let characteristic;
+let device_id;
+let transaction_id = "flextend_transaction";
 
 export default function ble_set_up() {
 
@@ -41,7 +44,8 @@ export default function ble_set_up() {
     async function disconnectFromFlextend() {
         if (isConnected)
         {
-            await device.cancelConnection();
+            await manager.cancelTransaction(transaction_id);
+            await manager.cancelDeviceConnection(device_id);
             setIsConnected(false);
         }
     }
@@ -63,21 +67,28 @@ export default function ble_set_up() {
                 if (device.name == "Flextend"){
                     manager.stopDeviceScan();
                     await device.connect();
+                    device_id = device.id;
                     setIsConnected(true);
-                    const allServicesAndCharacteristics = await device.discoverAllServicesAndCharacteristics();
+                    const allServicesAndCharacteristics = await device.discoverAllServicesAndCharacteristics(transaction_id);
                     // get the services only
                     const discoveredServices = await allServicesAndCharacteristics.services();
                     const myService = discoveredServices[0]; //isolating this service just for testing
                     const myCharacteristics = await myService.characteristics();
                     // const readData = myCharacteristics.read();
                     const characteristicUUID = myCharacteristics[0].uuid;
-                    const readData =  await myService.readCharacteristic(characteristicUUID);
-                    console.log(readData);
+                    // const readData =  await myService.readCharacteristic(characteristicUUID);
+                    // console.log(readData);
+                    myService.monitorCharacteristic(characteristicUUID, async (error, characteristic) => {
+                        let printVal = base64.decode(characteristic.value);
+                        console.log(printVal);
+                    }, transaction_id);
+
+
                 }
             }
         });
 
-        // stop scanning devices after 5000 miliseconds
+        // stop scanning devices after 1000 miliseconds
         setTimeout(() => {
             manager.stopDeviceScan();
         }, 1000);
