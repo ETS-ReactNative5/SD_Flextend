@@ -63,12 +63,8 @@ export default StyleSheet.create({
       marginTop: 30
     },
     image: {
-        //width: 60,
         width: null,
         height: 85,
-        // paddingLeft: 410,
-        // marginTop: 25,
-        // margin: 4,
         backgroundColor: 'white',
         resizeMode: 'contain',
     }

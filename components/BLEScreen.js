@@ -61,7 +61,7 @@ export default function ble_set_up() {
         // stop scanning devices after 300 miliseconds
         setTimeout(() => {
             manager.stopDeviceScan();
-        }, 300);
+        }, 3000);
     };
                 
     return (

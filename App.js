@@ -12,6 +12,7 @@ import BLEScreen from "./components/BLEScreen";
 import LoginScreen from "./components/LoginScreen";
 import DeviceScreen from "./components/DeviceScreen";
 import DeviceCard from "./BLE_components/DeviceCard";
+import IntroSlider from "./components/IntroSlider";
 
 const Stack = createNativeStackNavigator();
 
@@ -19,6 +20,7 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        <Stack.Screen name="Guide" component={IntroSlider} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Live Measure" component={LiveMeasureScreen} />

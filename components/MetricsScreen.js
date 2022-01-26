@@ -12,7 +12,7 @@ export default class HomeScreen extends React.Component {
 
     render() {
         const navigate = this.props.navigation.navigate;
-        const userID = auth().currentUser.phoneNumber;
+        // const userID = auth().currentUser.phoneNumber;
 
         const kneeData = data["_W"];
         const flexion = kneeData["flexion"];
@@ -20,7 +20,7 @@ export default class HomeScreen extends React.Component {
 
         return (
             <View>
-                <Text style={styles.title}>Hello {userID}</Text>
+                {/* <Text style={styles.title}>Hello {userID}</Text> */}
                 <Text style={styles.text}>Your Flexion: {flexion} degrees</Text>
                 <Text style={styles.text}>Your Extension: {extension} degrees</Text>
             </View>

@@ -1,6 +1,9 @@
 import React from 'react';
 import { TouchableOpacity, Text, View, Image} from 'react-native';
+import { Avatar } from 'react-native-elements';
+import UserAvatar from 'react-native-user-avatar';
 import styles from '../styles/HomeStyle';
+
 
 export default class HomeScreen extends React.Component {
 
@@ -12,17 +15,29 @@ export default class HomeScreen extends React.Component {
         const navigate = this.props.navigation.navigate;
 
         return (
-            <View>
-                <Text style={styles.title}> Hello User! </Text>
-                <TouchableOpacity onPress={() => navigate( 'Live Measure' )} style={styles.button1}><Text style={styles.buttonTitle}>Start Tracking</Text></TouchableOpacity>
-                <TouchableOpacity onPress={() => navigate( 'Metrics' )} style={styles.button2}><Text style={styles.buttonTitle}>Go to Metrics</Text></TouchableOpacity>
-                <TouchableOpacity onPress={() => navigate( 'Progress' )} style={styles.button3}><Text style={styles.buttonTitle}>Show Progress</Text></TouchableOpacity>
-                <TouchableOpacity onPress={() => navigate( 'BLE' )} style={styles.button3}><Text style={styles.buttonTitle}>BLE Set Up</Text></TouchableOpacity>
-
+            <View style= {styles.container}>
+                <Text style={styles.welcome_message}> Welcome to Flextend!</Text>
+                <Text style={styles.italic}> Your at-home knee monitoring platform </Text>
                 <Image
                     style={styles.home_image}
-                    source={require("../images/home_image.jpeg")}
+                    source={require("../images/home_image.jpg")}
                 />
+                {/* <TouchableOpacity onPress={() => navigate( 'BLE' )} style={styles.button3}><Text style={styles.buttonTitle}>Set Up BLE Communication</Text></TouchableOpacity> */}
+                <TouchableOpacity onPress={() => navigate( 'Live Measure' )} style={styles.button1}><Text style={styles.buttonTitle}>Start Tracking</Text></TouchableOpacity>
+                {/* <TouchableOpacity onPress={() => navigate( 'Metrics' )} style={styles.button2}><Text style={styles.buttonTitle}>Go to Metrics</Text></TouchableOpacity> */}
+                <TouchableOpacity onPress={() => navigate( 'Progress' )} style={styles.button3}><Text style={styles.buttonTitle}>See Your Progress</Text></TouchableOpacity>
+                
+                {/* Avatar to access user profile */}
+                <View style= {styles.container2}>
+                    <Avatar
+                        size={120}
+                        containerStyle={{backgroundColor: '#ffdab9'}}
+                        rounded
+                        title="CH"
+                        //on press navigate to profile screen 
+                        onPress={() => navigate( 'Live Measure' )}
+                    />
+                </View>
             </View>
                 
            
