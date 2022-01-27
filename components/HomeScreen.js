@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, Text, View, Image} from 'react-native';
+import { TouchableOpacity, Text, View, Image, ScrollView} from 'react-native';
 import { Avatar } from 'react-native-elements';
 import UserAvatar from 'react-native-user-avatar';
 
@@ -24,7 +24,7 @@ export default class HomeScreen extends React.Component {
         }
 
         return (
-            <View style= {styles.container}>
+            <ScrollView style= {styles.container}>
                 <Text style={styles.welcome_message}> Welcome to Flextend!</Text>
                 <Text style={styles.italic}> Your at-home knee monitoring platform </Text>
                 <Image
@@ -48,7 +48,7 @@ export default class HomeScreen extends React.Component {
                         onPress={() => navigate( 'Live Measure' )}
                     />
                 </View>
-            </View>
+            </ScrollView>
         );
     }
 }
