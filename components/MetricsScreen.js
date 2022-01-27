@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, View } from 'react-native';
 import styles from '../styles/MetricStyle';
-import auth from '@react-native-firebase/auth'
 
 export default class HomeScreen extends React.Component {
 
