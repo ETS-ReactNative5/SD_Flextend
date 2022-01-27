@@ -27,6 +27,9 @@ Keyboard
 * npm install react-native-keyboard-aware-scroll-view
 
 Other
-* npm install 'react-native-user-avatar'
+* npm install react-native-user-avatar
 * react-native-app-intro-slider
+* react-native-elements
+
+TODO: Cleanup requirements 
 
