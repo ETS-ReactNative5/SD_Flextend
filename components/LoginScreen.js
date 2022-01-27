@@ -48,7 +48,7 @@ class LoginScreen extends Component {
         .then(user => {
           this.setState( {userID: user.uid} )
           // alert('Welcome to Flextend')
-          this.props.navigation.navigate("Home")
+          this.props.navigation.navigate("Guide")
         })
         .catch(error => {
           alert(error.message)

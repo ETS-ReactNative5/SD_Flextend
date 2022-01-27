@@ -1,12 +1,15 @@
 # SD_Flextend
 Senior Design Project BU ECE
 
+TODO: Fill out project description in here. Include system diagrams and overall proposed solution. 
+
 Link to Firebase Project: https://console.firebase.google.com/u/0/project/flextend-c4648/overview 
 
 Modules: 
 Needs to be installed for navigation 
 * npm install @react-navigation/native @react-navigation/native-stack
 * npm install react-native-screens react-native-safe-area-context
+* npm install @react-navigation/native
 
 Needs to be installed for firebase
 * npm install @react-native-firebase/app

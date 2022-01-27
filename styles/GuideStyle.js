@@ -1,11 +1,11 @@
 import { StyleSheet, View, Text, Image } from 'react-native';
 
-const styles = StyleSheet.create({
+export default StyleSheet.create({
    slide: { 
-    flex: 1, 
-    alignItems: 'center', 
-    justifyContent: 'center', 
-    padding: 20 
+   //  flex: 1, 
+   //  alignItems: 'center', 
+   //  justifyContent: 'center', 
+   //  padding: 20 
    }, 
    title: { 
     fontSize: 26, 
@@ -22,8 +22,9 @@ const styles = StyleSheet.create({
     fontSize: 20, 
    }, 
    image: { 
-    width: 200, 
-    height: 200, 
-    resizeMode: 'contain' 
+   //  width: 200, 
+   //  height: 200, 
+    resizeMode: 'contain',
+    backgroundColor: 'transparenr'
    } 
 });
