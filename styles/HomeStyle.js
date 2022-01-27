@@ -3,8 +3,16 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
     container: {
         flex: 1,
+        // alignItems: 'center',
+        // backgroundColor: '#fff0f5'
+        backgroundColor: '#fffafa'
+        
+    },
+    container2: {
+        flex: 1,
         alignItems: 'center',
-        backgroundColor: 'white'
+        justifyContent: 'center',
+        backgroundColor: '#fffafa'
     },
     device_content: {
         backgroundColor: "white",
@@ -12,22 +20,28 @@ export default StyleSheet.create({
         padding: 10,
         margin: 10,
     },
-    title: {
+    welcome_message: {
         fontSize: 30,
         marginTop: 20,
-        fontStyle: 'italic',
         fontWeight: 'bold',
+        alignSelf: "center",
+        color: '#c71585',
+    },
+    italic: {
+        fontSize: 15,
+        marginTop: 10,
+        fontStyle: 'italic',
         alignSelf: "center",
         color: 'black',
     },
     home_image: {
-        height: '80%',
-        width: '100%',
-        marginTop: 0, 
-        marginLeft: 0,
+        height: 180,
+        width: 350,
+        alignSelf: "center",
+        margin: 30,
     },
     button1: {
-        backgroundColor: '#ffb6c1',
+        backgroundColor: '#fa8072',
         marginLeft: 30,
         marginRight: 30,
         marginTop: 20,
@@ -47,7 +61,7 @@ export default StyleSheet.create({
         justifyContent: 'center'
     },
     button3: {
-        backgroundColor: '#dda0dd',
+        backgroundColor: '#fa8072',
         marginLeft: 30,
         marginRight: 30,
         marginTop: 20,

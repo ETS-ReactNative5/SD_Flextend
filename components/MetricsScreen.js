@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, View } from 'react-native';
 import styles from '../styles/MetricStyle';
 
@@ -20,7 +20,7 @@ export default class HomeScreen extends React.Component {
                 }
             })
         }))
-        
+
         return (
             <View>
                 <Text style={styles.title}>Hello ?</Text>

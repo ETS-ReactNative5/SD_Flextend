@@ -45,7 +45,9 @@ class LoginScreen extends Component {
         .confirm(verificationCode)
         .then(user => {
           this.setState( {userID: user.uid} )
-          this.props.navigation.navigate("Home")
+          // alert('Welcome to Flextend')
+          this.props.navigation.navigate("Guide")
+          
           this.setState( {confirmResult: null})
           this.setState( {phone: ''})
           this.setState( {verificationCode: ''})
