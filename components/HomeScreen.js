@@ -2,6 +2,8 @@ import React from 'react';
 import { TouchableOpacity, Text, View, Image} from 'react-native';
 import { Avatar } from 'react-native-elements';
 import UserAvatar from 'react-native-user-avatar';
+
+import { firebase } from '@react-native-firebase/auth'
 import styles from '../styles/HomeStyle';
 
 
@@ -13,6 +15,13 @@ export default class HomeScreen extends React.Component {
 
     render() {
         const navigate = this.props.navigation.navigate;
+
+        const logout = () => {
+            console.log(firebase.auth().currentUser);
+            firebase.auth().signOut().then(() => {
+                console.log(firebase.auth().currentUser);
+                navigate('Login')});
+        }
 
         return (
             <View style= {styles.container}>
@@ -26,6 +35,7 @@ export default class HomeScreen extends React.Component {
                 <TouchableOpacity onPress={() => navigate( 'Live Measure' )} style={styles.button1}><Text style={styles.buttonTitle}>Start Tracking</Text></TouchableOpacity>
                 {/* <TouchableOpacity onPress={() => navigate( 'Metrics' )} style={styles.button2}><Text style={styles.buttonTitle}>Go to Metrics</Text></TouchableOpacity> */}
                 <TouchableOpacity onPress={() => navigate( 'Progress' )} style={styles.button3}><Text style={styles.buttonTitle}>See Your Progress</Text></TouchableOpacity>
+                <TouchableOpacity onPress={() => logout()} style={styles.button2}><Text style={styles.buttonTitle}>Sign Out</Text></TouchableOpacity>
                 
                 {/* Avatar to access user profile */}
                 <View style= {styles.container2}>
@@ -39,8 +49,6 @@ export default class HomeScreen extends React.Component {
                     />
                 </View>
             </View>
-                
-           
         );
     }
 }

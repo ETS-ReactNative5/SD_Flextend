@@ -27,9 +27,7 @@ class LoginScreen extends Component {
           this.setState( {confirmResult} )
         })
         .catch(error => {
-          alert(error.message)
-
-          console.log(error)
+          alert("Invalid Phone Number\nPlease use format: +1 xxxxxxxxxx")
         })
     } else {
       alert("Invalid Phone Number\nPlease use format: +1 xxxxxxxxxx")
@@ -49,11 +47,13 @@ class LoginScreen extends Component {
           this.setState( {userID: user.uid} )
           // alert('Welcome to Flextend')
           this.props.navigation.navigate("Guide")
+          
+          this.setState( {confirmResult: null})
+          this.setState( {phone: ''})
+          this.setState( {verificationCode: ''})
         })
         .catch(error => {
-          alert(error.message)
-
-          console.log(error)
+          alert("Please enter a 6 digit OTP code\nCheck messages for OTP code")
         })
     } else {
       alert("Please enter a 6 digit OTP code\nCheck messages for OTP code")
