@@ -33,3 +33,6 @@ Other
 
 TODO: Cleanup requirements 
 
+LOOK BEFORE CONTINUE CODING:
+For navigation you have to set up the tab to be transparent. 
+
