@@ -1,14 +1,15 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text} from 'react-native';
-import styles from '../styles/MetricStyle';
+import { View, Text, Dimensions } from 'react-native';
+import { ProgressChart } from 'react-native-chart-kit';
+import styles from '../styles/MetricStyle'
 
 import auth from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore';
 
 export default function MetricScreen() {
     
-    const [flexion, setFlexion] = useState();
-    const [extension, setExtension] = useState();
+    const [flexion, setFlexion] = useState(0);
+    const [extension, setExtension] = useState(0);
     const userID = auth().currentUser.phoneNumber;
 
     const getUser = async () => {
@@ -30,13 +31,66 @@ export default function MetricScreen() {
         getUser();
     }, [])
 
+    const flexion_data = {
+        labels: ["Flexion"],
+        data: [flexion / 135]
+    }
+
+    const extension_data = {
+        labels: ["Extension"],
+        data: [(135 - extension) / 135]
+    }
+    
+    const screenWidth = Dimensions.get("window").width;
 
     return (
         <View>
             <Text style={styles.title}>Hello {userID}</Text>
             <Text style={styles.info_text}>Here are your most recent results:</Text>
             <Text style={styles.result_text}>Flexion: {flexion} degrees</Text>
+            <Text style={styles.chart_title}>Progress toward national average...</Text>
+            <ProgressChart
+                data={flexion_data}
+                width={screenWidth}
+                height={120}
+                chartConfig={{
+                    backgroundColor: 'white',
+                    backgroundGradientFrom: 'white',
+                    backgroundGradientTo: 'white',
+                    decimalPlaces: 0,
+                    color: (opacity = 1) => `rgba(255, 0, 0, ${opacity})`,
+                    style: {
+                      borderRadius: 16,
+                    },
+                }}
+                style={{
+                    marginVertical: 24,
+                    borderRadius: 20,
+                    borderColor: 'black'
+                }}
+            />
             <Text style={styles.result_text}>Extension: {extension} degrees</Text>
+            <Text style={styles.chart_title}>Progress toward national average...</Text>
+            <ProgressChart
+                data={extension_data}
+                width={screenWidth}
+                height={120}
+                chartConfig={{
+                    backgroundColor: 'white',
+                    backgroundGradientFrom: 'white',
+                    backgroundGradientTo: 'white',
+                    decimalPlaces: 2,
+                    color: (opacity = 1) => `rgba(255, 0, 0, ${opacity})`,
+                    style: {
+                      borderRadius: 16,
+                    },
+                }}
+                style={{
+                    marginVertical: 24,
+                    borderRadius: 20,
+                    borderColor: 'black'
+                }}
+            />
         </View>
-    )
+    );  
 }
