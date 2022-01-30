@@ -26,6 +26,9 @@ Needs to be installed for Bluetooth
 Keyboard
 * npm install react-native-keyboard-aware-scroll-view
 
+Progress Chart (Metrics Screen)
+* npm install react-native-chart-kit
+
 Other
 * npm install react-native-user-avatar
 * react-native-app-intro-slider
