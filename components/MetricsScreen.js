@@ -31,14 +31,33 @@ export default function MetricScreen() {
         getUser();
     }, [])
 
-    const flexion_data = {
+    var noData = false;
+
+    if (flexion == 0 && extension == 0)
+    {
+        noData = true;
+    }
+    
+    var flexion_data = {
         labels: ["Flexion"],
         data: [flexion / 135]
     }
 
-    const extension_data = {
+    var extension_data = {
         labels: ["Extension"],
         data: [(135 - extension) / 135]
+    }
+
+    if (noData == true) {
+        flexion_data = {
+            labels: ["Flexion"],
+            data: [0]
+        }
+
+        extension_data = {
+            labels: ["Extension"],
+            data: [0]
+        }
     }
     
     const screenWidth = Dimensions.get("window").width;
@@ -48,15 +67,17 @@ export default function MetricScreen() {
             <Text style={styles.title}>Hello {userID}</Text>
             <Text style={styles.info_text}>Here are your most recent results:</Text>
             <Text style={styles.result_text}>Flexion: {flexion} degrees</Text>
-            <Text style={styles.chart_title}>Progress toward national average...</Text>
+            <Text style={styles.chart_title}>Progress toward perfect knee flexion...</Text>
             <ProgressChart
                 data={flexion_data}
                 width={screenWidth}
                 height={120}
+                strokeWidth={16}
                 chartConfig={{
                     backgroundColor: 'white',
-                    backgroundGradientFrom: 'white',
+                    backgroundGradientFromOpacity: 0,
                     backgroundGradientTo: 'white',
+                    backgroundGradientToOpacity: 0,
                     decimalPlaces: 0,
                     color: (opacity = 1) => `rgba(255, 0, 0, ${opacity})`,
                     style: {
@@ -70,15 +91,17 @@ export default function MetricScreen() {
                 }}
             />
             <Text style={styles.result_text}>Extension: {extension} degrees</Text>
-            <Text style={styles.chart_title}>Progress toward national average...</Text>
+            <Text style={styles.chart_title}>Progress toward perfect knee extension...</Text>
             <ProgressChart
                 data={extension_data}
                 width={screenWidth}
                 height={120}
+                strokeWidth={16}
                 chartConfig={{
-                    backgroundColor: 'white',
-                    backgroundGradientFrom: 'white',
-                    backgroundGradientTo: 'white',
+                    backgroundGradientFrom: "white",
+                    backgroundGradientFromOpacity: 0,
+                    backgroundGradientTo: "white",
+                    backgroundGradientToOpacity: 0,
                     decimalPlaces: 2,
                     color: (opacity = 1) => `rgba(255, 0, 0, ${opacity})`,
                     style: {
