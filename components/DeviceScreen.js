@@ -29,15 +29,26 @@ export default function DeviceScreen({device}){
         const getDeviceInformations = async () => {
         // connect to the device
         const connectedDevice = await device.connect();
-        setIsConnected(true);
+        if (connectedDevice)
+        {
+          setIsConnected(true);
+          console.log("device connected")
+        }
+        
 
         // discover all device services and characteristics
         const allServicesAndCharacteristics = await connectedDevice.discoverAllServicesAndCharacteristics();
         // get the services only
         const discoveredServices = await allServicesAndCharacteristics.services();
         setServices(discoveredServices);
+        console.log("got here");
+        const myService = discoveredServices[1]; //isolating this service just for testing
+        const myCharacteristics = myService.characteristics();
+        const characteristicUUID = myCharacteristics[0].uuid;
+        const readData = myService.readCharacteristic(characteristicUUID);
+        console.log(readData);
         };
-
+        console.log("got here!")
         getDeviceInformations();
 
         device.onDisconnected(() => {
