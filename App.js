@@ -15,14 +15,8 @@ import DeviceScreen from "./components/DeviceScreen";
 import DeviceCard from "./BLE_components/DeviceCard";
 import IntroSlider from "./components/IntroSlider";
 
-//TO FIX: stack-navigator module not installing properly? I did pod install and update as well??? 
-//3 main navigators for different parts of the app
-//Stack Navigator fro HOME -> Other Screens (Forward)
-const Stack = createNativeStackNavigator();
 
-//Switch Navigator for LOGIN -> HOME (Not going backwards)
-// const Switch = createSwitchNavigator();
-//Tab Navigator for PROFILE -> HOME
+const Stack = createNativeStackNavigator();
 
 
 function App() {
@@ -37,7 +31,6 @@ function App() {
         <Stack.Screen name="Progress" component={ProgressScreen} />
         <Stack.Screen name="BLE" component={BLEScreen} />
         <Stack.Screen name="Device" component={DeviceScreen} />
-        {/* <Stack.Screen name="DeviceCard" component={DeviceCard} /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );
