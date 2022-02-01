@@ -10,6 +10,7 @@ Needs to be installed for navigation
 * npm install @react-navigation/native @react-navigation/native-stack
 * npm install react-native-screens react-native-safe-area-context
 * npm install @react-navigation/native
+<!-- * npm install --save react-navigation -->
 
 Needs to be installed for firebase
 * npm install @react-native-firebase/app
@@ -34,5 +35,11 @@ Other
 * react-native-app-intro-slider
 * react-native-elements
 
+Image picker for profile
+* npm install react-native-image-crop-picker
+
 TODO: Cleanup requirements 
+
+LOOK BEFORE CONTINUE CODING:
+For navigation you have to set up the tab to be transparent. 
 

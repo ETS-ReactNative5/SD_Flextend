@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, Text, View, Image} from 'react-native';
+import { TouchableOpacity, Text, View, Image, ScrollView} from 'react-native';
 import { Avatar } from 'react-native-elements';
 import UserAvatar from 'react-native-user-avatar';
 
@@ -9,9 +9,9 @@ import styles from '../styles/HomeStyle';
 
 export default class HomeScreen extends React.Component {
 
-    static navigationOptions = {
-        title: 'HomeScreen',
-    };
+    // static navigationOptions = {
+    //     title: 'HomeScreen',
+    // };
 
     render() {
         const navigate = this.props.navigation.navigate;
@@ -24,7 +24,7 @@ export default class HomeScreen extends React.Component {
         }
 
         return (
-            <View style= {styles.container}>
+            <ScrollView style= {styles.container}>
                 <Text style={styles.welcome_message}> Welcome to Flextend!</Text>
                 <Text style={styles.italic}> Your at-home knee monitoring platform </Text>
                 <Image
@@ -35,7 +35,7 @@ export default class HomeScreen extends React.Component {
                 <TouchableOpacity onPress={() => navigate( 'Live Measure' )} style={styles.button1}><Text style={styles.buttonTitle}>Start Tracking</Text></TouchableOpacity>
                 <TouchableOpacity onPress={() => navigate( 'Metrics' )} style={styles.button2}><Text style={styles.buttonTitle}>Go to Metrics</Text></TouchableOpacity>
                 <TouchableOpacity onPress={() => navigate( 'Progress' )} style={styles.button3}><Text style={styles.buttonTitle}>See Your Progress</Text></TouchableOpacity>
-                <TouchableOpacity onPress={() => logout()} style={styles.button2}><Text style={styles.buttonTitle}>Sign Out</Text></TouchableOpacity>
+                {/* <TouchableOpacity onPress={() => logout()} style={styles.button2}><Text style={styles.buttonTitle}>Sign Out</Text></TouchableOpacity> */}
                 
                 {/* Avatar to access user profile */}
                 <View style= {styles.container2}>
@@ -45,10 +45,10 @@ export default class HomeScreen extends React.Component {
                         rounded
                         title="CH"
                         //on press navigate to profile screen 
-                        onPress={() => navigate( 'Live Measure' )}
+                        onPress={() => navigate( 'Profile' )}
                     />
                 </View>
-            </View>
+            </ScrollView>
         );
     }
 }

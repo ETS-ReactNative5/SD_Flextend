@@ -26,6 +26,9 @@ export default function MetricScreen() {
             console.log("Error")
         }
     };
+    // static navigationOptions = {
+    //     title: 'HomeScreen',
+    // };
 
     useEffect(() => {
         getUser();
