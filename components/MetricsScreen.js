@@ -5,9 +5,9 @@ import auth from '@react-native-firebase/auth'
 
 export default class HomeScreen extends React.Component {
 
-    static navigationOptions = {
-        title: 'HomeScreen',
-    };
+    // static navigationOptions = {
+    //     title: 'HomeScreen',
+    // };
 
     render() {
         return (

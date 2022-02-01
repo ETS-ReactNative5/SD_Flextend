@@ -10,6 +10,7 @@ Needs to be installed for navigation
 * npm install @react-navigation/native @react-navigation/native-stack
 * npm install react-native-screens react-native-safe-area-context
 * npm install @react-navigation/native
+<!-- * npm install --save react-navigation -->
 
 Needs to be installed for firebase
 * npm install @react-native-firebase/app
@@ -30,6 +31,9 @@ Other
 * npm install react-native-user-avatar
 * react-native-app-intro-slider
 * react-native-elements
+
+Image picker for profile
+* npm install react-native-image-crop-picker
 
 TODO: Cleanup requirements 
 
