@@ -12,7 +12,9 @@ export default StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#fffafa'
+        backgroundColor: '#fffafa',
+        paddingTop: 30,
+        paddingBottom: 20
     },
     device_content: {
         backgroundColor: "white",
@@ -61,7 +63,7 @@ export default StyleSheet.create({
         justifyContent: 'center'
     },
     button3: {
-        backgroundColor: '#fa8072',
+        backgroundColor: '#aa0f9f',
         marginLeft: 30,
         marginRight: 30,
         marginTop: 20,
