@@ -26,6 +26,7 @@
     "react-native-elements": "^3.4.2",
     "react-native-image-crop-picker": "^0.37.2",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
+    "react-native-modal": "^13.0.0",
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "^3.8.0",
     "react-native-svg": "^12.1.1",
