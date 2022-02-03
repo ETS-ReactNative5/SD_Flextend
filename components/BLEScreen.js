@@ -96,7 +96,6 @@ export default function ble_set_up() {
                 
     return (
         <View>
-            <Text style={styles.title}> Set Up BLE  </Text>
             <Button title="Connect to Flextend" onPress={connectToFlextend} />
             <Button title="Disconnect from Flextend" onPress={disconnectFromFlextend}/>
         </View>
