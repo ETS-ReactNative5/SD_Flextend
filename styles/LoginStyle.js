@@ -20,27 +20,29 @@ export default StyleSheet.create({
       borderRadius: 5,
       color: 'black',
       fontSize: 16,
-      fontFamily: 'times new roman'
+      fontFamily: 'arial',
+      fontWeight: 'bold'
     },
     text: {
       marginTop: 20,
       fontSize: 24,
       textAlign: 'center',
       paddingLeft: 10,
-      fontFamily: 'times new roman',
-      fontWeight: 'bold',
-      color: 'black'
+      fontFamily: 'arial',
+      fontWeight: 'bold', 
+      color: '#fa8072'
     },
     format: {
       marginTop: 20,
       fontSize: 18,
       textAlign: 'center',
       paddingLeft: 10,
-      fontFamily: 'times new roman',
-      color: 'black'
+      fontFamily: 'arial',
+      fontWeight: 'bold',
+      color: '#ff0f90'
     },
     themeButton: {
-      backgroundColor: '#dda0dd',
+      backgroundColor: '#ffa500', 
       marginLeft: 30,
       marginRight: 30,
       marginTop: 20,
@@ -54,7 +56,7 @@ export default StyleSheet.create({
     },
     themeButtonTitle: {
       fontSize: 24,
-      fontFamily: 'times new roman',
+      fontFamily: 'sans-serif-medium',
       color: 'black'
     },
     verificationView: {
