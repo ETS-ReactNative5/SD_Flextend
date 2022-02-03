@@ -63,7 +63,7 @@ export default StyleSheet.create({
         justifyContent: 'center'
     },
     button3: {
-        backgroundColor: '#aa0f9f',
+        backgroundColor: '#ff0f90',
         marginLeft: 30,
         marginRight: 30,
         marginTop: 20,
@@ -75,6 +75,6 @@ export default StyleSheet.create({
     buttonTitle: {
         color: 'black',
         fontSize: 24,
-        fontFamily: 'times new roman'
+        fontFamily: 'arial'
     },
 })
