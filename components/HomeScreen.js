@@ -23,6 +23,15 @@ export default class HomeScreen extends React.Component {
                 navigate('Login')});
         }
 
+        const name = firebase.auth().currentUser.displayName;
+        var first_name = ''
+        var last_name = ''
+
+        var n = name.indexOf(' ')
+        
+        first_name = name.substring(0, n)
+        last_name = name.substring(n + 2)
+
         return (
             <ScrollView style= {styles.container}>
                 <Text style={styles.welcome_message}> Welcome to Flextend!</Text>
@@ -42,7 +51,7 @@ export default class HomeScreen extends React.Component {
                         size={120}
                         containerStyle={{backgroundColor: '#ffdab9'}}
                         rounded
-                        title="CH"
+                        title={first_name[0] + last_name[0]}
                         //on press navigate to profile screen 
                         onPress={() => navigate( 'Profile' )}
                     />

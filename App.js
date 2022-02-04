@@ -15,6 +15,7 @@ import DeviceScreen from "./components/DeviceScreen";
 import DeviceCard from "./BLE_components/DeviceCard";
 import IntroSlider from "./components/IntroSlider";
 import ProfileScreen from "./components/ProfileScreen";
+import RegistrationScreen from "./components/Registration"
 
 
 const Stack = createNativeStackNavigator();
@@ -33,6 +34,7 @@ function App() {
         <Stack.Screen name="BLE" component={BLEScreen} />
         <Stack.Screen name="Device" component={DeviceScreen} />
         <Stack.Screen name="Profile" component={ProfileScreen} />
+        <Stack.Screen name="Registration" component={RegistrationScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

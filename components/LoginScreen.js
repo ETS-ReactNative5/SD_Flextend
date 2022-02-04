@@ -24,12 +24,14 @@ class LoginScreen extends Component {
         .auth()
         .signInWithPhoneNumber(this.state.phone)
         .then(confirmResult => {
-          this.setState( {confirmResult} )
+            this.setState( {confirmResult} )
         })
         .catch(error => {
-          alert("Invalid Phone Number\nPlease use format: +1 xxxxxxxxxx")
+          alert(error)
         })
-    } else {
+    } 
+    else 
+    {
       alert("Invalid Phone Number\nPlease use format: +1 xxxxxxxxxx")
     }
   }
@@ -44,20 +46,33 @@ class LoginScreen extends Component {
       confirmResult
         .confirm(verificationCode)
         .then(user => {
-          this.setState( {userID: user.uid} )
-          // alert('Welcome to Flextend')
-          this.props.navigation.navigate("Guide")
+          if (firebase.auth().currentUser.displayName == null)
+          {
+            alert('Phone number not found.\nPlease register as a new user.')
+          }
+          else
+          {
+            this.setState( {userID: user.uid} )
+            this.props.navigation.navigate("Guide")
           
-          this.setState( {confirmResult: null})
-          this.setState( {phone: ''})
-          this.setState( {verificationCode: ''})
+            this.setState( {confirmResult: null})
+            this.setState( {phone: ''})
+            this.setState( {verificationCode: ''})
+          }
         })
         .catch(error => {
-          alert("Please enter a 6 digit OTP code\nCheck messages for OTP code")
+          alert(error)
         })
     } else {
       alert("Please enter a 6 digit OTP code\nCheck messages for OTP code")
     }
+  }
+
+  register = () => {
+    this.setState( {confirmResult: null})
+    this.setState( {phone: ''})
+    this.setState( {verificationCode: ''})
+    this.props.navigation.navigate('Registration');
   }
 
   renderConfirmationView = () => {
@@ -123,6 +138,14 @@ class LoginScreen extends Component {
             </TouchableOpacity>
 
             {this.state.confirmResult ? this.renderConfirmationView() : null}
+
+            <TouchableOpacity
+              style = {[styles.themeButton, {marginTop: 20}]}
+              onPress = {this.register}>
+                <Text style={styles.themeButtonTitle}>
+                  Register as a New User
+                </Text>
+            </TouchableOpacity>
           </View>
         </KeyboardAwareScrollView>
       </View>
