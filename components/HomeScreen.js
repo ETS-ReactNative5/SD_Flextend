@@ -30,7 +30,7 @@ export default class HomeScreen extends React.Component {
         var n = name.indexOf(' ')
         
         first_name = name.substring(0, n)
-        last_name = name.substring(n + 2)
+        last_name = name.substring((n - 1) + 2)
 
         return (
             <ScrollView style= {styles.container}>

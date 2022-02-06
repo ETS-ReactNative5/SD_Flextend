@@ -65,9 +65,18 @@ export default function MetricScreen() {
     
     const screenWidth = Dimensions.get("window").width;
 
+    const name = auth().currentUser.displayName;
+    var first_name = ''
+    var last_name = ''
+
+    var n = name.indexOf(' ')
+        
+    first_name = name.substring(0, n)
+    last_name = name.substring((n - 1) + 2)
+
     return (
         <View>
-            <Text style={styles.title}>Hello {userID}</Text>
+            <Text style={styles.title}>Hello {first_name} {last_name}</Text>
             <Text style={styles.info_text}>Here are your most recent results:</Text>
             <Text style={styles.result_text}>Flexion: {flexion} degrees</Text>
             <Text style={styles.chart_title}>Progress toward perfect knee flexion...</Text>
