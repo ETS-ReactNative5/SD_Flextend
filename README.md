@@ -38,6 +38,9 @@ Other
 Image picker for profile
 * npm install react-native-image-crop-picker
 
+Pop Up Screens
+* react-native-modal
+
 TODO: Cleanup requirements 
 
 LOOK BEFORE CONTINUE CODING:
