@@ -56,7 +56,7 @@ export default StyleSheet.create({
     },
     themeButtonTitle: {
       fontSize: 24,
-      fontFamily: 'sans-serif-medium',
+      // fontFamily: 'sans-serif-medium',
       color: 'black'
     },
     verificationView: {
