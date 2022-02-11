@@ -2,6 +2,7 @@ import React from 'react';
 import { View, TextInput, Text, TouchableOpacity } from 'react-native';
 import styles from "../styles/LoginStyle"
 import auth from '@react-native-firebase/auth'
+import firestore from '@react-native-firebase/firestore';
 
 export default class RegistrationScreen extends React.Component {
     
@@ -26,7 +27,9 @@ export default class RegistrationScreen extends React.Component {
     registerUser = () => {
         if (this.validPhoneNumber() && this.state.firstName != '' && this.state.lastName != '')
         {
-            auth().signInWithPhoneNumber(this.state.phone).then(confirmResult => {
+            auth()
+              .signInWithPhoneNumber(this.state.phone)
+              .then(confirmResult => {
                 this.setState( {confirmResult} )
             })
         }
@@ -61,6 +64,13 @@ export default class RegistrationScreen extends React.Component {
                 auth().currentUser.updateProfile({
                     displayName: this.state.firstName + ' ' + this.state.lastName
                 })
+
+                firestore().doc('users/' + this.state.phone).set({
+                  phone: this.state.phone,
+                  first_name: this.state.firstName,
+                  last_name: this.state.lastName
+                })
+
                 this.setState( {userID: user.uid} )
                 this.props.navigation.navigate("Guide")
               

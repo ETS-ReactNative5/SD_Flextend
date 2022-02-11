@@ -63,7 +63,7 @@ class LoginScreen extends Component {
           else
           {
             this.setState( {userID: user.uid} )
-            this.props.navigation.navigate("Guide")
+            this.props.navigation.navigate("Home")
           
             this.setState( {confirmResult: null})
             this.setState( {phone: '+1 '})
