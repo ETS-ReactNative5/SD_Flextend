@@ -7,7 +7,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 class LoginScreen extends Component {
 
   state = {
-    phone: '',
+    phone: '+1 ',
     confirmResult: null,
     verificationCode: '',
     userID: ''
@@ -26,13 +26,19 @@ class LoginScreen extends Component {
         .then(confirmResult => {
             this.setState( {confirmResult} )
         })
-        .catch(error => {
-          alert(error)
+        .catch(e => {
+          alert("Invalid phone number. Please try again.")
+          this.setState( {confirmResult: null})
+          this.setState( {phone: '+1 '})
+          this.setState( {verificationCode: ''})
         })
     } 
     else 
     {
-      alert("Invalid Phone Number\nPlease use format: +1 xxxxxxxxxx")
+      alert("Invalid phone number. Please try again.")
+      this.setState( {confirmResult: null})
+      this.setState( {phone: '+1 '})
+      this.setState( {verificationCode: ''})
     }
   }
 
@@ -49,6 +55,10 @@ class LoginScreen extends Component {
           if (firebase.auth().currentUser.displayName == null)
           {
             alert('Phone number not found.\nPlease register as a new user.')
+
+            this.setState( {confirmResult: null})
+            this.setState( {phone: '+1 '})
+            this.setState( {verificationCode: ''})
           }
           else
           {
@@ -56,15 +66,17 @@ class LoginScreen extends Component {
             this.props.navigation.navigate("Guide")
           
             this.setState( {confirmResult: null})
-            this.setState( {phone: ''})
+            this.setState( {phone: '+1 '})
             this.setState( {verificationCode: ''})
           }
         })
         .catch(error => {
-          alert(error)
+          alert("Please enter a 6 digit OTP code\nCheck messages for OTP code")
+          this.setState( {verificationCode: ''})
         })
     } else {
       alert("Please enter a 6 digit OTP code\nCheck messages for OTP code")
+      this.setState( {verificationCode: ''})
     }
   }
 

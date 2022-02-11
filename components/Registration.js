@@ -10,7 +10,7 @@ export default class RegistrationScreen extends React.Component {
     };
 
     state = {
-        phone: '',
+        phone: '+1 ',
         firstName: '',
         lastName: '',
         verificationCode: '',
@@ -30,6 +30,15 @@ export default class RegistrationScreen extends React.Component {
                 this.setState( {confirmResult} )
             })
         }
+        else 
+        {
+          alert("Please enter all information to register.")
+          this.setState( {confirmResult: null})
+          this.setState( {phone: '+1 '})
+          this.setState( {firstName: ''})
+          this.setState( {lastName: ''})
+          this.setState( {verificationCode: ''})
+        }
     }
 
     handleVerifyCode = () => {
@@ -41,6 +50,11 @@ export default class RegistrationScreen extends React.Component {
               if (auth().currentUser.displayName != null)
               {
                   alert('Your user account has already been registered!')
+                  this.setState( {confirmResult: null})
+                  this.setState( {phone: '+1 '})
+                  this.setState( {firstName: ''})
+                  this.setState( {lastName: ''})
+                  this.setState( {verificationCode: ''})
               }
               else 
               {
@@ -51,17 +65,19 @@ export default class RegistrationScreen extends React.Component {
                 this.props.navigation.navigate("Guide")
               
                 this.setState( {confirmResult: null})
-                this.setState( {phone: ''})
+                this.setState( {phone: '+1 '})
                 this.setState( {firstName: ''})
                 this.setState( {lastName: ''})
                 this.setState( {verificationCode: ''})
                }
             })
             .catch(error => {
-              alert(error)
+              alert("Please enter a 6 digit OTP code\nCheck messages for OTP code")
+              this.setState( {verificationCode: ''})
             })
         } else {
           alert("Please enter a 6 digit OTP code\nCheck messages for OTP code")
+          this.setState( {verificationCode: ''})
         }
       }
 
