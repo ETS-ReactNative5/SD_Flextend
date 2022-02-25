@@ -35,7 +35,6 @@ Other
 * react-native-app-intro-slider
 * react-native-elements
 * react-native-add-calendar-event
-* npm install @react-native-community/checkbox --save
 * moment
 * @react-native-picker/picker --save
 
