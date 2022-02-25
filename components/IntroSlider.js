@@ -1,6 +1,7 @@
 import AppIntroSlider from 'react-native-app-intro-slider';
 import React from 'react';
-import { StyleSheet, View, Text, Image, SafeAreaView, StatusBar} from 'react-native';
+import { StyleSheet, View, Text, Image, SafeAreaView, StatusBar, Animated, Easing} from 'react-native';
+import { useState, useEffect, useReducer }from "react";
 import styles from '../styles/GuideStyle';
 
 //slides data 
@@ -9,7 +10,7 @@ const slides = [
     key: 'one',
     title: 'Live Measure',
     text: 'Watch how your knee moves in real time',
-    //image: require('../images/live-measure.png'),
+    image: require('../images/slide1-1.png'),
     backgroundColor: '#cd5c5c',
   },
   {
@@ -30,56 +31,66 @@ const slides = [
     key: 'four',
     title: 'Set Reminders',
     text: 'We Help You Keep Your Agenda',
-    //image: require('./assets/3.jpg'),
+    image: require('../images/slide4-1.png'),
     backgroundColor: '#ff6347',
   }
   
 ];
 
 
-export default class IntroSlider extends React.Component {
-  
+const IntroSlider = ({navigation}) => {
 
-  //STATE MIGHT BE NEEDED  LATER FOR WHEN SLIDES ARE AVAILABLE IN USER PROFILE 
-  // constructor(){
-  //   super();
-  //   this.state = {
-  //     showRealApp: false
-  //   }
-  // }
-    
-  _renderItem = ({ item }) => {
+  ///////////////////////////// Animating the slides ////////////////////////////////////////////////
+  const startValue = new Animated.Value(1);
+  const endValue = 1.1;
+  const duration = 2000;
+
+  useEffect(() => {
+    Animated.timing(startValue, {
+      toValue: endValue,
+      duration: duration,
+      useNativeDriver: true,
+    }).start();
+  }, [startValue, endValue, duration]);
+
+  const renderItem = ({ item }) => {
     return (
       <View style={{ flex:1, backgroundColor: item.backgroundColor}}>
-        {/* <SafeAreaView style={styles.slide}> */}
+      
           <Text style={styles.title}>{item.title}</Text>
-          <Image source={item.image} />
+          <Animated.View style={[styles.container, {transform: [ {scale: startValue,}, ], }, ]}>
+            <Image style={styles.image} source={item.image} />
+          </Animated.View>
           <Text style={styles.text}>{item.text}</Text>
-        {/* </SafeAreaView> */}
+        
       </View>
     );
   }
 
   
-  _onDone = () => {
-    const navigate = this.props.navigation.navigate;
-    navigate("Home")
+  const onDone = () => {
+    // const navigate = this.props.navigation.navigate;
+    navigation.navigate('Home')
   }
 
-  _onSkip = () => {
-    const navigate = this.props.navigation.navigate;
-    navigate("Home")
+  const onSkip = () => {
+    // const navigate = this.props.navigation.navigate;
+    navigation.navigate('Home')
   }
-  render() {
-    
-    return (
-      <AppIntroSlider 
-        renderItem={this._renderItem} 
-        data={slides} 
-        onDone={this._onDone} 
-        onSkip={this._onSkip}
-        showSkipButton
-        showPrevButton/>
-    ); 
-  }
+
+  
+  
+
+  
+  return (
+    <AppIntroSlider 
+      renderItem={renderItem} 
+      data={slides} 
+      onDone={onDone} 
+      onSkip={onSkip}
+      showSkipButton
+      showPrevButton/>
+  ); 
 }
+
+export default IntroSlider;

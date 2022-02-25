@@ -7,6 +7,9 @@ export default StyleSheet.create({
    //  justifyContent: 'center', 
    //  padding: 20 
    }, 
+   conatiner: {
+
+   },
    title: { 
     fontSize: 26, 
     textAlign: 'center',
@@ -22,9 +25,9 @@ export default StyleSheet.create({
     fontSize: 20, 
    }, 
    image: { 
-   //  width: 200, 
-   //  height: 200, 
+    width: 400, 
+    height: 400, 
     resizeMode: 'contain',
-    backgroundColor: 'transparenr'
+   //  backgroundColor: 'transparenr'
    } 
 });
