@@ -77,4 +77,17 @@ export default StyleSheet.create({
         fontSize: 24,
         fontFamily: 'arial'
     },
+    textContent: {
+        color: 'black',
+        fontSize: 24,
+        fontFamily: 'arial',
+        marginTop: 20,
+        alignSelf: "center",
+    },
+    dayCheckBox: {
+        backgroundColor: 'transparent',
+        borderRadius: 0,
+        borderColor: 'transparent',
+        justifyContent: 'flex-start'
+    }
 })

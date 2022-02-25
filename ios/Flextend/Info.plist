@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSCalendarsUsageDescription</key>
+  	<string>Are you sure you want to allow this app to use Calendar?</string>
+  	<key>NSContactsUsageDescription</key>
+  	<string></string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>$(PRODUCT_NAME) would like to upload photos from your photo gallery</string>
 	<key>NSCameraUsageDescription</key>

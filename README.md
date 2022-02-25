@@ -34,12 +34,19 @@ Other
 * npm install react-native-user-avatar
 * react-native-app-intro-slider
 * react-native-elements
+* react-native-add-calendar-event
+* npm install @react-native-community/checkbox --save
+* moment
+* @react-native-picker/picker --save
+
+
+
 
 Image picker for profile
 * npm install react-native-image-crop-picker
 
 Pop Up Screens
-* react-native-modal
+* react-native-modal 
 
 TODO: Cleanup requirements 
 
