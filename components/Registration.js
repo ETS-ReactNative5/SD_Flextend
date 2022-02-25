@@ -2,6 +2,7 @@ import React from 'react';
 import { View, TextInput, Text, TouchableOpacity } from 'react-native';
 import styles from "../styles/LoginStyle"
 import auth from '@react-native-firebase/auth'
+import firestore from '@react-native-firebase/firestore';
 
 export default class RegistrationScreen extends React.Component {
     
@@ -10,7 +11,7 @@ export default class RegistrationScreen extends React.Component {
     };
 
     state = {
-        phone: '',
+        phone: '+1 ',
         firstName: '',
         lastName: '',
         verificationCode: '',
@@ -26,9 +27,20 @@ export default class RegistrationScreen extends React.Component {
     registerUser = () => {
         if (this.validPhoneNumber() && this.state.firstName != '' && this.state.lastName != '')
         {
-            auth().signInWithPhoneNumber(this.state.phone).then(confirmResult => {
+            auth()
+              .signInWithPhoneNumber(this.state.phone)
+              .then(confirmResult => {
                 this.setState( {confirmResult} )
             })
+        }
+        else 
+        {
+          alert("Please enter all information to register.")
+          this.setState( {confirmResult: null})
+          this.setState( {phone: '+1 '})
+          this.setState( {firstName: ''})
+          this.setState( {lastName: ''})
+          this.setState( {verificationCode: ''})
         }
     }
 
@@ -41,27 +53,41 @@ export default class RegistrationScreen extends React.Component {
               if (auth().currentUser.displayName != null)
               {
                   alert('Your user account has already been registered!')
+                  this.setState( {confirmResult: null})
+                  this.setState( {phone: '+1 '})
+                  this.setState( {firstName: ''})
+                  this.setState( {lastName: ''})
+                  this.setState( {verificationCode: ''})
               }
               else 
               {
                 auth().currentUser.updateProfile({
                     displayName: this.state.firstName + ' ' + this.state.lastName
                 })
+
+                firestore().doc('users/' + this.state.phone).set({
+                  phone: this.state.phone,
+                  first_name: this.state.firstName,
+                  last_name: this.state.lastName
+                })
+
                 this.setState( {userID: user.uid} )
                 this.props.navigation.navigate("Guide")
               
                 this.setState( {confirmResult: null})
-                this.setState( {phone: ''})
+                this.setState( {phone: '+1 '})
                 this.setState( {firstName: ''})
                 this.setState( {lastName: ''})
                 this.setState( {verificationCode: ''})
                }
             })
             .catch(error => {
-              alert(error)
+              alert("Please enter a 6 digit OTP code\nCheck messages for OTP code")
+              this.setState( {verificationCode: ''})
             })
         } else {
           alert("Please enter a 6 digit OTP code\nCheck messages for OTP code")
+          this.setState( {verificationCode: ''})
         }
       }
 

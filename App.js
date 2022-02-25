@@ -7,7 +7,7 @@ import { firebase } from '@react-native-firebase/auth';
 //importing components for page routings
 import HomeScreen from "./components/HomeScreen";
 import LiveMeasureScreen from "./components/LiveMeasureScreen";
-import MetricsScreen from "./components/MetricsScreen";
+import PreviousResults from "./components/PreviousResults";
 import ProgressScreen from "./components/ProgressScreen";
 import BLEScreen from "./components/BLEScreen";
 import LoginScreen from "./components/LoginScreen";
@@ -64,8 +64,6 @@ function App() {
         </Stack.Navigator>
       </NavigationContainer>
     );
-
-  
 }
 
 export default App;
