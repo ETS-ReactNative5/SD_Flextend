@@ -18,9 +18,9 @@ export const Avatar = (props: AvatarProps) => {
       height: 400,
       cropping: true,
     }).then((image) => {
-      auth().currentUser.updateProfile({photoURL: uri}).then(console.log("After upload: " + auth().currentUser.photoURL));
-      // setUri(image.path);
-      setUri(auth().currentUser.photoURL)
+      // auth().currentUser.updateProfile({photoURL: uri}).then(console.log("After upload: " + auth().currentUser.photoURL));
+      setUri(image.path);
+      // setUri(auth().currentUser.photoURL)
       props.onChange?.(image);
       
     });

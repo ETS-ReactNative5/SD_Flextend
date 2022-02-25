@@ -161,7 +161,7 @@ const Profile = ({navigation}) => {
                     <Text style={styles.welcome_message}>reminders</Text>
                     <Text style={styles.textContent}>{eventInfoText}</Text>
                     <TouchableOpacity onPress={() => addEventToCalendar()} style={styles.button2}><Text style={styles.buttonTitle}>Add</Text></TouchableOpacity>
-                    <TouchableOpacity onPress={() => editCalendarEventWithId(eventId)} style={styles.button2}><Text style={styles.buttonTitle}>Edit</Text></TouchableOpacity>
+                    {/* <TouchableOpacity onPress={() => editCalendarEventWithId(eventId)} style={styles.button2}><Text style={styles.buttonTitle}>Edit</Text></TouchableOpacity> */}
                     <TouchableOpacity onPress={() => toggleModal()}style={styles.button1} title="Hide modal"><Text style={styles.buttonTitle}>Close Screen</Text></TouchableOpacity>
                     </View>
                 )
@@ -271,8 +271,8 @@ const Profile = ({navigation}) => {
             <View style={styles1.userRow}>
                 <Avatar
                 onChange={onAvatarChange()}
-                source={auth().currentUser.photoURL} 
-                // source={require("../images/profile_placeholder.png")} 
+                // source={auth().currentUser.photoURL} 
+                source={require("../images/profile_placeholder.png")} 
                 // size={120}
                 />
                 <Text style={{color: 'white'}}>{first_name} {last_name}</Text>
