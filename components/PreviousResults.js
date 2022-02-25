@@ -6,7 +6,7 @@ import styles from '../styles/MetricStyle'
 import auth from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore';
 
-export default function MetricScreen() {
+export default function PreviousResults() {
     
     const [flexion, setFlexion] = useState(0);
     const [extension, setExtension] = useState(0);

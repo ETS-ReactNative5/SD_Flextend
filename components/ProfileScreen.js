@@ -14,8 +14,6 @@ export default class Pofile extends React.Component {
     // upload image to server here
   };
 
-  
-
     render() {
       const name = auth().currentUser.displayName;
       var first_name = ''
