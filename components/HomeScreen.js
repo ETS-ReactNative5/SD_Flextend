@@ -44,6 +44,7 @@ export default class HomeScreen extends React.Component {
                 <TouchableOpacity onPress={() => navigate( 'Live Measure' )} style={styles.button1}><Text style={styles.buttonTitle}>Start Tracking</Text></TouchableOpacity>
                 <TouchableOpacity onPress={() => navigate( 'Previous Results' )} style={styles.button3}><Text style={styles.buttonTitle}>Previous Results</Text></TouchableOpacity>
                 <TouchableOpacity onPress={() => logout()} style={styles.button2}><Text style={styles.buttonTitle}>Sign Out</Text></TouchableOpacity>
+                <TouchableOpacity onPress={() => navigate('Progress')} style={styles.button2}><Text style={styles.buttonTitle}>Progress Test Button</Text></TouchableOpacity>
                 
                 {/* Avatar to access user profile */}
                 <View style= {styles.container2}>
