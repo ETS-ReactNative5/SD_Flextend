@@ -20,9 +20,7 @@ export default function PreviousResults() {
                 .get();
             
             const user_data = documentSnapshot.data();
-            console.log(user_data)
             const user_keys = Object.keys(user_data).sort().reverse()
-            console.log(user_keys)
             const recent = user_keys[0]
             const values = user_data[recent.toString()]
             setFlexion(values[0]);
