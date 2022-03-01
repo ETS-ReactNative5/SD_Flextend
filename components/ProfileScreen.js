@@ -22,12 +22,6 @@ import moment from 'moment';
 
 const Profile = ({navigation}) => {
 
-    // for profile picture
-    onAvatarChange = (image: ImageOrVideo) => {
-        // auth().currentUser.updateProfile({photoURL: image.path}).then(console.log("After upload: " + auth().currentUser.photoURL));
-        //need to add the image to firestore
-        // user = auth().currentUser
-    };
 
     ////////////////////////////////////////For modal state///////////////////////////////////////////////////////////////////////////////
 
@@ -333,6 +327,7 @@ const Profile = ({navigation}) => {
                 <TouchableOpacity onPress={() => toggleModal(GOALS)} style={styles.button2}><Text style={styles.buttonTitle}>Set Goals</Text></TouchableOpacity>
                 <TouchableOpacity onPress={() => toggleModal(REMINDERS)} style={styles.button1}><Text style={styles.buttonTitle}>Set Reminders</Text></TouchableOpacity>
                 <TouchableOpacity onPress={() => toggleModal(PROGRESS)} style={styles.button3}><Text style={styles.buttonTitle}>Progress</Text></TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("Events")} style={styles.button3}><Text style={styles.buttonTitle}>TEST CALENDAR </Text></TouchableOpacity>
                 
                 <Modal isVisible={isShowing} style={styles1.modalView} >
                     <View>

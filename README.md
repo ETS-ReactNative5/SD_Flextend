@@ -35,7 +35,8 @@ Other
 * npm install react-native-user-avatar
 * react-native-app-intro-slider
 * react-native-elements
-* react-native-add-calendar-event
+<!-- * react-native-add-calendar-event I AM GOING TO REBUILD THIS CODE TO BE EASIER TO USE IN ANDROID AND TO BE ABLE TO DISPLAY EVENT INFO FOR USER. the module I am using for this is this bottom one  -->
+* npm install --save react-native-calendar-events
 * moment
 * @react-native-picker/picker --save
 
