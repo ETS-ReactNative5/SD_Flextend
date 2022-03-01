@@ -52,4 +52,11 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     color: 'black'
   },
+  avatar: {
+    paddingTop: 20,
+    height: 100,
+    width: 100,
+    borderRadius: 100,
+    padding: 20,
+  },
 });
