@@ -5,6 +5,7 @@ import UserAvatar from 'react-native-user-avatar';
 
 import { firebase } from '@react-native-firebase/auth'
 import styles from '../styles/HomeStyle';
+import auth from '@react-native-firebase/auth'
 
 
 export default class HomeScreen extends React.Component {
