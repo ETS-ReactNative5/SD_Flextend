@@ -23,14 +23,16 @@ export default class HomeScreen extends React.Component {
            });
         }
 
-        const name = firebase.auth().currentUser.displayName;
-        var first_name = ''
-        var last_name = ''
+        if(auth().currentUser){
+            const name = firebase.auth().currentUser.displayName;
+            var first_name = ''
+            var last_name = ''
 
-        var n = name.indexOf(' ')
-        
-        first_name = name.substring(0, n)
-        last_name = name.substring((n - 1) + 2)
+            var n = name.indexOf(' ')
+            
+            first_name = name.substring(0, n)
+            last_name = name.substring((n - 1) + 2)
+        }
 
         return (
             <ScrollView style= {styles.container}>
