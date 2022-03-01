@@ -17,6 +17,7 @@ import IntroSlider from "./components/IntroSlider";
 import ProfileScreen from "./components/ProfileScreen";
 import BodyMetricsScreen from "./components/BodyMetricsScreen";
 import CalendarEventTEST from "./components/CalendarEventTEST";
+import RegistrationScreen from "./components/Registration";
 
 
 const Stack = createNativeStackNavigator();
@@ -44,6 +45,7 @@ const App = () =>{
     return (
       <NavigationContainer>
         <Stack.Navigator>
+          <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Guide" component={IntroSlider} />
           <Stack.Screen name="Live Measure" component={LiveMeasureScreen} />
@@ -51,6 +53,7 @@ const App = () =>{
           <Stack.Screen name="Progress" component={ProgressScreen} />
           <Stack.Screen name="BLE" component={BLEScreen} />
           <Stack.Screen name="Device" component={DeviceScreen} />
+          <Stack.Screen name="Registration" component={RegistrationScreen} />
           <Stack.Screen name="Profile" component={ProfileScreen} 
             options={({route, navigation}) => ({ // get reference to navigation
               headerRight: () => (
@@ -75,6 +78,7 @@ const App = () =>{
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Registration" component={RegistrationScreen}/>
         </Stack.Navigator>
       </NavigationContainer>
     );
