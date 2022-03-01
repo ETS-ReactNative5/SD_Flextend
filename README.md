@@ -10,6 +10,7 @@ Needs to be installed for navigation
 * npm install @react-navigation/native @react-navigation/native-stack
 * npm install react-native-screens react-native-safe-area-context
 * npm install @react-navigation/native
+* npm install @react-navigation/bottom-tabs
 <!-- * npm install --save react-navigation -->
 
 Needs to be installed for firebase
@@ -34,7 +35,8 @@ Other
 * npm install react-native-user-avatar
 * react-native-app-intro-slider
 * react-native-elements
-* react-native-add-calendar-event
+<!-- * react-native-add-calendar-event I AM GOING TO REBUILD THIS CODE TO BE EASIER TO USE IN ANDROID AND TO BE ABLE TO DISPLAY EVENT INFO FOR USER. the module I am using for this is this bottom one  -->
+* npm install --save react-native-calendar-events
 * moment
 * @react-native-picker/picker --save
 

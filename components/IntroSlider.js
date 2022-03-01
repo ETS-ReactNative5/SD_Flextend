@@ -17,7 +17,7 @@ const slides = [
     key: 'two',
     title: 'Plan Your Goals',
     text: 'We Help You Keep That Target',
-    //image: require('./assets/2.jpg'),
+    image: require('../images/slide2-1.png'),
     backgroundColor: '#ffc107',
   },
   {
@@ -53,6 +53,8 @@ const IntroSlider = ({navigation}) => {
     }).start();
   }, [startValue, endValue, duration]);
 
+  
+
   const renderItem = ({ item }) => {
     return (
       <View style={{ flex:1, backgroundColor: item.backgroundColor}}>
@@ -70,12 +72,12 @@ const IntroSlider = ({navigation}) => {
   
   const onDone = () => {
     // const navigate = this.props.navigation.navigate;
-    navigation.navigate('Home')
+    navigation.navigate('Profile')
   }
 
   const onSkip = () => {
     // const navigate = this.props.navigation.navigate;
-    navigation.navigate('Home')
+    navigation.navigate('Profile')
   }
 
   

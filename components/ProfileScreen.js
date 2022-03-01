@@ -1,12 +1,12 @@
 import { useState, useEffect, useReducer }from "react";
 import * as React from "react";
-import { StatusBar, StyleSheet, View, ImageBackground, TouchableOpacity, Text, ScrollView, Switch, TextInput, AsyncStorage } from "react-native";
-import { CheckBox } from 'react-native-elements'
+import { StatusBar, StyleSheet, View, ImageBackground, TouchableOpacity, Text, ScrollView, Switch, TextInput, AsyncStorage, } from "react-native";
+import { CheckBox, Avatar } from 'react-native-elements'
 
 import {Picker} from '@react-native-picker/picker';
 
 import  ImagePicker  from "react-native-image-crop-picker";
-import { Avatar } from "../Profile_components/Avatar";
+// import { Avatar } from "../Profile_components/Avatar";
 // import storage from '@react-native-firebase/storage';
 
 import Modal from "react-native-modal";
@@ -22,12 +22,6 @@ import moment from 'moment';
 
 const Profile = ({navigation}) => {
 
-    // for profile picture
-    onAvatarChange = (image: ImageOrVideo) => {
-        // auth().currentUser.updateProfile({photoURL: image.path}).then(console.log("After upload: " + auth().currentUser.photoURL));
-        //need to add the image to firestore
-        // user = auth().currentUser
-    };
 
     ////////////////////////////////////////For modal state///////////////////////////////////////////////////////////////////////////////
 
@@ -161,7 +155,7 @@ const Profile = ({navigation}) => {
                     <Text style={styles.welcome_message}>reminders</Text>
                     <Text style={styles.textContent}>{eventInfoText}</Text>
                     <TouchableOpacity onPress={() => addEventToCalendar()} style={styles.button2}><Text style={styles.buttonTitle}>Add</Text></TouchableOpacity>
-                    {/* <TouchableOpacity onPress={() => editCalendarEventWithId(eventId)} style={styles.button2}><Text style={styles.buttonTitle}>Edit</Text></TouchableOpacity> */}
+                    <TouchableOpacity onPress={() => editCalendarEventWithId(eventId)} style={styles.button2}><Text style={styles.buttonTitle}>Edit</Text></TouchableOpacity>
                     <TouchableOpacity onPress={() => toggleModal()}style={styles.button1} title="Hide modal"><Text style={styles.buttonTitle}>Close Screen</Text></TouchableOpacity>
                     </View>
                 )
@@ -194,21 +188,32 @@ const Profile = ({navigation}) => {
     //how to have multiple, will we even need multiple??? 
     const [eventId, setEventId] = useState()
 
-    // var for reminder event details, used to display on screen for user
+    // var for reminder event details, used to display on screen for user NEED TO FINISH IMPLEMENTING
     const [eventInfoText, setEventInfoText] = useState()
-    // //save eventId
-    // useEffect(() => {
-    //     if(eventId){
-    //         AsyncStorage.setItem('eventId', JSON.stringify(eventId));
-    //     }
-    // }, [eventId]); 
   
-    // //retrieve eventId
-    // useEffect(() => {
-    //     const savedEventId = AsyncStorage.getItem('eventId');
-    //     setEventId(JSON.parse(savedEventId))
-    //     console.log("Event id retrived " + eventId)
-    // }, [setEventId]); 
+    //retrieve eventId when re render 
+    useEffect(() => {
+        const asyncFetch = async () => {
+            const eventIdent = await AsyncStorage.getItem("eventID");
+            if (eventIdent) {
+                // setter from useState
+                setEventId(JSON.parse(eventIdent));
+            }
+        };
+        asyncFetch();
+    }, []);
+
+    //save eventId for re render 
+    useEffect(() => {
+
+        const asyncStore = async () => {
+        
+            if(eventId){
+                await AsyncStorage.setItem("eventID", JSON.stringify(eventId));
+            }
+        };
+
+    }, [eventId]);
 
     const addEventToCalendar= (title, startDateUTC) => {
         const eventConfig = {
@@ -220,11 +225,10 @@ const Profile = ({navigation}) => {
 
         AddCalendarEvent.presentEventCreatingDialog(eventConfig)
             .then(eventInfo => {
-                // setEventId (eventInfo["eventIdentifier"]);
+                //this line actually stored the event id in a state once a new event is created
+                setEventId (eventInfo["eventIdentifier"]);
+                setEventInfoText(JSON.stringify(eventInfo));
                 console.log(eventInfo)
-                // const tempEvent = eventInfo["eventIdentifier"]
-                // setEventInfo(eventInfo);
-                // saveEventId();
             })
             .catch(error => {
                 alert('Error ', error);
@@ -233,22 +237,60 @@ const Profile = ({navigation}) => {
 
     //function to edit the event in calendar 
     //edits last event that was created 
-//     const editCalendarEventWithId = () => {
-//         // getEventId()
-//         const eventConfig = {
-//         eventId,
-//         };
+    const editCalendarEventWithId = () => {
+        // getEventId()
+        const eventConfig = {
+        eventId,
+        };
 
-//     AddCalendarEvent.presentEventEditingDialog(eventConfig)
-//       .then(eventInfo => {
-//         console.warn(JSON.stringify(eventInfo));
-//       })
-//       .catch((error: string) => {
-//         // handle error such as when user rejected permissions
-//         console.warn(error);
-//       });
-//   };
+    AddCalendarEvent.presentEventEditingDialog(eventConfig)
+      .then(eventInfo => {
+        console.warn(JSON.stringify(eventInfo));
+      })
+      .catch((error: string) => {
+        // handle error such as when user rejected permissions
+        console.warn(error);
+      });
+  };
    
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    ////////////////////////////////////////////////////   AVATAR ////////////////////////////////////////////////////////
+
+    //uri for image picked, after upload the uri comes from firebase
+    const [uri, setUri] = useState();
+    
+    //I want the useEffect hook to populate uri value on every re render with the url from the user profile from Firebase
+    const user = auth().currentUser
+    const getPhoto =  () => {
+        try {
+            const userPhoto  = user.photoURL
+            console.log(userPhoto)
+            setUri(userPhoto); 
+           
+        } catch {
+            console.log("Error")
+        }
+    };
+
+    useEffect(() => {
+        console.log("EFFECT ")
+        getPhoto()
+    }, [])
+
+
+    // function to pick photo, it sets the photo uri and then saves the uri to the user's profile
+    const pickPicture = () => {
+        ImagePicker.openPicker({
+        width: 300,
+        height: 400,
+        cropping: true,
+        }).then((image) => {
+        setUri(image.path);
+        user.updateProfile({photoURL: image.path});
+        });
+    };
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //Getting the name and last name of the user from Firebase current user property
@@ -270,10 +312,12 @@ const Profile = ({navigation}) => {
         <ImageBackground  style={{width: '100%', height: '100%'}} source={require("../images/profile-background.jpg")} >
             <View style={styles1.userRow}>
                 <Avatar
-                onChange={onAvatarChange()}
+                // style={styles1.avatar}
+                onPress={() =>pickPicture()}
                 // source={auth().currentUser.photoURL} 
-                source={require("../images/profile_placeholder.png")} 
-                // size={120}
+                source={{uri }}
+                size="xlarge"
+                rounded
                 />
                 <Text style={{color: 'white'}}>{first_name} {last_name}</Text>
             </View>      
@@ -283,6 +327,7 @@ const Profile = ({navigation}) => {
                 <TouchableOpacity onPress={() => toggleModal(GOALS)} style={styles.button2}><Text style={styles.buttonTitle}>Set Goals</Text></TouchableOpacity>
                 <TouchableOpacity onPress={() => toggleModal(REMINDERS)} style={styles.button1}><Text style={styles.buttonTitle}>Set Reminders</Text></TouchableOpacity>
                 <TouchableOpacity onPress={() => toggleModal(PROGRESS)} style={styles.button3}><Text style={styles.buttonTitle}>Progress</Text></TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("Events")} style={styles.button3}><Text style={styles.buttonTitle}>TEST CALENDAR </Text></TouchableOpacity>
                 
                 <Modal isVisible={isShowing} style={styles1.modalView} >
                     <View>
