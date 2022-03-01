@@ -60,7 +60,7 @@ class LoginScreen extends Component {
             this.setState( {phone: '+1 '})
             this.setState( {verificationCode: ''})
           }
-          else
+          if (firebase.auth().currentUser.displayName != null)
           {
             this.setState( {userID: user.uid} )
             this.props.navigation.navigate("Home")

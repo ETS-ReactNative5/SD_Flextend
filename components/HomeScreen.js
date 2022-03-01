@@ -24,15 +24,18 @@ export default class HomeScreen extends React.Component {
            });
         }
 
-        if(auth().currentUser){
+        if(auth().currentUser != null){
             const name = firebase.auth().currentUser.displayName;
             var first_name = ''
             var last_name = ''
 
-            var n = name.indexOf(' ')
+            if (name != null)
+            {
+                var n = name.indexOf(' ')
             
-            first_name = name.substring(0, n)
-            last_name = name.substring((n - 1) + 2)
+                first_name = name.substring(0, n)
+                last_name = name.substring((n - 1) + 2)
+            }
         }
 
         return (
