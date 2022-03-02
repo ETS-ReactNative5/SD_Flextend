@@ -72,13 +72,12 @@ export default class RegistrationScreen extends React.Component {
                 })
 
                 this.setState( {userID: user.uid} )
-                this.props.navigation.navigate("Guide")
-              
                 this.setState( {confirmResult: null})
                 this.setState( {phone: '+1 '})
                 this.setState( {firstName: ''})
                 this.setState( {lastName: ''})
                 this.setState( {verificationCode: ''})
+                this.props.navigation.navigate("Login")
                }
             })
             .catch(error => {
