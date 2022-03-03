@@ -53,7 +53,8 @@ const App = () =>{
           <Stack.Screen name="BLE" component={BLEScreen} />
           <Stack.Screen name="Device" component={DeviceScreen} />
           <Stack.Screen name="Registration" component={RegistrationScreen} />
-          <Stack.Screen name="Profile" component={ProfileScreen} 
+          <Stack.Screen name="Login" component={LoginScreen}/>
+          <Stack.Screen name="Profile" component={ProfileScreen}
             options={({route, navigation}) => ({ // get reference to navigation
               headerRight: () => (
                   <Button
