@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, TextInput, Text, TouchableOpacity } from 'react-native';
+import { ScrollView, TextInput, Text, TouchableOpacity } from 'react-native';
 import styles from "../styles/LoginStyle"
 import auth from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 export default class RegistrationScreen extends React.Component {
     
@@ -93,7 +94,7 @@ export default class RegistrationScreen extends React.Component {
 
     renderConfirmationView = () => {
         return (
-          <View >
+          <KeyboardAwareScrollView>
             <TextInput
               style = {styles.textInput}
               placeholder = 'Verification Code'
@@ -111,13 +112,13 @@ export default class RegistrationScreen extends React.Component {
               onPress={this.handleVerifyCode}>
               <Text style = {styles.themeButtonTitle}>Verify Code</Text>
             </TouchableOpacity>
-          </View>
+          </KeyboardAwareScrollView>
         )
     }
 
     render () {
         return (
-            <View style={styles.container}>
+            <ScrollView style={styles.container}>
                 <Text style = {styles.text}>Please Enter the Information Below to Register</Text>
                 <TextInput 
                     style = {styles.textInput}
@@ -164,7 +165,7 @@ export default class RegistrationScreen extends React.Component {
                 </TouchableOpacity>
 
                 {this.state.confirmResult ? this.renderConfirmationView() : null}
-            </View>
+            </ScrollView>
         )
     }
 }
