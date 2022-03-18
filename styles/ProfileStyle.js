@@ -48,7 +48,7 @@ export default StyleSheet.create({
   Title: {
     marginTop: 20,
     marginBottom: 20,
-    fontSize: 28,
+    fontSize: 24,
     textAlign: 'center',
     paddingLeft: 10,
     fontFamily: 'arial',
@@ -61,5 +61,12 @@ export default StyleSheet.create({
     width: 100,
     borderRadius: 100,
     padding: 20,
+  },
+  text: {
+    paddingLeft: 20,
+    fontSize: 18,
+    fontFamily: 'arial',
+    fontWeight: 'bold',
+    color: '#fa8072',
   },
 });

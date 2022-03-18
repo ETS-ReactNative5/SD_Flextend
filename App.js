@@ -17,6 +17,7 @@ import IntroSlider from "./components/IntroSlider";
 import ProfileScreen from "./components/ProfileScreen";
 import CalendarEventTEST from "./components/CalendarEventTEST";
 import RegistrationScreen from "./components/Registration";
+import ReportScreen from "./components/ReportScreen";
 
 
 const Stack = createNativeStackNavigator();
@@ -48,7 +49,18 @@ const App = () =>{
           <Stack.Screen name="Guide" component={IntroSlider} />
           <Stack.Screen name="Live Measure" component={LiveMeasureScreen} />
           <Stack.Screen name="Previous Results" component={PreviousResults} />
-          <Stack.Screen name="Progress" component={ProgressScreen} />
+          <Stack.Screen name="Progress" component={ProgressScreen} 
+            options={({route, navigation}) => ({ // get reference to navigation
+              headerRight: () => (
+                  <Button
+                    onPress={() => navigation.navigate('Report')} // call .navigate on navigation
+                    title="Generate Report"
+                    color="red"
+                  />
+                  )
+              })
+            }
+          />
           <Stack.Screen name="BLE" component={BLEScreen} />
           <Stack.Screen name="Device" component={DeviceScreen} />
           <Stack.Screen name="Registration" component={RegistrationScreen} />
@@ -66,6 +78,7 @@ const App = () =>{
             }
           />
           <Stack.Screen name="Events" component={CalendarEventTEST} />
+          <Stack.Screen name="Report" component={ReportScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     );

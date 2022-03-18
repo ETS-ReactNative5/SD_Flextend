@@ -38,9 +38,7 @@ export default function Progress() {
     }, [])
 
     const user_data = data;
-    console.log(user_data)
     const user_keys = Object.keys(user_data).sort()
-    console.log(user_keys)
     
     var labels = []
     var flexion_array = []
