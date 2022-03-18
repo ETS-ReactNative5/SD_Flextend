@@ -65,8 +65,11 @@ export default class RegistrationScreen extends React.Component {
                     displayName: this.state.firstName + ' ' + this.state.lastName
                 })
 
-                firestore().doc('users/' + this.state.phone).set({
-                  phone: this.state.phone,
+                const phone = this.state.phone.replace(/\s/g, "")
+                console.log(phone)
+
+                firestore().doc('users/' + phone).set({
+                  phone: phone,
                   first_name: this.state.firstName,
                   last_name: this.state.lastName
                 })

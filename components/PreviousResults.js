@@ -122,6 +122,7 @@ export default function PreviousResults() {
                 }}
                 style={{
                     marginVertical: 24,
+                    paddingRight: 50,
                     borderRadius: 20,
                     borderColor: 'black'
                 }}

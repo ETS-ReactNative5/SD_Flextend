@@ -44,15 +44,23 @@ const Profile = ({navigation}) => {
     //input for weight state
     const [selectedWeight, setSelectedWeight] = useState('');
 
+    const metricsToFirebase = () => {
+        console.log(auth().currentUser.phoneNumber)
+        firestore().collection('users').doc(auth().currentUser.phoneNumber).update(
+            {'age':selectedAge}
+        )
+        firestore().collection('users').doc(auth().currentUser.phoneNumber).update(
+            {'weight':selectedWeight}
+        )
+        firestore().collection('users').doc(auth().currentUser.phoneNumber).update(
+            {'height':selectedHeightFeet + '\'' + selectedHeightInches + '\"'}
+        )
+    }
+
     //function to render body metrics screen after user inputs their metrics
     const renderBodyMetrics = () => {
         toggleModal()
-        navigation.navigate('Body Metrics', {
-              age: selectedAge,
-              weight: selectedWeight,
-              heightFt: selectedHeightFeet,
-              heightIn: selectedHeightInches,
-            })
+        metricsToFirebase()
     }
     
     //function to open and close modal
@@ -66,7 +74,7 @@ const Profile = ({navigation}) => {
             case BODY_METRICS: {
                 return (
                     <View >
-                    <Text style={styles1.Title}>Add your body metrics</Text>
+                    <Text style={styles1.Title}>Add Your Body Metrics</Text>
                     {/* add text input fields or drop down options */}
                     <View style={styles1.switchRow}>
                         <Text>Age</Text>
@@ -84,7 +92,7 @@ const Profile = ({navigation}) => {
                     </View>
                     <View style={styles1.switchRow}>
                         <View style={{flex:.3}}>
-                            <Text>Height</Text>
+                            <Text style={styles1.height_text}>Height</Text>
                         </View>
                         {/* feet */}
                         <View style={{flex:.3}}>
@@ -128,7 +136,7 @@ const Profile = ({navigation}) => {
                         <Text>Weight</Text>
                         <TextInput 
                             style = {styles1.textInput}
-                            placeholder = 'Age'
+                            placeholder = 'Weight'
                             textAlign ='center'
                             keyboardType = 'numeric'
                             value = {selectedWeight}

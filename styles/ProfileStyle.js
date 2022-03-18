@@ -41,16 +41,19 @@ export default StyleSheet.create({
     color: 'black',
     fontSize: 9,
     // fontFamily: 'arial',
-    
+  },
+  height_text: {
+    paddingLeft: 35
   },
   Title: {
     marginTop: 20,
-    fontSize: 26,
+    marginBottom: 20,
+    fontSize: 28,
     textAlign: 'center',
     paddingLeft: 10,
     fontFamily: 'arial',
     fontWeight: 'bold',
-    color: 'black'
+    color: '#ff0f90'
   },
   avatar: {
     paddingTop: 20,

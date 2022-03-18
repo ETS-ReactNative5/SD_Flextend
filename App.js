@@ -15,7 +15,6 @@ import DeviceScreen from "./components/DeviceScreen";
 import DeviceCard from "./BLE_components/DeviceCard";
 import IntroSlider from "./components/IntroSlider";
 import ProfileScreen from "./components/ProfileScreen";
-import BodyMetricsScreen from "./components/BodyMetricsScreen";
 import CalendarEventTEST from "./components/CalendarEventTEST";
 import RegistrationScreen from "./components/Registration";
 
@@ -66,8 +65,6 @@ const App = () =>{
               })
             }
           />
-          
-          <Stack.Screen name="Body Metrics" component={BodyMetricsScreen} />
           <Stack.Screen name="Events" component={CalendarEventTEST} />
         </Stack.Navigator>
       </NavigationContainer>
