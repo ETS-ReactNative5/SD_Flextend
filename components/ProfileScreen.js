@@ -335,7 +335,6 @@ const Profile = ({navigation}) => {
                 <TouchableOpacity onPress={() => toggleModal(GOALS)} style={styles.button2}><Text style={styles.buttonTitle}>Set Goals</Text></TouchableOpacity>
                 <TouchableOpacity onPress={() => toggleModal(REMINDERS)} style={styles.button1}><Text style={styles.buttonTitle}>Set Reminders</Text></TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate("Progress")} style={styles.button3}><Text style={styles.buttonTitle}>Progress</Text></TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate("Events")} style={styles.button3}><Text style={styles.buttonTitle}>TEST CALENDAR </Text></TouchableOpacity>
                 
                 <Modal isVisible={isShowing} style={styles1.modalView} >
                     <View>
