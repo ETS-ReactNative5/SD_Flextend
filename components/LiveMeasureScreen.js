@@ -4,6 +4,9 @@ import styles from '../styles/MetricStyle';
 import { BleManager, Device } from 'react-native-ble-plx';
 import base64 from 'react-native-base64';
 
+import firestore from '@react-native-firebase/firestore'
+import auth from '@react-native-firebase/auth'
+
 const manager = new BleManager();
 let services;
 let characteristic;
@@ -84,6 +87,9 @@ export default class HomeScreen extends React.Component {
 
 
     async componentWillUnmount() {
+        firestore().collection('knee health').update(auth().currentUser.phoneNumber).update(
+            {'degrees':this.state.degrees}
+        )
         await this.disconnectFromFlextend();
     }
 

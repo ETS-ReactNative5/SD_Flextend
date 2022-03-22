@@ -45,7 +45,6 @@ const Profile = ({navigation}) => {
     const [selectedWeight, setSelectedWeight] = useState('');
 
     const metricsToFirebase = () => {
-        console.log(auth().currentUser.phoneNumber)
         firestore().collection('users').doc(auth().currentUser.phoneNumber).update(
             {'age':selectedAge}
         )
