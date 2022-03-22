@@ -69,4 +69,21 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     color: '#fa8072',
   },
+  info_text: {
+    textAlign: 'center',
+    fontSize: 16,
+    marginBottom: 10,
+    fontFamily: 'arial',
+    fontWeight: 'bold',
+    color: '#fa8072',
+  },
+  section_text: {
+    textAlign: 'center',
+    fontSize: 18,
+    marginBottom: 5,
+    fontFamily: 'arial',
+    fontWeight: 'bold',
+    fontStyle: 'italic',
+    color: '#fa8072',
+  }
 });
