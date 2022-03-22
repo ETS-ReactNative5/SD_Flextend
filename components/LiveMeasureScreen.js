@@ -87,7 +87,7 @@ export default class HomeScreen extends React.Component {
 
 
     async componentWillUnmount() {
-        firestore().collection('knee health').doc(auth().currentUser.phoneNumber).update(
+        firestore().collection('knee health').doc(auth().currentUser.phoneNumber).set(
             {'degrees':this.state.degrees}
         )
         await this.disconnectFromFlextend();
