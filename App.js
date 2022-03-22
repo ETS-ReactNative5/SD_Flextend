@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, LogBox } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { firebase } from '@react-native-firebase/auth';
@@ -24,6 +24,8 @@ const Stack = createNativeStackNavigator();
 
 
 const App = () =>{
+
+  LogBox.ignoreAllLogs = true;
 
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();
