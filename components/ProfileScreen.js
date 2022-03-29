@@ -34,25 +34,30 @@ const Profile = ({navigation}) => {
     const [type, setType] = useState(BODY_METRICS);
     const [isShowing, setIsShowing] = useState(false);
 
-    //picker for height state
-    const [selectedHeightFeet, setSelectedHeightFeet] = useState('3');
-    const [selectedHeightInches, setSelectedHeightInches] = useState('0');
-
     //input for age state
     const [selectedAge, setSelectedAge] = useState('');
 
     //input for weight state
-    const [selectedWeight, setSelectedWeight] = useState('');
+    const [selectedStatus, setSelectedStatus] = useState(false);
+
+    const [goal, setGoal] = useState('')
+
+    const metricsToFirebase = () => {
+        firestore().collection('users').doc(auth().currentUser.phoneNumber).update(
+            {'age':selectedAge}
+        )
+        firestore().collection('users').doc(auth().currentUser.phoneNumber).update(
+            {'recent_surgery':selectedStatus}
+        )
+        firestore().collection('users').doc(auth().currentUser.phoneNumber).update(
+            {goals: [goal]}
+        )
+    }
 
     //function to render body metrics screen after user inputs their metrics
     const renderBodyMetrics = () => {
         toggleModal()
-        navigation.navigate('Body Metrics', {
-              age: selectedAge,
-              weight: selectedWeight,
-              heightFt: selectedHeightFeet,
-              heightIn: selectedHeightInches,
-            })
+        metricsToFirebase()
     }
     
     //function to open and close modal
@@ -66,10 +71,10 @@ const Profile = ({navigation}) => {
             case BODY_METRICS: {
                 return (
                     <View >
-                    <Text style={styles1.Title}>Add your body metrics</Text>
+                    <Text style={styles1.modal_title}>Add Metrics</Text>
                     {/* add text input fields or drop down options */}
                     <View style={styles1.switchRow}>
-                        <Text>Age</Text>
+                        <Text style={styles1.info_text}>Age</Text>
                         <TextInput 
                             style = {styles1.textInput}
                             placeholder = 'Age'
@@ -84,58 +89,21 @@ const Profile = ({navigation}) => {
                     </View>
                     <View style={styles1.switchRow}>
                         <View style={{flex:.3}}>
-                            <Text>Height</Text>
+                            <Text style={styles1.info_text}>Recent Knee Surgery?</Text>
                         </View>
-                        {/* feet */}
                         <View style={{flex:.3}}>
                             <Picker 
-                                selectedValue={selectedHeightFeet}
+                                selectedValue={selectedStatus}
                                 onValueChange={(itemValue, itemIndex) =>
-                                    setSelectedHeightFeet(itemValue)
+                                    setSelectedStatus(itemValue)
                                 }>
-                                <Picker.Item label="3 ft" value="3" />
-                                <Picker.Item label="4 ft" value="4" />
-                                <Picker.Item label="5 ft" value="5" />
-                                <Picker.Item label="6 ft" value="6" />
-                                <Picker.Item label="7 ft" value="7" />
+                                <Picker.Item label='False' value={false}/>
+                                <Picker.Item label='True' value={true}/>
                             </Picker>
                         </View>
-                        {/* inches */}
-                        <View style={{flex:.3}}>
-                            <Picker 
-                                selectedValue={selectedHeightInches}
-                                onValueChange={(itemValue, itemIndex) =>
-                                    setSelectedHeightInches(itemValue)
-                                }>
-                                <Picker.Item label="0 in" value="0" />
-                                <Picker.Item label="1 in" value="1" />
-                                <Picker.Item label="2 in" value="2" />
-                                <Picker.Item label="3 in" value="3" />
-                                <Picker.Item label="4 in" value="4" />
-                                <Picker.Item label="5 in" value="5" />
-                                <Picker.Item label="6 in" value="6" />
-                                <Picker.Item label="7 in" value="7" />
-                                <Picker.Item label="8 in" value="8" />
-                                <Picker.Item label="9 in" value="9" />
-                                <Picker.Item label="10 in" value="10" />
-                                <Picker.Item label="11 in" value="11" />
-                                <Picker.Item label="12 in" value="12" />
-                            </Picker>
-                        </View>
+                        
                     </View>
                     
-                    <View style={styles1.switchRow}>
-                        <Text>Weight</Text>
-                        <TextInput 
-                            style = {styles1.textInput}
-                            placeholder = 'Age'
-                            textAlign ='center'
-                            keyboardType = 'numeric'
-                            value = {selectedWeight}
-                            onChangeText = {newWeight => setSelectedWeight(newWeight)}
-                            maxLength = {5}
-                        />
-                    </View>
                     <TouchableOpacity onPress={() => renderBodyMetrics()}style={styles.button1} title="Done"><Text style={styles.buttonTitle}>Done</Text></TouchableOpacity>
                     <TouchableOpacity onPress={() => toggleModal()}style={styles.button1} title="Hide modal"><Text style={styles.buttonTitle}>Close Screen</Text></TouchableOpacity>
                     </View>
@@ -144,7 +112,19 @@ const Profile = ({navigation}) => {
             case GOALS: {
                 return (
                     <View >
-                    <Text>Goals</Text>
+                    <Text style={styles1.modal_title}>Goals</Text>
+                    <Text style={styles1.modal_text}>Use this feature to add your specific goals!</Text>
+                    <Text></Text>
+                    <Text style={styles1.modal_text}>Navigate to the Home Page to see your goals!</Text>
+                    <TextInput 
+                        style = {styles1.goalInput}
+                        placeholder = 'Enter your goal here'
+                        textAlign ='left'
+                        keyboardType = 'default'
+                        value = {goal}
+                        onChangeText = {newGoal => setGoal(newGoal)}
+                    />
+                    <TouchableOpacity onPress={() => renderBodyMetrics()}style={styles.button1} title="Done"><Text style={styles.buttonTitle}>Done</Text></TouchableOpacity>
                     <TouchableOpacity onPress={() => toggleModal()}style={styles.button1} title="Hide modal"><Text style={styles.buttonTitle}>Close Screen</Text></TouchableOpacity>
                     </View>
                 )
@@ -152,7 +132,8 @@ const Profile = ({navigation}) => {
             case REMINDERS: {
                 return (
                     <View>
-                    <Text style={styles.welcome_message}>reminders</Text>
+                    <Text style={styles1.modal_title}>Reminders</Text>
+                    <Text style={styles1.modal_text}>Use this feature to add events to your calendar to keep measuring with Flextend!</Text>
                     <Text style={styles.textContent}>{eventInfoText}</Text>
                     <TouchableOpacity onPress={() => addEventToCalendar()} style={styles.button2}><Text style={styles.buttonTitle}>Add</Text></TouchableOpacity>
                     <TouchableOpacity onPress={() => editCalendarEventWithId(eventId)} style={styles.button2}><Text style={styles.buttonTitle}>Edit</Text></TouchableOpacity>
@@ -323,11 +304,10 @@ const Profile = ({navigation}) => {
             </View>      
            {/* VIEW UNDER AVATAR STARTS HERE */}
             <View style={styles1.content}>
-                <TouchableOpacity onPress={() => toggleModal(BODY_METRICS)} style={styles.button1}><Text style={styles.buttonTitle}>Set Body Metrics</Text></TouchableOpacity>
+                <TouchableOpacity onPress={() => toggleModal(BODY_METRICS)} style={styles.button1}><Text style={styles.buttonTitle}>Set Metrics</Text></TouchableOpacity>
                 <TouchableOpacity onPress={() => toggleModal(GOALS)} style={styles.button2}><Text style={styles.buttonTitle}>Set Goals</Text></TouchableOpacity>
                 <TouchableOpacity onPress={() => toggleModal(REMINDERS)} style={styles.button1}><Text style={styles.buttonTitle}>Set Reminders</Text></TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate("Progress")} style={styles.button3}><Text style={styles.buttonTitle}>Progress</Text></TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate("Events")} style={styles.button3}><Text style={styles.buttonTitle}>TEST CALENDAR </Text></TouchableOpacity>
                 
                 <Modal isVisible={isShowing} style={styles1.modalView} >
                     <View>

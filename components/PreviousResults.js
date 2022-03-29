@@ -19,12 +19,18 @@ export default function PreviousResults() {
                 .doc(userID)
                 .get();
             
-            const user_data = documentSnapshot.data();
-            const user_keys = Object.keys(user_data).sort().reverse()
-            const recent = user_keys[0]
-            const values = user_data[recent.toString()]
-            setFlexion(values[0]);
-            setExtension(values[1]);
+            if (documentSnapshot.data() == null)
+            {
+                alert("Start Your First Measurment!\nNavigate to the Live Measurement Screen.")
+            }
+            else {
+                const user_data = documentSnapshot.data();
+                const user_keys = Object.keys(user_data).sort().reverse()
+                const recent = user_keys[0]
+                const values = user_data[recent.toString()]
+                setFlexion(values[0]);
+                setExtension(values[1]);
+            }
         } catch {
             console.log("Error")
         }
@@ -122,6 +128,7 @@ export default function PreviousResults() {
                 }}
                 style={{
                     marginVertical: 24,
+                    paddingRight: 50,
                     borderRadius: 20,
                     borderColor: 'black'
                 }}

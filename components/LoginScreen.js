@@ -82,7 +82,7 @@ class LoginScreen extends Component {
 
   register = () => {
     this.setState( {confirmResult: null})
-    this.setState( {phone: ''})
+    this.setState( {phone: '+1 '})
     this.setState( {verificationCode: ''})
     this.props.navigation.navigate('Registration');
   }

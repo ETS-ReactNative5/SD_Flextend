@@ -18,11 +18,18 @@ export default function Progress() {
                 .doc(userID)
                 .get()
 
-            const user_data = documentSnapshot.data();
-            setData(user_data)
+            if (documentSnapshot.data() == null)
+            {
+                const user_data = {"0":0}
+                alert("Start Your First Measurment!\nNavigate to the Live Measurement Screen.")
+            }
+            else 
+            {
+                const user_data = documentSnapshot.data();
+                setData(user_data)
+            }
         }
         catch {
-            console.log("Error")
         }
     }
 
@@ -33,17 +40,24 @@ export default function Progress() {
     const user_data = data;
     const user_keys = Object.keys(user_data).sort()
     
+    var labels = []
     var flexion_array = []
     var extension_array = []
 
-    var i = 0;
+    var i = 0
     for (i; i < user_keys.length; i++) {
-        flexion_array.push(user_data[user_keys[i]][0]) 
+        var date = user_keys[i]
+        labels.push(date.substring(0, 9))
     }
 
     var j = 0;
     for (j; j < user_keys.length; j++) {
-        extension_array.push(user_data[user_keys[j]][1])
+        flexion_array.push(user_data[user_keys[j]][0]) 
+    }
+
+    var k = 0;
+    for (k; k < user_keys.length; k++) {
+        extension_array.push(user_data[user_keys[k]][1])
     }
 
     console.log(flexion_array)
@@ -66,7 +80,7 @@ export default function Progress() {
             <Text style={styles.info_text}>Flexion Progress Over Time</Text>
             <BarChart
                 data={{
-                    labels: user_keys,
+                    labels: labels,
                     datasets: [
                         {
                             data: flexion_array
@@ -75,11 +89,10 @@ export default function Progress() {
                 }}
                 width={screenWidth}
                 height={200}
-                verticalLabelRotation={10}
                 withInnerLines={false}
                 yAxisSuffix='&ordm;'
-                withVerticalLabels={false}
                 showValuesOnTopOfBars={true}
+                fromZero={true}
                 chartConfig={{
                     height: 5000,
                     backgroundGradientFrom: "white",
@@ -96,7 +109,7 @@ export default function Progress() {
             <Text style={bar_styles.extensionInfo}>Extension Progress Over Time</Text>
             <BarChart
                 data={{
-                    labels: user_keys,
+                    labels: labels,
                     datasets: [
                         {
                             data: extension_array
@@ -105,11 +118,10 @@ export default function Progress() {
                 }}
                 width={screenWidth}
                 height={200}
-                verticalLabelRotation={10}
                 withInnerLines={false}
                 yAxisSuffix='&ordm;'
-                withVerticalLabels={false}
                 showValuesOnTopOfBars={true}
+                fromZero={true}
                 chartConfig={{
                     height: 5000,
                     backgroundGradientFrom: "white",
@@ -133,7 +145,7 @@ const bar_styles = StyleSheet.create({
         paddingTop: 10,
     },
     xlabel1: {
-        marginTop: 180, 
+        marginTop: 190, 
         marginBottom: 15,
         fontSize: 14,
         textAlign: 'center',
