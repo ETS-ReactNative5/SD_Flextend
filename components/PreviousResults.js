@@ -88,7 +88,7 @@ export default function PreviousResults() {
             <Text style={styles.chart_title}>Progress toward perfect knee flexion...</Text>
             <ProgressChart
                 data={flexion_data}
-                width={screenWidth}
+                width={Platform.OS === 'ios' ? screenWidth : screenWidth - 10}
                 height={120}
                 strokeWidth={16}
                 chartConfig={{
@@ -112,7 +112,7 @@ export default function PreviousResults() {
             <Text style={styles.chart_title}>Progress toward perfect knee extension...</Text>
             <ProgressChart
                 data={extension_data}
-                width={screenWidth}
+                width={Platform.OS === 'ios' ? screenWidth : screenWidth - 10}
                 height={120}
                 strokeWidth={16}
                 chartConfig={{

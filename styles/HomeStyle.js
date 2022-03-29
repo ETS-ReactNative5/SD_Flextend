@@ -1,19 +1,16 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
     container: {
         flex: 1,
-        // alignItems: 'center',
-        // backgroundColor: '#fff0f5'
-        backgroundColor: '#fffafa'
-        
+        backgroundColor: '#fffafa' 
     },
     container2: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#fffafa',
-        paddingTop: 30,
+        paddingTop: Platform.OS === 'ios' ? 30 : 40,
         paddingBottom: 20
     },
     device_content: {
@@ -26,6 +23,7 @@ export default StyleSheet.create({
         fontSize: 30,
         marginTop: 20,
         fontWeight: 'bold',
+        fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
         alignSelf: "center",
         color: '#c71585',
     },
@@ -75,7 +73,7 @@ export default StyleSheet.create({
     buttonTitle: {
         color: 'black',
         fontSize: 24,
-        fontFamily: 'arial'
+        fontFamily: Platform.OS == 'ios' ? 'Arial' : 'sans-serif'
     },
     textContent: {
         color: 'black',

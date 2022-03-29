@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native'
+import { Platform, StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
   scroll: {
@@ -53,7 +53,7 @@ export default StyleSheet.create({
     fontSize: 28,
     textAlign: 'center',
     paddingLeft: 10,
-    fontFamily: 'arial',
+    fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
     fontWeight: 'bold',
     color: '#ff0f90'
   },
@@ -67,7 +67,7 @@ export default StyleSheet.create({
   text: {
     paddingLeft: 20,
     fontSize: 18,
-    fontFamily: 'arial',
+    fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
     fontWeight: 'bold',
     color: '#fa8072',
   },
@@ -75,7 +75,7 @@ export default StyleSheet.create({
     textAlign: 'center',
     fontSize: 16,
     marginBottom: 10,
-    fontFamily: 'arial',
+    fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
     fontWeight: 'bold',
     color: '#fa8072',
   },
@@ -83,7 +83,7 @@ export default StyleSheet.create({
     textAlign: 'center',
     fontSize: 18,
     marginBottom: 5,
-    fontFamily: 'arial',
+    fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
     fontWeight: 'bold',
     fontStyle: 'italic',
     color: '#fa8072',
@@ -93,7 +93,7 @@ export default StyleSheet.create({
     fontSize: 18,
     marginBottom: -20,
     marginTop: 15,
-    fontFamily: 'arial',
+    fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
     fontWeight: 'bold',
     fontStyle: 'italic',
     color: '#fa8072',
@@ -109,12 +109,13 @@ export default StyleSheet.create({
     borderRadius: 5,
     color: 'black',
     fontSize: 14,
-    // fontFamily: 'arial',
+    fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
   },
   modal_title: {
     fontSize: 45,
     marginTop: 20,
     fontWeight: 'bold',
+    fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
     alignSelf: "center",
     color: '#c71585',
 },

@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Platform, Dimensions } from 'react-native'
 
 export default StyleSheet.create({
     container: {
@@ -20,15 +20,15 @@ export default StyleSheet.create({
       borderRadius: 5,
       color: 'black',
       fontSize: 16,
-      fontFamily: 'arial',
+      fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
       fontWeight: 'bold'
     },
     text: {
-      marginTop: 20,
+      marginTop: Platform.OS === 'ios' ? 20 : 20,
       fontSize: 24,
       textAlign: 'center',
       paddingLeft: 10,
-      fontFamily: 'arial',
+      fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
       fontWeight: 'bold', 
       color: '#fa8072'
     },
@@ -37,7 +37,7 @@ export default StyleSheet.create({
       fontSize: 18,
       textAlign: 'center',
       paddingLeft: 10,
-      fontFamily: 'arial',
+      fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
       fontWeight: 'bold',
       color: '#ff0f90'
     },
@@ -56,7 +56,7 @@ export default StyleSheet.create({
     },
     themeButtonTitle: {
       fontSize: 24,
-      // fontFamily: 'sans-serif-medium',
+      fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
       color: 'black'
     },
     verificationView: {
@@ -65,7 +65,8 @@ export default StyleSheet.create({
       marginTop: 30
     },
     image: {
-        width: null,
+        width: Dimensions.get("window").width,
+        marginTop: Platform.OS === 'ios' ? 20 : 15,
         height: 85,
         backgroundColor: 'white',
         resizeMode: 'contain',

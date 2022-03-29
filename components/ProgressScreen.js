@@ -162,6 +162,6 @@ const bar_styles = StyleSheet.create({
         paddingLeft: 10,
         fontFamily: 'arial',
         fontWeight: 'bold',
-        color: 'black'
+        color: '#ff0000'
     },
 })

@@ -40,7 +40,7 @@ export default class HomeScreen extends React.Component {
 
         return (
             <ScrollView style= {styles.container}>
-                <Text style={styles.welcome_message}> Welcome to Flextend!</Text>
+                <Text style={styles.welcome_message}> Welcome to Flextend</Text>
                 <Text style={styles.italic}> Your at-home knee monitoring platform </Text>
                 <Image
                     style={styles.home_image}

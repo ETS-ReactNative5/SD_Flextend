@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { SafeAreaView, TouchableOpacity, View, Text, TextInput, Image, ScrollView, KeyboardAvoidingView } from 'react-native';
+import { TouchableOpacity, View, Text, TextInput, Image } from 'react-native';
 import { firebase } from '@react-native-firebase/auth';
 import styles from "../styles/LoginStyle"
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'

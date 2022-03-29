@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native'
+import { Platform, StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
     title: {
@@ -6,9 +6,9 @@ export default StyleSheet.create({
         fontSize: 26,
         textAlign: 'center',
         paddingLeft: 10,
-        fontFamily: 'arial',
+        fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
         fontWeight: 'bold',
-        color: 'black'
+        color: '#ffaa00'
     },
     info_text: {
         marginTop: 10, 
@@ -16,9 +16,9 @@ export default StyleSheet.create({
         fontSize: 20,
         textAlign: 'center',
         paddingLeft: 10,
-        fontFamily: 'arial',
+        fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
         fontWeight: 'bold',
-        color: 'black'
+        color: '#c71585'
     },
     chart_title: {
         marginTop: 10, 
@@ -26,17 +26,17 @@ export default StyleSheet.create({
         fontSize: 20,
         textAlign: 'center',
         paddingLeft: 10,
-        fontFamily: 'arial',
+        fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
         fontStyle: 'italic',
         fontWeight: 'bold',
-        color: 'black'
+        color: '#c71585'
     },
     result_text: {
         marginTop: 0,
         fontSize: 18,
         textAlign: 'center',
         paddingLeft: 10,
-        fontFamily: 'arial',
+        fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
         color: 'black'
     }
 })
