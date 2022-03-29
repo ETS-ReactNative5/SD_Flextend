@@ -13,7 +13,7 @@ import Modal from "react-native-modal";
 import styles from '../styles/HomeStyle';
 import styles1 from '../styles/ProfileStyle';
 
-import auth from '@react-native-firebase/auth'
+import auth, { firebase } from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore';
 
 import * as AddCalendarEvent from 'react-native-add-calendar-event';
@@ -50,7 +50,7 @@ const Profile = ({navigation}) => {
             {'recent_surgery':selectedStatus}
         )
         firestore().collection('users').doc(auth().currentUser.phoneNumber).update(
-            {goals: [goal]}
+            {goals: firebase.firestore.FieldValue.arrayUnion(goal)}
         )
     }
 
