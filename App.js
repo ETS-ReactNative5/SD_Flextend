@@ -22,10 +22,9 @@ import ReportScreen from "./components/ReportScreen";
 
 const Stack = createNativeStackNavigator();
 
+LogBox.ignoreAllLogs(true)
 
 const App = () =>{
-
-  LogBox.ignoreAllLogs = true;
 
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();

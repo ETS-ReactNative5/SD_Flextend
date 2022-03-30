@@ -8,7 +8,7 @@ export default StyleSheet.create({
         paddingLeft: 10,
         fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
         fontWeight: 'bold',
-        color: '#ffaa00'
+        color: 'black'
     },
     info_text: {
         marginTop: 10, 

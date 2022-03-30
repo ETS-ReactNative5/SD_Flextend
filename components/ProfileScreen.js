@@ -49,15 +49,19 @@ const Profile = ({navigation}) => {
         firestore().collection('users').doc(auth().currentUser.phoneNumber).update(
             {'recent_surgery':selectedStatus}
         )
-        firestore().collection('users').doc(auth().currentUser.phoneNumber).update(
-            {goals: firebase.firestore.FieldValue.arrayUnion(goal)}
-        )
     }
 
     //function to render body metrics screen after user inputs their metrics
     const renderBodyMetrics = () => {
         toggleModal()
         metricsToFirebase()
+    }
+
+    const renderGoals = (goal) => {
+        toggleModal()
+        firestore().collection('users').doc(auth().currentUser.phoneNumber).update(
+            {goals: firebase.firestore.FieldValue.arrayUnion(goal)}
+        )
     }
     
     //function to open and close modal
@@ -124,7 +128,7 @@ const Profile = ({navigation}) => {
                         value = {goal}
                         onChangeText = {newGoal => setGoal(newGoal)}
                     />
-                    <TouchableOpacity onPress={() => renderBodyMetrics()}style={styles.button1} title="Done"><Text style={styles.buttonTitle}>Done</Text></TouchableOpacity>
+                    <TouchableOpacity onPress={() => renderGoals(goal)}style={styles.button1} title="Done"><Text style={styles.buttonTitle}>Done</Text></TouchableOpacity>
                     <TouchableOpacity onPress={() => toggleModal()}style={styles.button1} title="Hide modal"><Text style={styles.buttonTitle}>Close Screen</Text></TouchableOpacity>
                     </View>
                 )
