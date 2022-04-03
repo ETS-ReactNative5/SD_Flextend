@@ -72,12 +72,12 @@ const IntroSlider = ({navigation}) => {
   
   const onDone = () => {
     // const navigate = this.props.navigation.navigate;
-    navigation.navigate('Profile')
+    navigation.navigate('Home')
   }
 
   const onSkip = () => {
     // const navigate = this.props.navigation.navigate;
-    navigation.navigate('Profile')
+    navigation.navigate('Home')
   }
 
   

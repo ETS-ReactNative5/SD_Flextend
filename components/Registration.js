@@ -53,6 +53,7 @@ export default class RegistrationScreen extends React.Component {
             .then(user => {
               if (auth().currentUser.displayName != null)
               {
+                  auth().signOut()
                   alert('Your user account has already been registered!')
                   this.setState( {confirmResult: null})
                   this.setState( {phone: '+1 '})
@@ -75,7 +76,7 @@ export default class RegistrationScreen extends React.Component {
                   last_name: this.state.lastName
                 })
 
-                this.props.navigation.navigate("Login")
+                this.props.navigation.navigate("Guide")
 
                 this.setState( {userID: user.uid} )
                 this.setState( {confirmResult: null})

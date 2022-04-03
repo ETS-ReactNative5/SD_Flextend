@@ -54,6 +54,7 @@ class LoginScreen extends Component {
         .then(user => {
           if (firebase.auth().currentUser.displayName == null)
           {
+            firebase.auth().signOut()
             alert('Phone number not found.\nPlease register as a new user.')
 
             this.setState( {confirmResult: null})

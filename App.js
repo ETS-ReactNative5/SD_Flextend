@@ -46,8 +46,19 @@ const App = () =>{
     return (
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Guide" component={IntroSlider} />
+          <Stack.Screen name="Home" component={HomeScreen} 
+           options={({route, navigation}) => ({ // get reference to navigation
+            headerRight: () => (
+                <Button
+                  onPress={() => navigation.navigate('Guide')} // call .navigate on navigation
+                  title="Guide"
+                  color="red"
+                />
+              )
+            })
+          }
+          />
           <Stack.Screen name="Live Measure" component={LiveMeasureScreen} />
           <Stack.Screen name="Previous Results" component={PreviousResults} />
           <Stack.Screen name="Progress" component={ProgressScreen} 
@@ -64,18 +75,7 @@ const App = () =>{
           />
           <Stack.Screen name="BLE" component={BLEScreen} />
           <Stack.Screen name="Device" component={DeviceScreen} />
-          <Stack.Screen name="Profile" component={ProfileScreen}
-            options={({route, navigation}) => ({ // get reference to navigation
-              headerRight: () => (
-                  <Button
-                    onPress={() => navigation.navigate('Guide')} // call .navigate on navigation
-                    title="Guide"
-                    color="red"
-                  />
-                )
-              })
-            }
-          />
+          <Stack.Screen name="Profile" component={ProfileScreen} />
           <Stack.Screen name="Events" component={CalendarEventTEST} />
           <Stack.Screen name="Report" component={ReportScreen} />
         </Stack.Navigator>
