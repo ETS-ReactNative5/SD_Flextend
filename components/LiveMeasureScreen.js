@@ -1,17 +1,23 @@
 import React, {useState, useEffect} from 'react';
 import { TouchableOpacity, Text, View, Button, Image} from 'react-native';
-import styles from '../styles/MetricStyle';
 import { BleManager, Device } from 'react-native-ble-plx';
 import base64 from 'react-native-base64';
 
 import firestore from '@react-native-firebase/firestore'
 import auth from '@react-native-firebase/auth'
+import styles from '../styles/HomeStyle';
 
 const manager = new BleManager();
-let services;
-let characteristic;
+let disconnect_subscription;
+let flexion_subscription;
+let extension_subscription;
+let measuringCharacteristicID;
+let calibrationCharacteristicID;
 let device_id;
-let transaction_id = "flextend_transaction";
+let service_id;
+let extension_id = "extension_transaction";
+let flexion_id = "flexion_transaction";
+// let service_transaction = "service_transaction";
 let degree_num = 0;
 
 export default class HomeScreen extends React.Component {
@@ -24,16 +30,16 @@ export default class HomeScreen extends React.Component {
         super(props);
         this.state = {
             isConnected: false,
-            degrees: 0
+            intendedDisconnect: false,
+            flexion: 0,
+            extension : 0
         };
     }
 
     disconnectFromFlextend = async () => {
         if (this.state.isConnected)
         {
-            await manager.cancelTransaction(transaction_id);
             await manager.cancelDeviceConnection(device_id);
-            this.state.isConnected = false;
         }
     }
 
@@ -41,6 +47,7 @@ export default class HomeScreen extends React.Component {
 
         // display the Activityindicator
         // setIsLoading(true);
+        // return_device = "";
 
         // scan devices
         manager.startDeviceScan(null, null, async (error, device) => {
@@ -49,28 +56,59 @@ export default class HomeScreen extends React.Component {
                 return;
             }
 
-            // if a device is detected add the device to the list by dispatching the action into the reducer
             if (device) {
                 if (device.name == "Flextend"){
                     manager.stopDeviceScan();
-                    await device.connect();
-                    device_id = device.id;
-                    this.state.isConnected = true;
-                    const allServicesAndCharacteristics = await device.discoverAllServicesAndCharacteristics(transaction_id);
-                    // get the services only
-                    const discoveredServices = await allServicesAndCharacteristics.services();
-                    const myService = discoveredServices[0]; //isolating this service just for testing
-                    const myCharacteristics = await myService.characteristics();
-                    // const readData = myCharacteristics.read();
-                    const characteristicUUID = myCharacteristics[0].uuid;
-                    // const readData =  await myService.readCharacteristic(characteristicUUID);
-                    // console.log(readData);
-                    myService.monitorCharacteristic(characteristicUUID, async (error, characteristic) => {
-                        let printVal = base64.decode(characteristic.value);
-                        this.setState({ degrees: printVal });
-                        console.log(printVal);
-                    }, transaction_id);
-                    return;
+                    await device.connect().then( async (device) => {
+                        alert("Device connected successfully! You can now begin measuring.")
+
+                        disconnect_subscription = device.onDisconnected((error, disconnectedDevice) => {
+                            if (!this.state.intendedDisconnect)
+                            {
+                                alert("Device lost connection. Please restart the Flextend device and navigate back to Start Tracking to reestablish connection.")
+                                manager.cancelTransaction(flexion_id);
+                                manager.cancelTransaction(extension_id);
+                                disconnect_subscription.remove();
+                                flexion_subscription.remove();
+                                extension_subscription.remove();
+                                this.setState({ isConnected: false });
+                                this.setState({ intendedDisconnect: false });
+                                this.props.navigation.navigate('Home')
+                            }
+                        })
+
+                        this.setState({ isConnected: true });
+                        device_id = device.id;
+
+                        
+                        if (device.isConnected())
+                        {
+                            const allServicesAndCharacteristics = await device.discoverAllServicesAndCharacteristics();
+                            const discoveredServices = await allServicesAndCharacteristics.services();
+                            const flextendService = discoveredServices[0];
+                            service_id = flextendService.uuid;
+                            const all_characteristics = await flextendService.characteristics();
+                            const flexionCharacteristic = all_characteristics[0];
+                            const extensionCharacteristic = all_characteristics[1];
+                            const measuringCharacteristic = all_characteristics[2];
+                            const calibrationCharacteristic = all_characteristics[3];
+                            measuringCharacteristicID = measuringCharacteristic.uuid;
+                            calibrationCharacteristicID = calibrationCharacteristic.uuid;
+                            console.log(calibrationCharacteristicID);
+                            const flexion_characteristicUUID = flexionCharacteristic.uuid;
+                            const extension_characteristicUUID = extensionCharacteristic.uuid;
+                            flexion_subscription = flextendService.monitorCharacteristic(flexion_characteristicUUID, async (error, characteristic) => {
+                                let printVal = base64.decode(characteristic.value);
+                                this.setState({ flexion: printVal });
+                                console.log(printVal);
+                            }, flexion_id);
+                            extension_subscription = flextendService.monitorCharacteristic(extension_characteristicUUID, async (error, characteristic) => {
+                                let printVal = base64.decode(characteristic.value);
+                                this.setState({ extension: printVal });
+                                console.log(printVal);
+                            }, extension_id);
+                        }
+                    });
                 }
             }
         });
@@ -81,15 +119,58 @@ export default class HomeScreen extends React.Component {
         }, 1000);
     }
 
+    beginMeasuring = () => {
+        if (!this.state.isConnected)
+        {
+            alert("Device is not connected! Please restart Flextend device and navigate to Start Tracking to reestablish connection.")
+            this.props.navigation.navigate('Home')
+        }
+        else
+        {
+            manager.writeCharacteristicWithResponseForDevice(device_id, service_id, measuringCharacteristicID, base64.encode('MEASURING'))
+        }
+    }
+
+    stopMeasuring = () => {
+        if (!this.state.isConnected)
+        {
+            alert("Device is not connected! Please restart Flextend device and navigate to Start Tracking to reestablish connection.")
+            this.props.navigation.navigate('Home')
+        }
+        else
+        {
+            manager.writeCharacteristicWithResponseForDevice(device_id, service_id, measuringCharacteristicID, base64.encode('NOTMEASURING'))
+        }
+    }
+
+    calibrate = () => {
+        if (!this.state.isConnected)
+        {
+            alert("Device is not connected! Please restart Flextend device and navigate to Start Tracking to reestablish connection.")
+            this.props.navigation.navigate('Home')
+        }
+        else
+        {
+            manager.writeCharacteristicWithResponseForDevice(device_id, service_id, calibrationCharacteristicID, base64.encode('CALIBRATING'))
+        }
+    }
+
     async componentDidMount() {
         await this.connectToFlextend()
     } 
 
 
     async componentWillUnmount() {
-        firestore().collection('knee health').doc(auth().currentUser.phoneNumber).set(
-            {'degrees':this.state.degrees}
-        )
+        // firestore().collection('knee health').doc(auth().currentUser.phoneNumber).set(
+        //     {'degrees':this.state.degrees}
+        // ) UNCOMMENT THIS WHEN DONE
+        manager.cancelTransaction(flexion_id);
+        manager.cancelTransaction(extension_id);
+        disconnect_subscription.remove();
+        flexion_subscription.remove();
+        extension_subscription.remove();
+        this.setState({ isConnected: false });
+        this.setState({ intendedDisconnect: false });
         await this.disconnectFromFlextend();
     }
 
@@ -99,7 +180,11 @@ export default class HomeScreen extends React.Component {
         return (
             <View>
                 <Text style={styles.title}> Start Measuring</Text>
-                <Text style={styles.result_text}>Degrees: {this.state.degrees}</Text>
+                <Text style={styles.result_text}>Flexion: {this.state.flexion}</Text>
+                <Text style={styles.result_text}>Extension: {this.state.extension}</Text>
+                <TouchableOpacity onPress={() => this.beginMeasuring()} style={styles.button1}><Text style={styles.buttonTitle}>Begin Measuring</Text></TouchableOpacity>
+                <TouchableOpacity onPress={() => this.stopMeasuring()} style={styles.button3}><Text style={styles.buttonTitle}>Stop Measuring</Text></TouchableOpacity>
+                <TouchableOpacity onPress={() => this.calibrate()} style={styles.button3}><Text style={styles.buttonTitle}>Calibrate</Text></TouchableOpacity>
             </View>
 
         );
