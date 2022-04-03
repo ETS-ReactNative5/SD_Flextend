@@ -7,7 +7,7 @@ import {Picker} from '@react-native-picker/picker';
 
 import  ImagePicker  from "react-native-image-crop-picker";
 // import { Avatar } from "../Profile_components/Avatar";
-// import storage from '@react-native-firebase/storage';
+import storage from '@react-native-firebase/storage';
 
 import Modal from "react-native-modal";
 import styles from '../styles/HomeStyle';
@@ -16,12 +16,23 @@ import styles1 from '../styles/ProfileStyle';
 import auth, { firebase } from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore';
 
+
 import * as AddCalendarEvent from 'react-native-add-calendar-event';
 import moment from 'moment';
+
+// import AnimatedSplash from "react-native-animated-splash-screen";
 
 
 const Profile = ({navigation}) => {
 
+
+    ////////////////////////////////////////Loading screen ///////////////////////////////////////////////////////////////////////////////
+
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        setTimeout(() => setLoading(false), 2000)
+    }, [])
 
     ////////////////////////////////////////For modal state///////////////////////////////////////////////////////////////////////////////
 
@@ -138,9 +149,9 @@ const Profile = ({navigation}) => {
                     <View>
                     <Text style={styles1.modal_title}>Reminders</Text>
                     <Text style={styles1.modal_text}>Use this feature to add events to your calendar to keep measuring with Flextend!</Text>
-                    <Text style={styles.textContent}>{eventInfoText}</Text>
-                    <TouchableOpacity onPress={() => addEventToCalendar()} style={styles.button2}><Text style={styles.buttonTitle}>Add</Text></TouchableOpacity>
-                    <TouchableOpacity onPress={() => editCalendarEventWithId(eventId)} style={styles.button2}><Text style={styles.buttonTitle}>Edit</Text></TouchableOpacity>
+                    {eventId? <TouchableOpacity onPress={() => editCalendarEventWithId(eventId)} style={styles.button2}><Text style={styles.buttonTitle}>Edit</Text></TouchableOpacity> 
+                    : 
+                    <TouchableOpacity onPress={() => addEventToCalendar()} style={styles.button2}><Text style={styles.buttonTitle}>Add</Text></TouchableOpacity>}
                     <TouchableOpacity onPress={() => toggleModal()}style={styles.button1} title="Hide modal"><Text style={styles.buttonTitle}>Close Screen</Text></TouchableOpacity>
                     </View>
                 )
@@ -174,30 +185,30 @@ const Profile = ({navigation}) => {
     const [eventId, setEventId] = useState()
 
     // var for reminder event details, used to display on screen for user NEED TO FINISH IMPLEMENTING
-    const [eventInfoText, setEventInfoText] = useState()
+    // const [eventInfoText, setEventInfoText] = useState()
   
     //retrieve eventId when re render 
-    useEffect(() => {
-        const asyncFetch = async () => {
+    const asyncFetch = async () => {
             const eventIdent = await AsyncStorage.getItem("eventID");
             if (eventIdent) {
                 // setter from useState
                 setEventId(JSON.parse(eventIdent));
             }
-        };
+    };
+    useEffect(() => {
         asyncFetch();
     }, []);
 
+    const asyncStore = async () => {
+        
+        if(eventId){
+            await AsyncStorage.setItem("eventID", JSON.stringify(eventId));
+        }
+    };
+
     //save eventId for re render 
     useEffect(() => {
-
-        const asyncStore = async () => {
-        
-            if(eventId){
-                await AsyncStorage.setItem("eventID", JSON.stringify(eventId));
-            }
-        };
-
+        asyncStore();
     }, [eventId]);
 
     const addEventToCalendar= (title, startDateUTC) => {
@@ -247,19 +258,18 @@ const Profile = ({navigation}) => {
     
     //I want the useEffect hook to populate uri value on every re render with the url from the user profile from Firebase
     const user = auth().currentUser
-    const getPhoto =  () => {
+    const getPhoto = async () => {
         try {
-            const userPhoto  = user.photoURL
-            console.log(userPhoto)
+            const ref = storage().ref(auth().currentUser.displayName);
+            const userPhoto = await ref.getDownloadURL();
             setUri(userPhoto); 
            
         } catch {
-            console.log("Error")
+            console.log("No user photo saved in Firebase")
         }
     };
 
     useEffect(() => {
-        console.log("EFFECT ")
         getPhoto()
     }, [])
 
@@ -272,9 +282,25 @@ const Profile = ({navigation}) => {
         cropping: true,
         }).then((image) => {
         setUri(image.path);
-        user.updateProfile({photoURL: image.path});
+        store_new_image()
+        // user.updateProfile({photoURL: image.path});
         });
     };
+
+    //NEED TO DO: Stall user while image loads
+    const store_new_image = () =>{
+        const image_upload = storage()
+        .ref(auth().currentUser.displayName)
+        .putFile(uri.toString())
+        .then((snapshot) => {
+            //After uploading the picture then update profile 
+            // const reference = storage().ref(uri.toString());
+            // user.updateProfile({photoURL: reference});
+            //You can check the image is now uploaded in the storage bucket
+            console.log(`Image has been successfully uploaded.`);
+        })
+        .catch((e) => console.log('uploading image error => ', e));
+    } 
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -291,15 +317,15 @@ const Profile = ({navigation}) => {
         last_name = name.substring((n - 1) + 2)
     }
         
+    // retunr the loading screen to wait for all components to render
 
+    //after timeout for rendering components is done return the profile view
     return (
         <ScrollView style={styles1.scroll}>
         <ImageBackground  style={{width: '100%', height: '100%'}} source={require("../images/profile-background.jpg")} >
             <View style={styles1.userRow}>
                 <Avatar
-                // style={styles1.avatar}
                 onPress={() =>pickPicture()}
-                // source={auth().currentUser.photoURL} 
                 source={{uri }}
                 size="xlarge"
                 rounded
