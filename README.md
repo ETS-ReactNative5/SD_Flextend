@@ -39,12 +39,18 @@ Other
 * npm install --save react-native-calendar-events
 * moment
 * @react-native-picker/picker --save
+* npm i @react-native-community/checkbox rn-checkbox-list
 
+Loading screen
+* npm install --save react-native-animated-splash-screen
 
 
 
 Image picker for profile
 * npm install react-native-image-crop-picker
+
+For storing profile chosen image in Firebase storage
+* @react-native-firebase/storage
 
 Pop Up Screens
 * react-native-modal 

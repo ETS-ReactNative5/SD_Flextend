@@ -1,68 +1,114 @@
 import React from 'react';
-import { TouchableOpacity, Text, View, Image, ScrollView} from 'react-native';
+import {useState, useEffect} from 'react';
+import { TouchableOpacity, Text, View, Image, ScrollView, ActivityIndicator} from 'react-native';
 import { Avatar } from 'react-native-elements';
 import UserAvatar from 'react-native-user-avatar';
 
 import { firebase } from '@react-native-firebase/auth'
 import styles from '../styles/HomeStyle';
 import auth from '@react-native-firebase/auth'
+import CheckboxList from 'rn-checkbox-list';
 
+import firestore from '@react-native-firebase/firestore';
 
-export default class HomeScreen extends React.Component {
+import { useFocusEffect } from '@react-navigation/native';
 
-    // static navigationOptions = {
-    //     title: 'HomeScreen',
-    // };
+export default function Home({navigation}) {
 
-    render() {
-        const navigate = this.props.navigation.navigate;
-
-        const logout = () => {
+    const logout = () => {
+        console.log(firebase.auth().currentUser);
+        firebase.auth().signOut().then(() => {
             console.log(firebase.auth().currentUser);
-            firebase.auth().signOut().then(() => {
-                console.log(firebase.auth().currentUser);
-           });
-        }
-
-        if(auth().currentUser != null){
-            const name = firebase.auth().currentUser.displayName;
-            var first_name = ''
-            var last_name = ''
-
-            if (name != null)
-            {
-                var n = name.indexOf(' ')
-            
-                first_name = name.substring(0, n)
-                last_name = name.substring((n - 1) + 2)
-            }
-        }
-
-        return (
-            <ScrollView style= {styles.container}>
-                <Text style={styles.welcome_message}> Welcome to Flextend!</Text>
-                <Text style={styles.italic}> Your at-home knee monitoring platform </Text>
-                <Image
-                    style={styles.home_image}
-                    source={require("../images/home_image.jpg")}
-                />
-                {/* <TouchableOpacity onPress={() => navigate( 'BLE' )} style={styles.button3}><Text style={styles.buttonTitle}>Set Up BLE Communication</Text></TouchableOpacity> */}
-                <TouchableOpacity onPress={() => navigate( 'Live Measure' )} style={styles.button1}><Text style={styles.buttonTitle}>Start Tracking</Text></TouchableOpacity>
-                <TouchableOpacity onPress={() => navigate( 'Previous Results' )} style={styles.button3}><Text style={styles.buttonTitle}>Previous Results</Text></TouchableOpacity>
-                <TouchableOpacity onPress={() => logout()} style={styles.button2}><Text style={styles.buttonTitle}>Sign Out</Text></TouchableOpacity>
-                
-                {/* Avatar to access user profile */}
-                <View style= {styles.container2}>
-                    <Avatar
-                        size={120}
-                        containerStyle={{backgroundColor: '#ffdab9'}}
-                        rounded
-                        title={first_name[0] + last_name[0]}
-                        //on press navigate to profile screen 
-                        onPress={() => navigate( 'Profile' )}
-                    />
-                </View>
-            </ScrollView>
-        );
+        });
     }
+
+    if(auth().currentUser != null){
+        const name = firebase.auth().currentUser.displayName;
+        var first_name = ''
+        var last_name = ''
+
+        if (name != null)
+        {
+            var n = name.indexOf(' ')
+        
+            first_name = name.substring(0, n)
+            last_name = name.substring((n - 1) + 2)
+        }
+    }
+
+    const [goalsData, setGoalsData] = useState();
+    const userID = auth().currentUser.phoneNumber;
+
+    useFocusEffect(
+        React.useCallback(() => {
+            let isActive = true;
+
+            const pull_data = async () => {
+                try {
+                    const documentSnapshot = await firestore()
+                        .collection('users')
+                        .doc(userID)
+                        .get();
+
+                    if (documentSnapshot.data() == null )
+                    {
+                        console.log("Data is null")
+                    }
+                    else{
+                        console.log(documentSnapshot.data()["goals"])
+                        data = []
+                        for(let i = 0; i < documentSnapshot.data()["goals"].length; i++){
+                            data.push({id: i+1, name: documentSnapshot.data()["goals"][i]})
+                        }
+                        setGoalsData(data)
+                    }
+                }
+                catch {
+                }
+            }
+
+            pull_data()
+
+            return () => {
+                isActive = false;
+                };
+        }, [])
+    );
+
+    return (
+        <ScrollView style= {styles.container}>
+            <Text style={styles.welcome_message}> Welcome to Flextend!</Text>
+            <Text style={styles.italic}> Your at-home knee monitoring platform </Text>
+            <Image
+                style={styles.home_image}
+                source={require("../images/home_image.jpg")}
+            />
+            {/* <TouchableOpacity onPress={() => navigate( 'BLE' )} style={styles.button3}><Text style={styles.buttonTitle}>Set Up BLE Communication</Text></TouchableOpacity> */}
+            <TouchableOpacity onPress={() => navigation.navigate( 'Live Measure' )} style={styles.button1}><Text style={styles.buttonTitle}>Start Tracking</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate( 'Previous Results' )} style={styles.button3}><Text style={styles.buttonTitle}>Previous Results</Text></TouchableOpacity>
+
+            {/* Goals Checklist */}
+            <CheckboxList
+                headerName="Goals"
+                theme="red"
+                listItems={goalsData}
+                listItemStyle={{ alignItems: 'center', borderBottomWidth: 0 }}
+            />
+
+            <TouchableOpacity onPress={() => logout()} style={styles.button2}><Text style={styles.buttonTitle}>Sign Out</Text></TouchableOpacity>
+            
+            {/* Avatar to access user profile */}
+            <View style= {styles.container2}>
+                <Avatar
+                    size={120}
+                    containerStyle={{backgroundColor: '#ffdab9'}}
+                    rounded
+                    title={first_name[0] + last_name[0]}
+                    //on press navigate to profile screen 
+                    onPress={() => navigation.navigate( 'Profile' )}
+                />
+            </View>
+        </ScrollView>
+    );
+
 }
