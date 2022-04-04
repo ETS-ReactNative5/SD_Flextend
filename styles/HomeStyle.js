@@ -55,6 +55,7 @@ export default StyleSheet.create({
         marginLeft: 30,
         marginRight: 30,
         marginTop: 20,
+        marginBottom: 15,
         height: 40,
         borderRadius: 5,
         alignItems: "center",
@@ -95,6 +96,6 @@ export default StyleSheet.create({
         fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
         alignSelf: "center",
         color: '#c71585',
-        marginBottom: 40
+        marginBottom: 40,
     }
 })
