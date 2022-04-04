@@ -87,5 +87,14 @@ export default StyleSheet.create({
         borderRadius: 0,
         borderColor: 'transparent',
         justifyContent: 'flex-start'
+    },
+    welcome_message2: {
+        fontSize: 30,
+        marginTop: 20,
+        fontWeight: 'bold',
+        fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
+        alignSelf: "center",
+        color: '#c71585',
+        marginBottom: 40
     }
 })

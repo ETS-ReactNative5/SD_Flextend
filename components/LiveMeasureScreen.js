@@ -179,9 +179,9 @@ export default class HomeScreen extends React.Component {
 
         return (
             <View>
-                <Text style={styles.title}> Start Measuring</Text>
-                <Text style={styles.result_text}>Flexion: {this.state.flexion}</Text>
-                <Text style={styles.result_text}>Extension: {this.state.extension}</Text>
+                <Text style={styles.welcome_message2}> Start Measuring</Text>
+                <Text style={styles.welcome_message2}>Flexion: {this.state.flexion}</Text>
+                <Text style={styles.welcome_message2}>Extension: {this.state.extension}</Text>
                 <TouchableOpacity onPress={() => this.beginMeasuring()} style={styles.button1}><Text style={styles.buttonTitle}>Begin Measuring</Text></TouchableOpacity>
                 <TouchableOpacity onPress={() => this.stopMeasuring()} style={styles.button3}><Text style={styles.buttonTitle}>Stop Measuring</Text></TouchableOpacity>
                 <TouchableOpacity onPress={() => this.calibrate()} style={styles.button3}><Text style={styles.buttonTitle}>Calibrate</Text></TouchableOpacity>

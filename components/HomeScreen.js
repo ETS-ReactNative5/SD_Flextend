@@ -87,16 +87,6 @@ export default function Home({navigation}) {
             <TouchableOpacity onPress={() => navigation.navigate( 'Live Measure' )} style={styles.button1}><Text style={styles.buttonTitle}>Start Tracking</Text></TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate( 'Previous Results' )} style={styles.button3}><Text style={styles.buttonTitle}>Previous Results</Text></TouchableOpacity>
 
-            {/* Goals Checklist */}
-            <CheckboxList
-                headerName="Goals"
-                theme="red"
-                listItems={goalsData}
-                listItemStyle={{ alignItems: 'center', borderBottomWidth: 0 }}
-            />
-
-            <TouchableOpacity onPress={() => logout()} style={styles.button2}><Text style={styles.buttonTitle}>Sign Out</Text></TouchableOpacity>
-            
             {/* Avatar to access user profile */}
             <View style= {styles.container2}>
                 <Avatar
@@ -108,7 +98,24 @@ export default function Home({navigation}) {
                     onPress={() => navigation.navigate( 'Profile' )}
                 />
             </View>
+            
+            <Text style={styles.welcome_message}>Goals</Text>
+            {/* Goals Checklist */}
+            <CheckboxList
+                theme="green"
+                listItems={goalsData}
+                listItemStyle={{  
+                    borderBottomWidth: 0, 
+                    marginTop: 10,
+                    marginLeft: 50
+                    }}
+                style={styles.dayCheckBox}
+            />
+
+            <TouchableOpacity onPress={() => logout()} style={styles.button2}><Text style={styles.buttonTitle}>Sign Out</Text></TouchableOpacity>
         </ScrollView>
+
+        
     );
 
 }
