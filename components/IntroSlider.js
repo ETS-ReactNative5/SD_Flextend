@@ -81,9 +81,6 @@ const IntroSlider = ({navigation}) => {
   }
 
   
-  
-
-  
   return (
     <AppIntroSlider 
       renderItem={renderItem} 

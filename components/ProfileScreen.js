@@ -260,12 +260,13 @@ const Profile = ({navigation}) => {
     const user = auth().currentUser
     const getPhoto = async () => {
         try {
-            const ref = storage().ref(auth().currentUser.displayName);
-            const userPhoto = await ref.getDownloadURL();
-            setUri(userPhoto); 
-           
+            const user_ref = storage().ref(auth().currentUser.displayName);
+            const userPhoto = await user_ref.getDownloadURL();
         } catch {
             console.log("No user photo saved in Firebase")
+            const placeholder_ref = storage().ref('profile_placeholder.png');
+            const placeholderPhoto = await placeholder_ref.getDownloadURL();
+            setUri(placeholderPhoto)
         }
     };
 
@@ -326,11 +327,11 @@ const Profile = ({navigation}) => {
             <View style={styles1.userRow}>
                 <Avatar
                 onPress={() =>pickPicture()}
-                source={{uri }}
+                source={{uri}}
                 size="xlarge"
                 rounded
                 />
-                <Text style={{color: 'white'}}>{first_name} {last_name}</Text>
+                <Text style={{color: 'white', fontSize: 30}}>{first_name} {last_name}</Text>
             </View>      
            {/* VIEW UNDER AVATAR STARTS HERE */}
             <View style={styles1.content}>
