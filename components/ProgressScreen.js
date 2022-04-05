@@ -38,7 +38,9 @@ export default function Progress() {
     }, [])
 
     const user_data = data;
+    console.log(user_data)
     const user_keys = Object.keys(user_data).sort()
+    console.log(user_keys)
     
     var labels = []
     var flexion_array = []
@@ -47,17 +49,17 @@ export default function Progress() {
     var i = 0
     for (i; i < user_keys.length; i++) {
         var date = user_keys[i]
-        labels.push(date.substring(0, 9))
+        labels.push(date.substring(4, 10))
     }
 
     var j = 0;
     for (j; j < user_keys.length; j++) {
-        flexion_array.push(user_data[user_keys[j]][0]) 
+        flexion_array.push(user_data[user_keys[j]]["flexion"]) 
     }
 
     var k = 0;
     for (k; k < user_keys.length; k++) {
-        extension_array.push(user_data[user_keys[k]][1])
+        extension_array.push(user_data[user_keys[k]]["extension"])
     }
 
     console.log(flexion_array)

@@ -25,11 +25,15 @@ export default function PreviousResults() {
             }
             else {
                 const user_data = documentSnapshot.data();
+                console.log(user_data)
                 const user_keys = Object.keys(user_data).sort().reverse()
+                console.log(user_keys)
                 const recent = user_keys[0]
+                console.log(recent)
                 const values = user_data[recent.toString()]
-                setFlexion(values[0]);
-                setExtension(values[1]);
+                console.log(values)
+                setFlexion(values["flexion"]);
+                setExtension(values["extension"]);
             }
         } catch {
             console.log("Error")
@@ -42,29 +46,28 @@ export default function PreviousResults() {
 
     var noData = false;
 
+    console.log(flexion)
+    console.log(extension)
+
     if (flexion == 0 && extension == 0)
     {
         noData = true;
     }
     
     var flexion_data = {
-        labels: ["Flexion"],
-        data: [flexion / 135]
+        data: [(90 - flexion) / 90]
     }
 
     var extension_data = {
-        labels: ["Extension"],
-        data: [(135 - extension) / 135]
+        data: [extension / 180]
     }
 
     if (noData == true) {
         flexion_data = {
-            labels: ["Flexion"],
             data: [0]
         }
 
         extension_data = {
-            labels: ["Extension"],
             data: [0]
         }
     }
@@ -112,7 +115,7 @@ export default function PreviousResults() {
             <Text style={styles.chart_title}>Progress toward perfect knee extension...</Text>
             <ProgressChart
                 data={extension_data}
-                width={Platform.OS === 'ios' ? screenWidth : screenWidth - 10}
+                width={Platform.OS === 'ios' ? screenWidth : screenWidth}
                 height={120}
                 strokeWidth={16}
                 chartConfig={{
