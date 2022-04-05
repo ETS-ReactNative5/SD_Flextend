@@ -151,7 +151,7 @@ const Profile = ({navigation}) => {
                     <Text style={styles1.modal_text}>Use this feature to add events to your calendar to keep measuring with Flextend!</Text>
                     {eventId? <TouchableOpacity onPress={() => editCalendarEventWithId(eventId)} style={styles.button2}><Text style={styles.buttonTitle}>Edit</Text></TouchableOpacity> 
                     : 
-                    <TouchableOpacity onPress={() => addEventToCalendar()} style={styles.button2}><Text style={styles.buttonTitle}>Add</Text></TouchableOpacity>}
+                    <TouchableOpacity onPress={() => addEventToCalendar()} style={styles.button2Reminder}><Text style={styles.buttonTitle}>Add</Text></TouchableOpacity>}
                     <TouchableOpacity onPress={() => toggleModal()}style={styles.button1} title="Hide modal"><Text style={styles.buttonTitle}>Close Screen</Text></TouchableOpacity>
                     </View>
                 )
@@ -331,7 +331,7 @@ const Profile = ({navigation}) => {
                 size="xlarge"
                 rounded
                 />
-                <Text style={{color: 'white', fontSize: 30}}>{first_name} {last_name}</Text>
+                <Text style={{color: 'white', fontSize: 30, marginTop: 20, fontWeight: 'bold'}}>{first_name} {last_name}</Text>
             </View>      
            {/* VIEW UNDER AVATAR STARTS HERE */}
             <View style={styles1.content}>

@@ -97,5 +97,16 @@ export default StyleSheet.create({
         alignSelf: "center",
         color: '#c71585',
         marginBottom: 40,
-    }
+    },
+    button2Reminder: {
+        backgroundColor: '#ffa500',
+        marginLeft: 30,
+        marginRight: 30,
+        marginTop: 40,
+        marginBottom: 5,
+        height: 40,
+        borderRadius: 5,
+        alignItems: "center",
+        justifyContent: 'center'
+    },
 })

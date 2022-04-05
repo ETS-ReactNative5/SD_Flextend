@@ -86,6 +86,7 @@ export default function Home({navigation}) {
             {/* <TouchableOpacity onPress={() => navigate( 'BLE' )} style={styles.button3}><Text style={styles.buttonTitle}>Set Up BLE Communication</Text></TouchableOpacity> */}
             <TouchableOpacity onPress={() => navigation.navigate( 'Live Measure' )} style={styles.button1}><Text style={styles.buttonTitle}>Start Tracking</Text></TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate( 'Previous Results' )} style={styles.button3}><Text style={styles.buttonTitle}>Previous Results</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => logout()} style={styles.button2}><Text style={styles.buttonTitle}>Sign Out</Text></TouchableOpacity>
 
             {/* Avatar to access user profile */}
             <View style= {styles.container2}>
@@ -108,12 +109,10 @@ export default function Home({navigation}) {
                     borderBottomWidth: 0, 
                     marginTop: 10,
                     marginLeft: 50,
-                    marginBottom: -10
+                    marginBottom: 10
                     }}
                 style={styles.dayCheckBox}
             />
-
-            <TouchableOpacity onPress={() => logout()} style={styles.button2}><Text style={styles.buttonTitle}>Sign Out</Text></TouchableOpacity>
         </ScrollView> 
      );
 }
