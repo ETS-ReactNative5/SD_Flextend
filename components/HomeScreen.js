@@ -108,7 +108,7 @@ export default function Home({navigation}) {
                 listItemStyle={{  
                     borderBottomWidth: 0, 
                     marginTop: 10,
-                    marginLeft: 50,
+                    marginLeft: 35,
                     marginBottom: 10
                     }}
                 style={styles.dayCheckBox}
