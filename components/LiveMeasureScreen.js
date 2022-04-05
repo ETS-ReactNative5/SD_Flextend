@@ -163,7 +163,7 @@ export default class HomeScreen extends React.Component {
 
     async componentWillUnmount() {
         firestore().collection('knee health').doc(auth().currentUser.phoneNumber).set(
-            {measurment: firebase.firestore.FieldValue.arrayUnion(this.state.flexion, this.state.extension, this.state.date)}),
+            {[this.state.date]: {flexion: this.state.flexion, extension: this.state.extension} }, {merge: true})
         manager.cancelTransaction(flexion_id);
         manager.cancelTransaction(extension_id);
         disconnect_subscription.remove();
