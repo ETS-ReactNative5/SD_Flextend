@@ -74,36 +74,36 @@ export default function ReportScreen() {
     var i = 0
     for (i; i < user_keys.length; i++) {
         var date = user_keys[i]
-        labels.push(date.substring(0, 9))
+        labels.push(date.substring(4, 10))
     }
 
     var j = 0;
     for (j; j < user_keys.length; j++) {
-        flexion_array.push(user_data[user_keys[j]][0]) 
+        flexion_array.push(user_data[user_keys[j]]["flexion"]) 
     }
 
     var k = 0;
     for (k; k < user_keys.length; k++) {
-        extension_array.push(user_data[user_keys[k]][1])
+        extension_array.push(user_data[user_keys[k]]["extension"])
     }
 
     var l = 0;
-    var largest = 0;
+    var smallest = 180;
     for (l; l < flexion_array.length; l++)
     {
-        if (flexion_array[l] > largest)
+        if (flexion_array[l] < smallest)
         {
-            largest = flexion_array[l]
+            smallest = flexion_array[l]
         }
     }
 
     var m = 0;
-    var smallest = 135;
+    var largest = 0;
     for (m; m < extension_array.length; m++)
     {
-        if (extension_array[m] < smallest)
+        if (extension_array[m] > largest)
         {
-            smallest = extension_array[m]
+            largest = extension_array[m]
         }
     }
 
@@ -195,15 +195,13 @@ export default function ReportScreen() {
     return (
         <View>
             <Text style={styles.Title}>Here is Your Generated Report</Text>
-            <Text style={styles.text}>Best Flexion Value Overall: {largest}</Text>
-            <Text style={styles.text}>Best Extension Value Overall: {smallest}</Text>
+            <Text style={styles.text}>Best Flexion Value Overall: {smallest}</Text>
+            <Text style={styles.text}>Best Extension Value Overall: {largest}</Text>
             <Text style={styles.Title}>Age: {age} </Text>
             <Text style={styles.section_text}>Flexion</Text>
             <Text style={styles.info_text}>{flexion_age_message}</Text>
             <Text style={styles.section_text}>Extension</Text>
             <Text style={styles.info_text}>{extension_age_message}</Text>
-            <Text style={styles.Title}>Weight: {weight}</Text>
-            <Text style={styles.Title}>Height: {height}</Text>
         </View>
     )
 }
