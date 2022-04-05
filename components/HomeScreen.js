@@ -107,15 +107,13 @@ export default function Home({navigation}) {
                 listItemStyle={{  
                     borderBottomWidth: 0, 
                     marginTop: 10,
-                    marginLeft: 50
+                    marginLeft: 50,
+                    marginBottom: -10
                     }}
                 style={styles.dayCheckBox}
             />
 
             <TouchableOpacity onPress={() => logout()} style={styles.button2}><Text style={styles.buttonTitle}>Sign Out</Text></TouchableOpacity>
-        </ScrollView>
-
-        
-    );
-
+        </ScrollView> 
+     );
 }

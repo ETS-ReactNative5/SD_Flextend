@@ -4,7 +4,7 @@ import { BleManager, Device } from 'react-native-ble-plx';
 import base64 from 'react-native-base64';
 
 import firestore from '@react-native-firebase/firestore'
-import auth from '@react-native-firebase/auth'
+import auth, {firebase} from '@react-native-firebase/auth'
 import styles from '../styles/HomeStyle';
 
 const manager = new BleManager();
@@ -32,7 +32,8 @@ export default class HomeScreen extends React.Component {
             isConnected: false,
             intendedDisconnect: false,
             flexion: 0,
-            extension : 0
+            extension : 0,
+            date: firebase.firestore.Timestamp.now().toDate()
         };
     }
 
@@ -48,7 +49,7 @@ export default class HomeScreen extends React.Component {
         // display the Activityindicator
         // setIsLoading(true);
         // return_device = "";
-
+        console.log(this.state.date)
         // scan devices
         manager.startDeviceScan(null, null, async (error, device) => {
             if (error) {
@@ -161,9 +162,8 @@ export default class HomeScreen extends React.Component {
 
 
     async componentWillUnmount() {
-        // firestore().collection('knee health').doc(auth().currentUser.phoneNumber).set(
-        //     {'degrees':this.state.degrees}
-        // ) UNCOMMENT THIS WHEN DONE
+        firestore().collection('knee health').doc(auth().currentUser.phoneNumber).set(
+            {[this.state.date]: {flexion: this.state.flexion, extension: this.state.extension} }, {merge: true})
         manager.cancelTransaction(flexion_id);
         manager.cancelTransaction(extension_id);
         disconnect_subscription.remove();

@@ -336,9 +336,9 @@ const Profile = ({navigation}) => {
            {/* VIEW UNDER AVATAR STARTS HERE */}
             <View style={styles1.content}>
                 <TouchableOpacity onPress={() => toggleModal(BODY_METRICS)} style={styles.button1}><Text style={styles.buttonTitle}>Set Metrics</Text></TouchableOpacity>
-                <TouchableOpacity onPress={() => toggleModal(GOALS)} style={styles.button2}><Text style={styles.buttonTitle}>Set Goals</Text></TouchableOpacity>
+                <TouchableOpacity onPress={() => toggleModal(GOALS)} style={styles.button3}><Text style={styles.buttonTitle}>Set Goals</Text></TouchableOpacity>
                 <TouchableOpacity onPress={() => toggleModal(REMINDERS)} style={styles.button1}><Text style={styles.buttonTitle}>Set Reminders</Text></TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate("Progress")} style={styles.button3}><Text style={styles.buttonTitle}>Progress</Text></TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("Progress")} style={styles.button2}><Text style={styles.buttonTitle}>Progress</Text></TouchableOpacity>
                 
                 <Modal isVisible={isShowing} style={styles1.modalView} >
                     <View>
