@@ -54,10 +54,10 @@ const Profile = ({navigation}) => {
     const [goal, setGoal] = useState('')
 
     const metricsToFirebase = () => {
-        firestore().collection('users').doc(auth().currentUser.phoneNumber).update(
+        firestore().collection('users').doc(auth().currentUser.phoneNumber).set(
             {'age':selectedAge}
         )
-        firestore().collection('users').doc(auth().currentUser.phoneNumber).update(
+        firestore().collection('users').doc(auth().currentUser.phoneNumber).set(
             {'recent_surgery':selectedStatus}
         )
     }
@@ -70,7 +70,7 @@ const Profile = ({navigation}) => {
 
     const renderGoals = (goal) => {
         toggleModal()
-        firestore().collection('users').doc(auth().currentUser.phoneNumber).update(
+        firestore().collection('users').doc(auth().currentUser.phoneNumber).set(
             {goals: firebase.firestore.FieldValue.arrayUnion(goal)}
         )
     }
