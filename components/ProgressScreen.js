@@ -38,7 +38,6 @@ export default function Progress() {
     }, [])
 
     const user_data = data;
-    console.log(user_data)
     const user_keys = Object.keys(user_data).sort()
     console.log(user_keys)
     
@@ -49,7 +48,7 @@ export default function Progress() {
     var i = 0
     for (i; i < user_keys.length; i++) {
         var date = user_keys[i]
-        labels.push(date.substring(4, 10))
+        labels.push(date.substring(5, 10))
     }
 
     var j = 0;
@@ -62,8 +61,25 @@ export default function Progress() {
         extension_array.push(user_data[user_keys[k]]["extension"])
     }
 
-    console.log(flexion_array)
-    console.log(extension_array)
+    if (labels.length > 5)
+    {
+        labels = labels.reverse()
+        labels.pop()
+        labels = labels.reverse()
+    }
+    if (flexion_array.length > 5)
+    {
+        flexion_array = flexion_array.reverse()
+        flexion_array.pop()
+        flexion_array = flexion_array.reverse()
+    }
+
+    if (extension_array.length > 5)
+    {
+        extension_array = extension_array.reverse()
+        extension_array.pop()
+        extension_array = extension_array.reverse()
+    }
 
     const name = auth().currentUser.displayName;
     var first_name = ''

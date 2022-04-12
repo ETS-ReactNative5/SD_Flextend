@@ -33,7 +33,7 @@ export default class HomeScreen extends React.Component {
             intendedDisconnect: false,
             flexion: 0,
             extension : 0,
-            date: firebase.firestore.Timestamp.now().toDate()
+            date: firebase.firestore.Timestamp.now().toDate().toISOString()
         };
     }
 
