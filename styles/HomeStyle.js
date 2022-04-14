@@ -3,13 +3,13 @@ import { Platform, StyleSheet } from 'react-native';
 export default StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fffafa' 
+        backgroundColor: '#87cefa' 
     },
     container2: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#fffafa',
+        backgroundColor: '#87cefa',
         paddingTop: Platform.OS === 'ios' ? 30 : 40,
         paddingBottom: 20
     },
@@ -25,7 +25,7 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
         alignSelf: "center",
-        color: '#c71585',
+        color: '#1e90ff',
     },
     italic: {
         fontSize: 15,
@@ -41,7 +41,7 @@ export default StyleSheet.create({
         margin: 30,
     },
     button1: {
-        backgroundColor: '#fa8072',
+        backgroundColor: '#1e90ff',
         marginLeft: 30,
         marginRight: 30,
         marginTop: 20,
@@ -51,7 +51,7 @@ export default StyleSheet.create({
         justifyContent: 'center'
     },
     button2: {
-        backgroundColor: '#ffa500',
+        backgroundColor: '#1e90ff',
         marginLeft: 30,
         marginRight: 30,
         marginTop: 20,
@@ -62,7 +62,7 @@ export default StyleSheet.create({
         justifyContent: 'center'
     },
     button3: {
-        backgroundColor: '#ff0f90',
+        backgroundColor: '#1e90ff',
         marginLeft: 30,
         marginRight: 30,
         marginTop: 20,

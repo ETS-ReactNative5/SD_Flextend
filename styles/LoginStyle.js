@@ -3,7 +3,7 @@ import { StyleSheet, Platform, Dimensions } from 'react-native'
 export default StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#fff'
+      backgroundColor: '#87cefa'
     },
     page: {
       flex: 3,
@@ -24,13 +24,13 @@ export default StyleSheet.create({
       fontWeight: 'bold'
     },
     text: {
-      marginTop: Platform.OS === 'ios' ? 20 : 20,
+      marginTop: Platform.OS === 'ios' ? 100 : 20,
       fontSize: 24,
       textAlign: 'center',
       paddingLeft: 10,
       fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
       fontWeight: 'bold', 
-      color: '#fa8072'
+      color: '#191970'
     },
     format: {
       marginTop: 20,
@@ -39,10 +39,10 @@ export default StyleSheet.create({
       paddingLeft: 10,
       fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
       fontWeight: 'bold',
-      color: '#ff0f90'
+      color: '#191970'
     },
     themeButton: {
-      backgroundColor: '#ffa500', 
+      backgroundColor: '#1e90ff', 
       marginLeft: 30,
       marginRight: 30,
       marginTop: 20,
@@ -66,7 +66,7 @@ export default StyleSheet.create({
     },
     image: {
         width: Dimensions.get("window").width,
-        marginTop: Platform.OS === 'ios' ? 20 : 15,
+        marginTop: Platform.OS === 'ios' ? 100 : 90,
         height: 85,
         backgroundColor: 'white',
         resizeMode: 'contain',

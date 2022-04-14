@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { View, Text, Button, LogBox } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { firebase } from '@react-native-firebase/auth';
 
 //importing components for page routings
@@ -20,9 +21,11 @@ import RegistrationScreen from "./components/Registration";
 import ReportScreen from "./components/ReportScreen";
 
 
-const Stack = createNativeStackNavigator();
-
 LogBox.ignoreAllLogs(true)
+
+
+//main stack 
+const Stack = createNativeStackNavigator();
 
 const App = () =>{
 
@@ -46,12 +49,11 @@ const App = () =>{
     return (
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="Guide" component={IntroSlider} />
           <Stack.Screen name="Home" component={HomeScreen} 
            options={({route, navigation}) => ({ // get reference to navigation
             headerRight: () => (
                 <Button
-                  onPress={() => navigation.navigate('Guide')} // call .navigate on navigation
+                  onPress={() => navigation.navigate('Guide')} 
                   title="Guide"
                   color="red"
                 />
@@ -59,25 +61,27 @@ const App = () =>{
             })
           }
           />
-          <Stack.Screen name="Live Measure" component={LiveMeasureScreen} />
-          <Stack.Screen name="Previous Results" component={PreviousResults} />
+          <Stack.Screen name="Live Measure" component={LiveMeasureScreen} options={{headerTransparent: true,}}/>
+          <Stack.Screen name="Previous Results" component={PreviousResults} options={{headerTransparent: true,}}/>
           <Stack.Screen name="Progress" component={ProgressScreen} 
-            options={({route, navigation}) => ({ // get reference to navigation
-              headerRight: () => (
-                  <Button
-                    onPress={() => navigation.navigate('Report')} // call .navigate on navigation
-                    title="Generate Report"
-                    color="red"
-                  />
-                  )
+            options={({route, navigation }) => 
+              ({ // get reference to navigation
+                headerRight: () => (
+                    <Button
+                      onPress={() => navigation.navigate('Report')} 
+                      title="Generate Report"
+                      color="red"
+                    />
+                )
               })
             }
           />
-          <Stack.Screen name="BLE" component={BLEScreen} />
-          <Stack.Screen name="Device" component={DeviceScreen} />
-          <Stack.Screen name="Profile" component={ProfileScreen} />
-          <Stack.Screen name="Events" component={CalendarEventTEST} />
-          <Stack.Screen name="Report" component={ReportScreen} />
+          <Stack.Screen name="Guide" component={IntroSlider} options={{headerTransparent: true,}}/>
+          <Stack.Screen name="BLE" component={BLEScreen} options={{headerTransparent: true,}}/>
+          <Stack.Screen name="Device" component={DeviceScreen} options={{headerTransparent: true,}}/>
+          <Stack.Screen name="Profile" component={ProfileScreen} options={{headerTransparent: true,}}/>
+          <Stack.Screen name="Events" component={CalendarEventTEST} options={{headerTransparent: true,}} />
+          <Stack.Screen name="Report" component={ReportScreen} options={{headerTransparent: true,}}/>
         </Stack.Navigator>
       </NavigationContainer>
     );
@@ -86,11 +90,11 @@ const App = () =>{
   return (
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="Login" component={LoginScreen} />
-          <Stack.Screen name="Registration" component={RegistrationScreen}/>
+          <Stack.Screen name="Login" component={LoginScreen} options={{headerTransparent: true,}}/>
+          <Stack.Screen name="Registration" component={RegistrationScreen} options={{headerTransparent: true,}}/>
         </Stack.Navigator>
       </NavigationContainer>
-    );
+  );
 }
 
 export default App;
