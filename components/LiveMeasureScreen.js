@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import { TouchableOpacity, Text, View, Button, Image} from 'react-native';
+import { TouchableOpacity, Text, View, Button, Image, ImageBackground} from 'react-native';
 import { BleManager, Device } from 'react-native-ble-plx';
 import base64 from 'react-native-base64';
 
 import firestore from '@react-native-firebase/firestore'
 import auth, {firebase} from '@react-native-firebase/auth'
-import styles from '../styles/HomeStyle';
+import styles from '../styles/MeasuringStyle';
 
 const manager = new BleManager();
 let disconnect_subscription;
@@ -179,12 +179,16 @@ export default class HomeScreen extends React.Component {
 
         return (
             <View>
-                <Text style={styles.welcome_message2}> Start Measuring</Text>
-                <Text style={styles.welcome_message2}>Flexion: {this.state.flexion}</Text>
-                <Text style={styles.welcome_message2}>Extension: {this.state.extension}</Text>
-                <TouchableOpacity onPress={() => this.beginMeasuring()} style={styles.button1}><Text style={styles.buttonTitle}>Begin Measuring</Text></TouchableOpacity>
-                <TouchableOpacity onPress={() => this.stopMeasuring()} style={styles.button3}><Text style={styles.buttonTitle}>Stop Measuring</Text></TouchableOpacity>
-                <TouchableOpacity onPress={() => this.calibrate()} style={styles.button3}><Text style={styles.buttonTitle}>Calibrate</Text></TouchableOpacity>
+                <ImageBackground source={require('../images/measure-background.png')} style={{width: '100%', height: '100%', resizeMode:'contain'}}  >
+                    <Text style={styles.welcome_message}> Start Measuring</Text>
+                    <View style={styles.container2}>
+                        <Text style={styles.text}>Flexion: {this.state.flexion}</Text>
+                        <Text style={styles.text2}>Extension: {this.state.extension}</Text>
+                    </View>
+                    <TouchableOpacity onPress={() => this.beginMeasuring()} style={styles.button1}><Text style={styles.buttonTitle}>Begin Measuring</Text></TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.stopMeasuring()} style={styles.button2}><Text style={styles.buttonTitle}>Stop Measuring</Text></TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.calibrate()} style={styles.button2}><Text style={styles.buttonTitle}>Calibrate</Text></TouchableOpacity>
+                </ImageBackground>
             </View>
 
         );

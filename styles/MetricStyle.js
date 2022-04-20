@@ -2,7 +2,7 @@ import { Platform, StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
     title: {
-        marginTop: 20,
+        marginTop: 100,
         fontSize: 26,
         textAlign: 'center',
         paddingLeft: 10,
@@ -18,7 +18,7 @@ export default StyleSheet.create({
         paddingLeft: 10,
         fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
         fontWeight: 'bold',
-        color: '#c71585'
+        color: '#191970'
     },
     chart_title: {
         marginTop: 10, 
@@ -29,14 +29,21 @@ export default StyleSheet.create({
         fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
         fontStyle: 'italic',
         fontWeight: 'bold',
-        color: '#c71585'
+        color: '#191970'
     },
     result_text: {
-        marginTop: 0,
+        marginTop: 10,
         fontSize: 18,
         textAlign: 'center',
         paddingLeft: 10,
         fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
         color: 'black'
+    },
+    chartContainer: {
+        marginTop: 20,
+        backgroundColor: 'rgba(255,255,255,0.8)',
+        borderRadius: 80,
+        marginLeft: 20,
+        marginRight: 20
     }
 })

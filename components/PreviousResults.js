@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { View, Text, Dimensions } from 'react-native';
+import { View, Text, Dimensions, ScrollView, ImageBackground } from 'react-native';
 import { ProgressChart } from 'react-native-chart-kit';
 import styles from '../styles/MetricStyle'
 
@@ -85,57 +85,65 @@ export default function PreviousResults() {
 
     return (
         <View>
+        <ImageBackground source={require('../images/graphs.png')} style={{width: '100%', height: '100%', resizeMode:'contain'}}  >
+        <ScrollView>
             <Text style={styles.title}>Hello {first_name} {last_name}</Text>
             <Text style={styles.info_text}>Here are your most recent results:</Text>
-            <Text style={styles.result_text}>Flexion: {flexion} degrees</Text>
-            <Text style={styles.chart_title}>Progress toward perfect knee flexion...</Text>
-            <ProgressChart
-                data={flexion_data}
-                width={Platform.OS === 'ios' ? screenWidth : screenWidth - 10}
-                height={120}
-                strokeWidth={16}
-                chartConfig={{
-                    backgroundColor: 'white',
-                    backgroundGradientFromOpacity: 0,
-                    backgroundGradientTo: 'white',
-                    backgroundGradientToOpacity: 0,
-                    decimalPlaces: 0,
-                    color: (opacity = 1) => `rgba(255, 0, 0, ${opacity})`,
-                    style: {
-                      borderRadius: 16,
-                    },
-                }}
-                style={{
-                    marginVertical: 24,
-                    borderRadius: 20,
-                    borderColor: 'black'
-                }}
-            />
-            <Text style={styles.result_text}>Extension: {extension} degrees</Text>
-            <Text style={styles.chart_title}>Progress toward perfect knee extension...</Text>
-            <ProgressChart
-                data={extension_data}
-                width={Platform.OS === 'ios' ? screenWidth : screenWidth}
-                height={120}
-                strokeWidth={16}
-                chartConfig={{
-                    backgroundGradientFrom: "white",
-                    backgroundGradientFromOpacity: 0,
-                    backgroundGradientTo: "white",
-                    backgroundGradientToOpacity: 0,
-                    decimalPlaces: 2,
-                    color: (opacity = 1) => `rgba(255, 0, 0, ${opacity})`,
-                    style: {
-                      borderRadius: 16,
-                    },
-                }}
-                style={{
-                    marginVertical: 24,
-                    paddingRight: 50,
-                    borderRadius: 20,
-                    borderColor: 'black'
-                }}
-            />
-        </View>
+            <View style={styles.chartContainer}>
+                <Text style={styles.result_text}>Flexion: {flexion} degrees</Text>
+                <Text style={styles.chart_title}>Progress toward perfect knee flexion...</Text>
+                <ProgressChart
+                    data={flexion_data}
+                    width={Platform.OS === 'ios' ? screenWidth : screenWidth - 10}
+                    height={120}
+                    strokeWidth={16}
+                    chartConfig={{
+                        backgroundColor: 'white',
+                        backgroundGradientFromOpacity: 0,
+                        backgroundGradientTo: 'white',
+                        backgroundGradientToOpacity: 0,
+                        decimalPlaces: 0,
+                        color: (opacity = 1) => `rgba(255,140,0, ${opacity})`,
+                        style: {
+                        borderRadius: 16,
+                        },
+                    }}
+                    style={{
+                        marginVertical: 24,
+                        borderRadius: 20,
+                        borderColor: 'black'
+                    }}
+                />
+            </View>
+            <View style={styles.chartContainer}> 
+                <Text style={styles.result_text}>Extension: {extension} degrees</Text>
+                <Text style={styles.chart_title}>Progress toward perfect knee extension...</Text>
+                <ProgressChart
+                    data={extension_data}
+                    width={Platform.OS === 'ios' ? screenWidth : screenWidth}
+                    height={120}
+                    strokeWidth={16}
+                    chartConfig={{
+                        backgroundGradientFrom: "white",
+                        backgroundGradientFromOpacity: 0,
+                        backgroundGradientTo: "white",
+                        backgroundGradientToOpacity: 0,
+                        decimalPlaces: 2,
+                        color: (opacity = 1) => `rgba(255,140,0, ${opacity})`,
+                        style: {
+                        borderRadius: 16,
+                        },
+                    }}
+                    style={{
+                        marginVertical: 24,
+                        paddingRight: 50,
+                        borderRadius: 20,
+                        borderColor: 'black'
+                    }}
+                />
+            </View>
+        </ScrollView>
+        </ImageBackground>
+    </View>
     );  
 }

@@ -3,34 +3,49 @@ import { StyleSheet, Platform, Dimensions } from 'react-native'
 export default StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#87cefa'
+      // backgroundColor: '#87cefa'
     },
     page: {
       flex: 3,
       alignItems: 'center',
-      marginTop: 2
+      // backgroundColor:'rgba(255,255,255, 0.6)',
+      // marginTop: 2
     },
     textInput: {
+      backgroundColor: 'rgba(255,255,255, 0.6)',
       marginLeft: 30,
       marginRight: 30,
       marginTop: 20,
       height: 48,
       borderColor: '#555',
       borderWidth: 2,
-      borderRadius: 5,
+      borderRadius: 10,
       color: 'black',
       fontSize: 16,
       fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
       fontWeight: 'bold'
     },
     text: {
-      marginTop: Platform.OS === 'ios' ? 100 : 20,
+      marginTop: Platform.OS === 'ios' ? 300 : 300,
       fontSize: 24,
       textAlign: 'center',
       paddingLeft: 10,
       fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
       fontWeight: 'bold', 
-      color: '#191970'
+      color: 'black',
+      textShadowColor: 'white',
+      textShadowRadius: 20,
+    },
+    textRegister: {
+      marginTop: Platform.OS === 'ios' ? 100 : 100,
+      fontSize: 24,
+      textAlign: 'center',
+      paddingLeft: 10,
+      fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
+      fontWeight: 'bold', 
+      color: 'black',
+      textShadowColor: 'white',
+      textShadowRadius: 20,
     },
     format: {
       marginTop: 20,
@@ -39,10 +54,12 @@ export default StyleSheet.create({
       paddingLeft: 10,
       fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
       fontWeight: 'bold',
-      color: '#191970'
+      color: 'black',
+      textShadowColor: 'white',
+      textShadowRadius: 20
     },
     themeButton: {
-      backgroundColor: '#1e90ff', 
+      backgroundColor: '#87ceeb', 
       marginLeft: 30,
       marginRight: 30,
       marginTop: 20,
@@ -51,8 +68,21 @@ export default StyleSheet.create({
       alignItems: "center",
       justifyContent: 'center',
       borderColor: '#555',
-      borderWidth: 2,
-      borderRadius: 5
+      // borderWidth: 2,
+      borderRadius: 10
+    },
+    themeButtonRegister: {
+      backgroundColor: '#FFD700', 
+      marginLeft: 30,
+      marginRight: 30,
+      marginTop: 20,
+      height: 48,
+      borderRadius: 5,
+      alignItems: "center",
+      justifyContent: 'center',
+      borderColor: '#555',
+      // borderWidth: 2,
+      borderRadius: 10
     },
     themeButtonTitle: {
       fontSize: 24,

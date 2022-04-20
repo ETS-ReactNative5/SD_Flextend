@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { TouchableOpacity, View, Text, TextInput, Image } from 'react-native';
+import { TouchableOpacity, View, Text, TextInput, Image, ImageBackground } from 'react-native';
 import { firebase } from '@react-native-firebase/auth';
 import styles from "../styles/LoginStyle"
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -115,16 +115,17 @@ class LoginScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View>
-            <Image 
+      <ImageBackground source={require('../images/login-background.png')} style={{width: '100%', height: '100%', resizeMode:'contain'}}  >
+        {/* <View> */}
+            {/* <Image 
               style = {styles.image} 
               source = {require('../images/Logo.png')}
-            />
-        </View>
+            /> */}
+        {/* </View> */}
         <KeyboardAwareScrollView  keyboardShouldPersistTaps={'always'} style={{flex:1}} showsVerticalScrollIndicator={false}>
           <View  contentContainerStyle={styles.page}>
-            <Text style = {styles.text}>Please Enter Your Phone Number to Login</Text>
-            <Text style = {styles.format}>Example Format: +1 1111111111</Text>
+              <Text style = {styles.text}>Please Enter Your Phone Number to Login</Text>
+              <Text style = {styles.format}>Example Format: +1 1111111111</Text>
             <TextInput 
               style = {styles.textInput}
               placeholder = 'Phone Number'
@@ -153,7 +154,7 @@ class LoginScreen extends Component {
             {this.state.confirmResult ? this.renderConfirmationView() : null}
 
             <TouchableOpacity
-              style = {[styles.themeButton, {marginTop: 20}]}
+              style = {[styles.themeButtonRegister, {marginTop: 20}]}
               onPress = {this.register}>
                 <Text style={styles.themeButtonTitle}>
                   Register as a New User
@@ -161,6 +162,7 @@ class LoginScreen extends Component {
             </TouchableOpacity>
           </View>
         </KeyboardAwareScrollView>
+        </ImageBackground>
       </View>
     )
   }

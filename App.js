@@ -4,6 +4,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { firebase } from '@react-native-firebase/auth';
+import { Avatar } from 'react-native-elements';
+import auth from '@react-native-firebase/auth'
 
 //importing components for page routings
 import HomeScreen from "./components/HomeScreen";
@@ -42,13 +44,28 @@ const App = () =>{
     return subscriber; 
   }, []);
 
+  if(auth().currentUser != null){
+      const name = firebase.auth().currentUser.displayName;
+      var first_name = ''
+      var last_name = ''
+
+      if (name != null)
+      {
+          var n = name.indexOf(' ')
+      
+          first_name = name.substring(0, n)
+          last_name = name.substring((n - 1) + 2)
+      }
+  }
 
   if (initializing) return null;
 
   if(user){
     return (
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator screenOptions={{headerTransparent: true, headerTitleStyle: {
+            fontWeight: 'bold',
+          }}}>
           <Stack.Screen name="Home" component={HomeScreen} 
            options={({route, navigation}) => ({ // get reference to navigation
             headerRight: () => (
@@ -57,12 +74,22 @@ const App = () =>{
                   title="Guide"
                   color="red"
                 />
-              )
+            ),
+            headerLeft: () => (
+                <Avatar
+                  size={50}
+                  containerStyle={{backgroundColor: '#ff8c00'}}
+                  // rounded
+                  title={first_name[0] + last_name[0]}
+                  //on press navigate to profile screen 
+                  onPress={() => navigation.navigate( 'Profile' )}
+                />
+            )
             })
           }
           />
-          <Stack.Screen name="Live Measure" component={LiveMeasureScreen} options={{headerTransparent: true,}}/>
-          <Stack.Screen name="Previous Results" component={PreviousResults} options={{headerTransparent: true,}}/>
+          <Stack.Screen name="Live Measure" component={LiveMeasureScreen} />
+          <Stack.Screen name="Previous Results" component={PreviousResults}/>
           <Stack.Screen name="Progress" component={ProgressScreen} 
             options={({route, navigation }) => 
               ({ // get reference to navigation
@@ -76,12 +103,12 @@ const App = () =>{
               })
             }
           />
-          <Stack.Screen name="Guide" component={IntroSlider} options={{headerTransparent: true,}}/>
-          <Stack.Screen name="BLE" component={BLEScreen} options={{headerTransparent: true,}}/>
-          <Stack.Screen name="Device" component={DeviceScreen} options={{headerTransparent: true,}}/>
-          <Stack.Screen name="Profile" component={ProfileScreen} options={{headerTransparent: true,}}/>
-          <Stack.Screen name="Events" component={CalendarEventTEST} options={{headerTransparent: true,}} />
-          <Stack.Screen name="Report" component={ReportScreen} options={{headerTransparent: true,}}/>
+          <Stack.Screen name="Guide" component={IntroSlider} />
+          <Stack.Screen name="BLE" component={BLEScreen} />
+          <Stack.Screen name="Device" component={DeviceScreen} />
+          <Stack.Screen name="Profile" component={ProfileScreen} />
+          <Stack.Screen name="Events" component={CalendarEventTEST}  />
+          <Stack.Screen name="Report" component={ReportScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     );
@@ -89,9 +116,9 @@ const App = () =>{
 
   return (
       <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="Login" component={LoginScreen} options={{headerTransparent: true,}}/>
-          <Stack.Screen name="Registration" component={RegistrationScreen} options={{headerTransparent: true,}}/>
+        <Stack.Navigator screenOptions={{headerTransparent: true,}}>
+          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Registration" component={RegistrationScreen} />
         </Stack.Navigator>
       </NavigationContainer>
   );

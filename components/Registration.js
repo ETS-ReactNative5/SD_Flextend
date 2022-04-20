@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, TextInput, Text, TouchableOpacity } from 'react-native';
+import { View, ScrollView, TextInput, Text, TouchableOpacity, ImageBackground } from 'react-native';
 import styles from "../styles/LoginStyle"
 import auth from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore';
@@ -122,8 +122,10 @@ export default class RegistrationScreen extends React.Component {
 
     render () {
         return (
+          <View>
+          <ImageBackground source={require('../images/register-background.png')} style={{width: '100%', height: '100%', resizeMode:'contain'}}  >
             <ScrollView style={styles.container}>
-                <Text style = {styles.text}>Please Enter the Information Below to Register</Text>
+                <Text style = {styles.textRegister}>Please Enter the Information Below to Register</Text>
                 <TextInput 
                     style = {styles.textInput}
                     placeholder = 'Phone Number'
@@ -170,6 +172,8 @@ export default class RegistrationScreen extends React.Component {
 
                 {this.state.confirmResult ? this.renderConfirmationView() : null}
             </ScrollView>
+          </ImageBackground>
+        </View>
         )
     }
 }

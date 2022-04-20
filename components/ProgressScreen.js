@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { View, Text, Dimensions, StyleSheet } from 'react-native';
+import { View, Text, Dimensions, StyleSheet, ImageBackground, ScrollView } from 'react-native';
 import { BarChart } from 'react-native-chart-kit';
 import styles from '../styles/MetricStyle';
 
@@ -94,65 +94,73 @@ export default function Progress() {
 
     return (
         <View>
+        <ImageBackground source={require('../images/graphs.png')} style={{width: '100%', height: '100%', resizeMode:'contain'}}  >
+        <ScrollView>
             <Text style={styles.title}>Hello {first_name} {last_name}</Text>
-            <Text style={styles.info_text}>Flexion Progress Over Time</Text>
-            <BarChart
-                data={{
-                    labels: labels,
-                    datasets: [
-                        {
-                            data: flexion_array
-                        }
-                    ]
-                }}
-                width={screenWidth}
-                height={200}
-                withInnerLines={false}
-                yAxisSuffix='&ordm;'
-                showValuesOnTopOfBars={true}
-                fromZero={true}
-                chartConfig={{
-                    height: 5000,
-                    backgroundGradientFrom: "white",
-                    backgroundGradientFromOpacity: 0,
-                    backgroundGradientTo: "white",
-                    backgroundGradientToOpacity: 0,
-                    fillShadowGradientOpacity: 1,
-                    decimalPlaces: 0,
-                    color: (opacity = 0) => `rgba(190, 0, 255, ${opacity})`,
-                }}
-                style={bar_styles.graphStyle}
-            />
-            <Text style={bar_styles.xlabel1}>Time</Text>
-            <Text style={bar_styles.extensionInfo}>Extension Progress Over Time</Text>
-            <BarChart
-                data={{
-                    labels: labels,
-                    datasets: [
-                        {
-                            data: extension_array
-                        }
-                    ]
-                }}
-                width={screenWidth}
-                height={200}
-                withInnerLines={false}
-                yAxisSuffix='&ordm;'
-                showValuesOnTopOfBars={true}
-                fromZero={true}
-                chartConfig={{
-                    height: 5000,
-                    backgroundGradientFrom: "white",
-                    backgroundGradientFromOpacity: 0,
-                    backgroundGradientTo: "white",
-                    backgroundGradientToOpacity: 0,
-                    fillShadowGradientOpacity: 1,
-                    decimalPlaces: 0,
-                    color: (opacity = 0) => `rgba(255, 0, 100, ${opacity})`,
-                }}
-                style={bar_styles.graphStyle}
-            />
-            <Text style={bar_styles.xlabel1}>Time</Text>
+            <View style={styles.chartContainer}>
+                <Text style={styles.info_text}>Flexion Progress Over Time</Text>
+                <BarChart
+                    data={{
+                        labels: labels,
+                        datasets: [
+                            {
+                                data: flexion_array
+                            }
+                        ]
+                    }}
+                    width={screenWidth}
+                    height={200}
+                    withInnerLines={false}
+                    yAxisSuffix='&ordm;'
+                    showValuesOnTopOfBars={true}
+                    fromZero={true}
+                    chartConfig={{
+                        height: 5000,
+                        backgroundGradientFrom: "white",
+                        backgroundGradientFromOpacity: 0,
+                        backgroundGradientTo: "white",
+                        backgroundGradientToOpacity: 0,
+                        fillShadowGradientOpacity: 1,
+                        decimalPlaces: 0,
+                        color: (opacity = 0) => `rgba(190, 0, 255, ${opacity})`,
+                    }}
+                    style={bar_styles.graphStyle}
+                />
+                <Text style={bar_styles.xlabel1}>Time</Text>
+            </View>
+            <View style={styles.chartContainer}>
+                <Text style={bar_styles.extensionInfo}>Extension Progress Over Time</Text>
+                <BarChart
+                    data={{
+                        labels: labels,
+                        datasets: [
+                            {
+                                data: extension_array
+                            }
+                        ]
+                    }}
+                    width={screenWidth}
+                    height={200}
+                    withInnerLines={false}
+                    yAxisSuffix='&ordm;'
+                    showValuesOnTopOfBars={true}
+                    fromZero={true}
+                    chartConfig={{
+                        height: 5000,
+                        backgroundGradientFrom: "white",
+                        backgroundGradientFromOpacity: 0,
+                        backgroundGradientTo: "white",
+                        backgroundGradientToOpacity: 0,
+                        fillShadowGradientOpacity: 1,
+                        decimalPlaces: 0,
+                        color: (opacity = 0) => `rgba(255, 0, 100, ${opacity})`,
+                    }}
+                    style={bar_styles.graphStyle}
+                />
+                <Text style={bar_styles.xlabel1}>Time</Text>
+            </View>
+        </ScrollView>
+        </ImageBackground>
         </View>
     )
 }
@@ -163,7 +171,7 @@ const bar_styles = StyleSheet.create({
         paddingTop: 10,
     },
     xlabel1: {
-        marginTop: 190, 
+        marginTop: 10, 
         marginBottom: 15,
         fontSize: 14,
         textAlign: 'center',

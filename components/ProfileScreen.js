@@ -11,6 +11,7 @@ import storage from '@react-native-firebase/storage';
 
 import Modal from "react-native-modal";
 import styles from '../styles/HomeStyle';
+import styles2 from '../styles/MetricStyle';
 import styles1 from '../styles/ProfileStyle';
 
 import auth, { firebase } from '@react-native-firebase/auth'
@@ -28,11 +29,6 @@ const Profile = ({navigation}) => {
 
     ////////////////////////////////////////Loading screen ///////////////////////////////////////////////////////////////////////////////
 
-    const [loading, setLoading] = useState(true)
-
-    useEffect(() => {
-        setTimeout(() => setLoading(false), 2000)
-    }, [])
 
     ////////////////////////////////////////For modal state///////////////////////////////////////////////////////////////////////////////
 
@@ -85,7 +81,8 @@ const Profile = ({navigation}) => {
         switch(type) {
             case BODY_METRICS: {
                 return (
-                    <View >
+                    <View style={styles1.modalView}>
+                    <ImageBackground  style={{width: '100%', height: '100%', resizeMode:'contain'}} source={require("../images/graphs.png")} >
                     <Text style={styles1.modal_title}>Add Metrics</Text>
                     {/* add text input fields or drop down options */}
                     <View style={styles1.switchRow}>
@@ -106,61 +103,66 @@ const Profile = ({navigation}) => {
                         <View style={{flex:.3}}>
                             <Text style={styles1.info_text}>Recent Knee Surgery?</Text>
                         </View>
-                        <View style={{flex:.3}}>
+                        <View style={{flex:.3, backgroundColor:'rgba(255,255,255,0.6)' , borderRadius: 10, height: 150}}>
                             <Picker 
                                 selectedValue={selectedStatus}
                                 onValueChange={(itemValue, itemIndex) =>
                                     setSelectedStatus(itemValue)
                                 }>
-                                <Picker.Item label='False' value={false}/>
-                                <Picker.Item label='True' value={true}/>
+                                <Picker.Item label='No' value={false}/>
+                                <Picker.Item label='Yes' value={true}/>
                             </Picker>
                         </View>
                         
                     </View>
                     
-                    <TouchableOpacity onPress={() => renderBodyMetrics()}style={styles.button1} title="Done"><Text style={styles.buttonTitle}>Done</Text></TouchableOpacity>
-                    <TouchableOpacity onPress={() => toggleModal()}style={styles.button1} title="Hide modal"><Text style={styles.buttonTitle}>Close Screen</Text></TouchableOpacity>
+                    <TouchableOpacity onPress={() => renderBodyMetrics()}style={styles1.button4} title="Done"><Text style={styles.buttonTitle}>Done</Text></TouchableOpacity>
+                    </ImageBackground>
                     </View>
                 )
             }
             case GOALS: {
                 return (
                     <View >
+                    <ImageBackground  style={{width: '100%', height: '100%', resizeMode:'contain'}} source={require("../images/graphs.png")} >
                     <Text style={styles1.modal_title}>Goals</Text>
                     <Text style={styles1.modal_text}>Use this feature to add your specific goals!</Text>
                     <Text></Text>
                     <Text style={styles1.modal_text}>Navigate to the Home Page to see your goals!</Text>
                     <TextInput 
                         style = {styles1.goalInput}
-                        placeholder = 'Enter your goal here'
+                        placeholder = ' Enter your goal here'
                         textAlign ='left'
                         keyboardType = 'default'
                         value = {goal}
                         onChangeText = {newGoal => setGoal(newGoal)}
                     />
-                    <TouchableOpacity onPress={() => renderGoals(goal)}style={styles.button1} title="Done"><Text style={styles.buttonTitle}>Done</Text></TouchableOpacity>
-                    <TouchableOpacity onPress={() => toggleModal()}style={styles.button1} title="Hide modal"><Text style={styles.buttonTitle}>Close Screen</Text></TouchableOpacity>
+                    <TouchableOpacity onPress={() => renderGoals(goal)}style={styles1.button4} title="Done"><Text style={styles.buttonTitle}>Done</Text></TouchableOpacity>
+                    </ImageBackground>
                     </View>
                 )
             }
             case REMINDERS: {
                 return (
                     <View>
+                    <ImageBackground  style={{width: '100%', height: '100%', resizeMode:'contain'}} source={require("../images/graphs.png")} >
                     <Text style={styles1.modal_title}>Reminders</Text>
                     <Text style={styles1.modal_text}>Use this feature to add events to your calendar to keep measuring with Flextend!</Text>
                     {eventId? <TouchableOpacity onPress={() => editCalendarEventWithId(eventId)} style={styles.button2Reminder}><Text style={styles.buttonTitle}>Edit</Text></TouchableOpacity> 
                     : 
                     <TouchableOpacity onPress={() => addEventToCalendar()} style={styles.button2Reminder}><Text style={styles.buttonTitle}>Add</Text></TouchableOpacity>}
-                    <TouchableOpacity onPress={() => toggleModal()}style={styles.button1} title="Hide modal"><Text style={styles.buttonTitle}>Close Screen</Text></TouchableOpacity>
+                    <TouchableOpacity onPress={() => toggleModal()}style={styles1.button4} title="Hide modal"><Text style={styles.buttonTitle}>Done</Text></TouchableOpacity>
+                    </ImageBackground>
                     </View>
                 )
             }
             case PROGRESS: {
                 return (
                     <View>
+                    <ImageBackground  style={{width: '100%', height: '100%', resizeMode:'contain'}} source={require("../images/graphs.png")} >
                     <Text>progress</Text>
                     <TouchableOpacity onPress={() => toggleModal()}style={styles.button1} title="Hide modal"><Text style={styles.buttonTitle}>Close Screen</Text></TouchableOpacity>
+                    </ImageBackground>
                     </View>
                 )
             }
@@ -319,36 +321,33 @@ const Profile = ({navigation}) => {
     }
         
     // retunr the loading screen to wait for all components to render
-
+    
     //after timeout for rendering components is done return the profile view
     return (
-        <ScrollView style={styles1.scroll}>
-        <ImageBackground  style={{width: '100%', height: '100%'}} source={require("../images/profile-background.jpg")} >
-            <View style={styles1.userRow}>
+        <View>
+            <ImageBackground  style={styles1.imageBackdrop} source={require("../images/profile-background.png")} >
+            <ScrollView style={styles1.scroll}>
                 <Avatar
                 onPress={() =>pickPicture()}
                 source={{uri}}
                 size="xlarge"
                 rounded
+                containerStyle={{alignSelf: "center", marginTop: 150}}
                 />
-                <Text style={{color: 'white', fontSize: 30, marginTop: 20, fontWeight: 'bold'}}>{first_name} {last_name}</Text>
-            </View>      
-           {/* VIEW UNDER AVATAR STARTS HERE */}
-            <View style={styles1.content}>
-                <TouchableOpacity onPress={() => toggleModal(BODY_METRICS)} style={styles.button1}><Text style={styles.buttonTitle}>Set Metrics</Text></TouchableOpacity>
-                <TouchableOpacity onPress={() => toggleModal(GOALS)} style={styles.button3}><Text style={styles.buttonTitle}>Set Goals</Text></TouchableOpacity>
-                <TouchableOpacity onPress={() => toggleModal(REMINDERS)} style={styles.button1}><Text style={styles.buttonTitle}>Set Reminders</Text></TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate("Progress")} style={styles.button2}><Text style={styles.buttonTitle}>Progress</Text></TouchableOpacity>
+                <Text style={styles1.nameText}>{first_name} {last_name}</Text>
+                <TouchableOpacity onPress={() => toggleModal(BODY_METRICS)} style={styles1.button1}><Text style={styles1.buttonTitle}>Set Metrics</Text></TouchableOpacity>
+                <TouchableOpacity onPress={() => toggleModal(GOALS)} style={styles1.button2}><Text style={styles1.buttonTitle}>Set Goals</Text></TouchableOpacity>
+                <TouchableOpacity onPress={() => toggleModal(REMINDERS)} style={styles1.button2}><Text style={styles1.buttonTitle}>Set Reminders</Text></TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("Progress")} style={styles1.button2}><Text style={styles1.buttonTitle}>Progress</Text></TouchableOpacity>
                 
                 <Modal isVisible={isShowing} style={styles1.modalView} >
                     <View>
                         {renderModalContent(type)}
                     </View>
                 </Modal>
-
-            </View>
-        </ImageBackground>
-        </ScrollView>
+            </ScrollView>
+            </ImageBackground>
+        </View>
     );
 }
 

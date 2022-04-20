@@ -1,6 +1,6 @@
 import React from 'react';
 import {useState, useEffect} from 'react';
-import { TouchableOpacity, Text, View, Image, ScrollView, ActivityIndicator} from 'react-native';
+import { TouchableOpacity, Text, View, Image, ScrollView, ActivityIndicator, ImageBackground} from 'react-native';
 import { Avatar } from 'react-native-elements';
 import UserAvatar from 'react-native-user-avatar';
 
@@ -15,25 +15,14 @@ import { useFocusEffect } from '@react-navigation/native';
 
 export default function Home({navigation}) {
 
+    const [isLoading, setIsLoading] = useState(true)
+    const [image, setImage] = useState()
+
     const logout = () => {
         console.log(firebase.auth().currentUser);
         firebase.auth().signOut().then(() => {
             console.log(firebase.auth().currentUser);
         });
-    }
-
-    if(auth().currentUser != null){
-        const name = firebase.auth().currentUser.displayName;
-        var first_name = ''
-        var last_name = ''
-
-        if (name != null)
-        {
-            var n = name.indexOf(' ')
-        
-            first_name = name.substring(0, n)
-            last_name = name.substring((n - 1) + 2)
-        }
     }
 
     const [goalsData, setGoalsData] = useState();
@@ -75,44 +64,50 @@ export default function Home({navigation}) {
         }, [])
     );
 
-    return (
-        <ScrollView style= {styles.container}>
-            <Text style={styles.welcome_message}> Welcome to Flextend!</Text>
-            <Text style={styles.italic}> Your at-home knee monitoring platform </Text>
-            <Image
-                style={styles.home_image}
-                source={require("../images/home_image.jpg")}
-            />
-            {/* <TouchableOpacity onPress={() => navigate( 'BLE' )} style={styles.button3}><Text style={styles.buttonTitle}>Set Up BLE Communication</Text></TouchableOpacity> */}
-            <TouchableOpacity onPress={() => navigation.navigate( 'Live Measure' )} style={styles.button1}><Text style={styles.buttonTitle}>Start Tracking</Text></TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate( 'Previous Results' )} style={styles.button3}><Text style={styles.buttonTitle}>Previous Results</Text></TouchableOpacity>
-            <TouchableOpacity onPress={() => logout()} style={styles.button2}><Text style={styles.buttonTitle}>Sign Out</Text></TouchableOpacity>
+    //loading background image 
+    const loadImage = async () =>{
+        const image = await require('../images/home-background.png')
+        setIsLoading(false)
+    }
 
-            {/* Avatar to access user profile */}
-            <View style= {styles.container2}>
-                <Avatar
-                    size={120}
-                    containerStyle={{backgroundColor: '#ffdab9'}}
-                    rounded
-                    title={first_name[0] + last_name[0]}
-                    //on press navigate to profile screen 
-                    onPress={() => navigation.navigate( 'Profile' )}
-                />
-            </View>
-            
-            <Text style={styles.welcome_message}>Goals</Text>
-            {/* Goals Checklist */}
-            <CheckboxList
-                theme="green"
-                listItems={goalsData}
-                listItemStyle={{  
-                    borderBottomWidth: 0, 
-                    marginTop: 10,
-                    marginLeft: 35,
-                    marginBottom: 10
-                    }}
-                style={styles.dayCheckBox}
-            />
-        </ScrollView> 
+    useEffect(() => {
+        loadImage()
+    }, [])
+
+    if(isLoading){
+        return (
+        <View>
+            <ActivityIndicator size="large" />
+        </View>
+        )
+    }
+
+    return (
+        <View>
+            <ImageBackground source={require('../images/home-background.png')} style={{width: '100%', height: '100%', resizeMode:'contain'}}  >
+                <ScrollView style= {styles.container}>
+                    <TouchableOpacity onPress={() => navigation.navigate( 'Live Measure' )} style={styles.button1}><Text style={styles.buttonTitle}>Start Tracking</Text></TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate( 'Previous Results' )} style={styles.button3}><Text style={styles.buttonTitle}>Previous Results</Text></TouchableOpacity>
+                    <TouchableOpacity onPress={() => logout()} style={styles.button2}><Text style={styles.buttonTitle}>Sign Out</Text></TouchableOpacity>
+                    <Text style={styles.welcome_message}> My Goals</Text>
+                    {/* Goals Checklist */}
+                    <View style= {styles.goals}>
+                        <CheckboxList
+                            theme="green"
+                            listItems={goalsData}
+                            listItemStyle={{  
+                                borderBottomWidth: 0, 
+                                marginTop: 10,
+                                marginLeft: 35,
+                                marginBottom: 10,
+                                color: "#191970",
+                                }}
+                            style={styles.dayCheckBox}
+                        />
+                    </View>
+                </ScrollView> 
+            </ImageBackground>
+        </View>
      );
+     
 }

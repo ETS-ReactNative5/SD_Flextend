@@ -3,13 +3,13 @@ import { Platform, StyleSheet } from 'react-native';
 export default StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#87cefa' 
+        // backgroundImage: '../images/home-background.png' 
     },
     container2: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#87cefa',
+        backgroundColor: '#ffffff',
         paddingTop: Platform.OS === 'ios' ? 30 : 40,
         paddingBottom: 20
     },
@@ -21,15 +21,15 @@ export default StyleSheet.create({
     },
     welcome_message: {
         fontSize: 30,
-        marginTop: 20,
+        marginTop: 80,
         fontWeight: 'bold',
         fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
         alignSelf: "center",
-        color: '#1e90ff',
+        color: '#191970',
     },
     italic: {
         fontSize: 15,
-        marginTop: 10,
+        marginTop: 20,
         fontStyle: 'italic',
         alignSelf: "center",
         color: 'black',
@@ -41,17 +41,17 @@ export default StyleSheet.create({
         margin: 30,
     },
     button1: {
-        backgroundColor: '#1e90ff',
+        backgroundColor: '#87ceeb',
         marginLeft: 30,
         marginRight: 30,
-        marginTop: 20,
+        marginTop: 350,
         height: 40,
         borderRadius: 5,
         alignItems: "center",
         justifyContent: 'center'
     },
     button2: {
-        backgroundColor: '#1e90ff',
+        backgroundColor: '#87ceeb',
         marginLeft: 30,
         marginRight: 30,
         marginTop: 20,
@@ -62,7 +62,7 @@ export default StyleSheet.create({
         justifyContent: 'center'
     },
     button3: {
-        backgroundColor: '#1e90ff',
+        backgroundColor: '#87ceeb',
         marginLeft: 30,
         marginRight: 30,
         marginTop: 20,
@@ -91,7 +91,7 @@ export default StyleSheet.create({
     },
     welcome_message2: {
         fontSize: 30,
-        marginTop: 20,
+        marginTop: 0,
         fontWeight: 'bold',
         fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
         alignSelf: "center",
@@ -109,4 +109,16 @@ export default StyleSheet.create({
         alignItems: "center",
         justifyContent: 'center'
     },
+    goals: {
+        flex: 1,
+        justifyContent: "center",
+        backgroundColor: 'rgba(255, 155, 0, 0.6)',
+        marginTop: 20,
+        borderRadius: 30,
+        marginRight: 40,
+        marginLeft: 40,
+        // shadowOffset: { width: 50, height: 0}
+        // paddingRight: SIZES.padding,
+        // paddingBottom: SIZES.radius,
+    }
 })

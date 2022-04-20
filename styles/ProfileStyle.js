@@ -2,17 +2,88 @@ import { Platform, StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
   scroll: {
-    backgroundColor: "white",
+    // backgroundColor: "white",
     flex: 1,
+  },
+  imageBackdrop: {
+    width: '100%', 
+    height: '100%', 
+    resizeMode:'contain'
+  },
+  container2: {
+    // flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(255,255,255,0.8)',
+    paddingTop: Platform.OS === 'ios' ? 30 : 40,
+    paddingBottom: Platform.OS === 'ios' ? 30 : 40,
+    marginLeft: 20,
+    marginRight: 20,
+    marginTop:50,
+    borderRadius: 30
   },
   userRow: {
     alignItems: "center",
     padding: 15,
     marginTop: 80,
   },
+  nameText: {
+    color: 'white', 
+    fontSize: 30, 
+    marginTop: 20, 
+    fontWeight: 'bold',
+    alignSelf: 'center'
+  },
   content: {
     flex: 1,
-    backgroundColor: "white",
+    // backgroundColor: "white",
+  },
+  button1: {
+    backgroundColor: '#87ceeb',
+    marginLeft: 30,
+    marginRight: 30,
+    marginTop: 150,
+    marginBottom: 20,
+    height: 40,
+    borderRadius: 5,
+    alignItems: "center",
+    justifyContent: 'center'
+  },
+  button2: {
+    backgroundColor: '#87ceeb',
+    marginLeft: 30,
+    marginRight: 30,
+    marginTop: 20,
+    marginBottom: 15,
+    height: 40,
+    borderRadius: 5,
+    alignItems: "center",
+    justifyContent: 'center'
+  },
+  button3: {
+    backgroundColor: '#87ceeb',
+    marginLeft: 30,
+    marginRight: 30,
+    marginTop: 20,
+    height: 40,
+    borderRadius: 5,
+    alignItems: "center",
+    justifyContent: 'center'
+  },
+  button4: {
+    backgroundColor: '#ff8c00',
+    marginLeft: 30,
+    marginRight: 30,
+    marginTop: 20,
+    height: 40,
+    borderRadius: 5,
+    alignItems: "center",
+    justifyContent: 'center'
+  },
+  buttonTitle: {
+    color: 'black',
+    fontSize: 24,
+    fontFamily: Platform.OS == 'ios' ? 'Arial' : 'sans-serif'
   },
   switchRow: {
     flexDirection: 'row', 
@@ -28,34 +99,35 @@ export default StyleSheet.create({
     padding: 15,
   },
   modalView: {
-    backgroundColor: 'white'
-
+    // backgroundColor: 'white',
+    borderRadius: 30
   },
   textInput: {
     marginLeft: 30,
-    marginRight: 30,
+    // marginRight: 0,
     marginTop: 20,
     height: 45,
-    width: 55,
+    width: 75,
     borderColor: '#555',
     borderWidth: 1,
     borderRadius: 5,
     color: 'black',
-    fontSize: 9,
+    backgroundColor: 'rgba(255,255,255,0.6)',
+    fontSize: 12,
     // fontFamily: 'arial',
   },
   height_text: {
     paddingLeft: 35
   },
   Title: {
-    marginTop: 20,
+    marginTop: 130,
     marginBottom: 20,
     fontSize: 28,
     textAlign: 'center',
     paddingLeft: 10,
     fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
     fontWeight: 'bold',
-    color: '#ff0f90'
+    color: '#191970'
   },
   avatar: {
     paddingTop: 20,
@@ -66,27 +138,30 @@ export default StyleSheet.create({
   },
   text: {
     paddingLeft: 20,
-    fontSize: 18,
+    // paddingRight: 20,
+    fontSize: 20,
     fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
     fontWeight: 'bold',
-    color: '#fa8072',
+    color: '#ff8c00',
   },
   info_text: {
     textAlign: 'center',
-    fontSize: 16,
+    fontSize: 22,
     marginBottom: 10,
+    marginTop: 30,
     fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
     fontWeight: 'bold',
-    color: '#fa8072',
+    color: 'black',
   },
   section_text: {
     textAlign: 'center',
-    fontSize: 18,
-    marginBottom: 5,
+    fontSize: 20,
+    marginTop: 20,
+    // marginBottom: 5,
     fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
     fontWeight: 'bold',
     fontStyle: 'italic',
-    color: '#fa8072',
+    color: '#ff8c00',
   },
   modal_text: {
     textAlign: 'center',
@@ -96,14 +171,15 @@ export default StyleSheet.create({
     fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
     fontWeight: 'bold',
     fontStyle: 'italic',
-    color: '#fa8072',
+    color: 'black',
   },
   goalInput: {
     marginLeft: 30,
     marginRight: 30,
     marginTop: 50,
     height: 45,
-    width: 250,
+    backgroundColor: 'rgba(255,255,255,0.6)',
+    // width: 250,
     borderColor: '#555',
     borderWidth: 1,
     borderRadius: 5,
@@ -112,11 +188,11 @@ export default StyleSheet.create({
     fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
   },
   modal_title: {
-    fontSize: 45,
-    marginTop: 20,
+    fontSize: 36,
+    marginTop: 40,
     fontWeight: 'bold',
     fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
     alignSelf: "center",
-    color: '#c71585',
+    color: 'black',
 },
 });

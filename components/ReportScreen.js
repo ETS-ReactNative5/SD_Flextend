@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, ImageBackground } from 'react-native';
 import styles from '../styles/ProfileStyle';
 
 import auth from '@react-native-firebase/auth'
@@ -194,14 +194,19 @@ export default function ReportScreen() {
 
     return (
         <View>
+        <ImageBackground  style={{width: '100%', height: '100%', resizeMode:'contain'}} source={require("../images/report-background.png")} >  
             <Text style={styles.Title}>Here is Your Generated Report</Text>
-            <Text style={styles.text}>Best Flexion Value Overall: {smallest}</Text>
-            <Text style={styles.text}>Best Extension Value Overall: {largest}</Text>
-            <Text style={styles.Title}>Age: {age} </Text>
-            <Text style={styles.section_text}>Flexion</Text>
-            <Text style={styles.info_text}>{flexion_age_message}</Text>
-            <Text style={styles.section_text}>Extension</Text>
-            <Text style={styles.info_text}>{extension_age_message}</Text>
+            <View style={styles.container2}>
+                <Text style={styles.text}>Best Flexion Value Overall: {smallest}</Text>
+                <Text style={styles.text}>Best Extension Value Overall: {largest}</Text>
+                <Text style={styles.section_text}>Flexion</Text>
+                <Text style={styles.info_text}>{flexion_age_message}</Text>
+                <Text style={styles.section_text}>Extension</Text>
+                <Text style={styles.info_text}>{extension_age_message}</Text>
+            </View>
+            {/* <Text style={styles.Title}>Age: {age} </Text> */}
+            
+        </ImageBackground>
         </View>
     )
 }

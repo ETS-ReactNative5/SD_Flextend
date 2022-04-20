@@ -1,6 +1,6 @@
 import AppIntroSlider from 'react-native-app-intro-slider';
 import React from 'react';
-import { StyleSheet, View, Text, Image, SafeAreaView, StatusBar, Animated, Easing} from 'react-native';
+import { StyleSheet, View, Text, Image, SafeAreaView, StatusBar, Animated, Easing, ImageBackground} from 'react-native';
 import { useState, useEffect, useReducer }from "react";
 import styles from '../styles/GuideStyle';
 
@@ -8,31 +8,31 @@ import styles from '../styles/GuideStyle';
 const slides = [
   {
     key: 'one',
-    title: 'Live Measure',
-    text: 'Watch how your knee moves in real time',
-    image: require('../images/slide1-1.png'),
-    backgroundColor: '#cd5c5c',
+    title: '',
+    text: '',
+    image: require('../images/guide1.png'),
+    backgroundColor: '',
   },
   {
     key: 'two',
     title: 'Plan Your Goals',
     text: 'We Help You Keep That Target',
-    image: require('../images/slide2-1.png'),
-    backgroundColor: '#ffc107',
+    image: require('../images/guide1.png'),
+    backgroundColor: '',
   },
   {
     key: 'three',
     title: 'Progress Reports',
     text: 'See How You Are Doing',
     //image: require('../images/graph-icon2.jpg'),
-    backgroundColor: '#22bcb5',
+    backgroundColor: '',
   },
   {
     key: 'four',
     title: 'Set Reminders',
     text: 'We Help You Keep Your Agenda',
-    image: require('../images/slide4-1.png'),
-    backgroundColor: '#ff6347',
+    // image: require('../images/slide4-1.png'),
+    backgroundColor: '',
   }
   
 ];
@@ -58,12 +58,13 @@ const IntroSlider = ({navigation}) => {
   const renderItem = ({ item }) => {
     return (
       <View style={{ flex:1, backgroundColor: item.backgroundColor}}>
-      
-          <Text style={styles.title}>{item.title}</Text>
+        <ImageBackground source={item.image} style={{width: '100%', height: '100%', resizeMode:'contain'}}>
+          {/* <Text style={styles.title}>{item.title}</Text>
           <Animated.View style={[styles.container, {transform: [ {scale: startValue,}, ], }, ]}>
             <Image style={styles.image} source={item.image} />
           </Animated.View>
-          <Text style={styles.text}>{item.text}</Text>
+          <Text style={styles.text}>{item.text}</Text> */}
+        </ImageBackground>
         
       </View>
     );
