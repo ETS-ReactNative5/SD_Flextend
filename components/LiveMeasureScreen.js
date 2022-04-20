@@ -142,6 +142,7 @@ export default class HomeScreen extends React.Component {
         else
         {
             manager.writeCharacteristicWithResponseForDevice(device_id, service_id, measuringCharacteristicID, base64.encode('MEASURING'))
+            alert("Flextend device is now measuring! Begin extending and flexing your knee. When done, press Stop Measuring.")
         }
     }
 
@@ -154,6 +155,8 @@ export default class HomeScreen extends React.Component {
         else
         {
             manager.writeCharacteristicWithResponseForDevice(device_id, service_id, measuringCharacteristicID, base64.encode('NOTMEASURING'))
+            alert("Flextend device no longer measuring. Your flexion and extension results will appear on this page!")
+
         }
     }
 
@@ -166,6 +169,7 @@ export default class HomeScreen extends React.Component {
         else
         {
             manager.writeCharacteristicWithResponseForDevice(device_id, service_id, calibrationCharacteristicID, base64.encode('CALIBRATING'))
+            alert("Flextend device is now calibrating.")
         }
     }
 
