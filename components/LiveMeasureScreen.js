@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { TouchableOpacity, Text, View, Button, Image, ImageBackground} from 'react-native';
+import { TouchableOpacity, Text, View, Button, Image, ImageBackground, Platform } from 'react-native';
 import { BleManager, Device } from 'react-native-ble-plx';
 import base64 from 'react-native-base64';
 
@@ -86,16 +86,29 @@ export default class HomeScreen extends React.Component {
                         {
                             const allServicesAndCharacteristics = await device.discoverAllServicesAndCharacteristics();
                             const discoveredServices = await allServicesAndCharacteristics.services();
-                            const flextendService = discoveredServices[0];
+                            let flextendService;
+                            if (Platform.OS == 'ios')
+                            {
+                                flextendService = discoveredServices[0];
+                            }
+                            else
+                            {
+                                flextendService = discoveredServices[2];
+                            }
                             service_id = flextendService.uuid;
                             const all_characteristics = await flextendService.characteristics();
+                            // console.log("Printing characteristic uuids: ")
+                            console.log(service_id)
+                            // console.log(all_characteristics[1])
+                            // console.log(all_characteristics)
+                            // console.log(all_characteristics)
                             const flexionCharacteristic = all_characteristics[0];
                             const extensionCharacteristic = all_characteristics[1];
                             const measuringCharacteristic = all_characteristics[2];
                             const calibrationCharacteristic = all_characteristics[3];
                             measuringCharacteristicID = measuringCharacteristic.uuid;
                             calibrationCharacteristicID = calibrationCharacteristic.uuid;
-                            console.log(calibrationCharacteristicID);
+                            // console.log(calibrationCharacteristicID);
                             const flexion_characteristicUUID = flexionCharacteristic.uuid;
                             const extension_characteristicUUID = extensionCharacteristic.uuid;
                             flexion_subscription = flextendService.monitorCharacteristic(flexion_characteristicUUID, async (error, characteristic) => {
@@ -129,6 +142,7 @@ export default class HomeScreen extends React.Component {
         else
         {
             manager.writeCharacteristicWithResponseForDevice(device_id, service_id, measuringCharacteristicID, base64.encode('MEASURING'))
+            alert("Flextend device is now measuring! Begin extending and flexing your knee. When done, press Stop Measuring.")
         }
     }
 
@@ -141,6 +155,8 @@ export default class HomeScreen extends React.Component {
         else
         {
             manager.writeCharacteristicWithResponseForDevice(device_id, service_id, measuringCharacteristicID, base64.encode('NOTMEASURING'))
+            alert("Flextend device no longer measuring. Your flexion and extension results will appear on this page!")
+
         }
     }
 
@@ -153,6 +169,7 @@ export default class HomeScreen extends React.Component {
         else
         {
             manager.writeCharacteristicWithResponseForDevice(device_id, service_id, calibrationCharacteristicID, base64.encode('CALIBRATING'))
+            alert("Flextend device is now calibrating.")
         }
     }
 
