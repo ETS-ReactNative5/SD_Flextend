@@ -15,23 +15,23 @@ const slides = [
   },
   {
     key: 'two',
-    title: 'Plan Your Goals',
-    text: 'We Help You Keep That Target',
-    image: require('../images/guide1.png'),
+    title: '',
+    text: '',
+    image: require('../images/guide2.png'),
     backgroundColor: '',
   },
   {
     key: 'three',
     title: 'Progress Reports',
     text: 'See How You Are Doing',
-    //image: require('../images/graph-icon2.jpg'),
+    image: require('../images/guide3.png'),
     backgroundColor: '',
   },
   {
     key: 'four',
     title: 'Set Reminders',
     text: 'We Help You Keep Your Agenda',
-    // image: require('../images/slide4-1.png'),
+    image: require('../images/guide4.png'),
     backgroundColor: '',
   }
   
