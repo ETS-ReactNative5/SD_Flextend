@@ -29,6 +29,9 @@ TODO: add images or diagram of what the collection and fields look like
 ## Deployment 
 TODO: Add react installation and how to run th eproject 
 
+### iOS Specific
+
+### Android Specific
 ### React Native Dependencies 
 All dependencies that need to be installed for this project are listed in the *requirements.txt* file and can be installed using `npm install --save -r requirements`
 
