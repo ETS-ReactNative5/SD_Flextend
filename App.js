@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { View, Text, Button, LogBox } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
 import { firebase } from '@react-native-firebase/auth';
 import { Avatar } from 'react-native-elements';
 import auth from '@react-native-firebase/auth'
