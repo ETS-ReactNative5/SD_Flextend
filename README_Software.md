@@ -1,4 +1,4 @@
-# SD_Flextend
+# Flextend: Software Report
 
 Senior Design Project: Cross-Platform Mobile Application 
 Boston University Department of Electrical and Computer Engineering
@@ -20,9 +20,24 @@ Below is an image of the flow of the application. Dashed arrows indicate the dat
 
 ![Flow Diagram](/images/flow-diagram.png)
 
-## Backend DataBase 
-TODO: talk about structure of the database
-TODO: add images or diagram of what the collection and fields look like
+## Database  
+To store user information and data, our team is utilizing Google Firebase as our backend service. There are currently two collections in Google Firebase Firestore: knee health and users. 
+
+* knee health: The knee health collection holds all knee ROM measurments along with the timestamp of when they were completed. This database is a document-based database. Within the knee health collection, each document is labeled by a user phone number. All data related to the user phone number is stored within the document, simplifying data reads and writes. Each measurment is labeled by a timestamp. An timestamp format for April 29th, 2022 at 10:45 am would be displayed in Firestore as 2022-04-29T10:45:00Z. The timestamp has two sub-parameters: flexion (string) and extension (string). Here is an image of the knee health collection in Firestore:
+
+![#1](https://user-images.githubusercontent.com/73702777/165967903-480ebeb2-0854-458c-add0-01da69602cb0.JPG)
+
+* users: The users collection holds all user information generated during the registration process or from the profile screen. This database is a document-based database, similar to the knee health collection. Within the users collection, each document is labeled by a user phone number. All data related to the user phone number is stored within the document. For any user in the Flexted application, the data fields include:
+1. First Name (string)
+2. Last Name (string)
+3. Phone (string)
+4. Age (string)
+5. Goals (array of strings)
+6. Recent Knee Surgery? (boolean)
+
+Here is an image of the users collection in Firestore:
+
+![#2](https://user-images.githubusercontent.com/73702777/165970506-187a32fd-6dae-45dc-970a-11234eebb900.JPG)
 
 ## Deployment 
 TODO: Add react installation and how to run the eproject 
