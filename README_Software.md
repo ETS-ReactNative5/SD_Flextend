@@ -45,6 +45,20 @@ TODO: Add react installation and how to run the eproject
 ### iOS Specific
 
 ### Android Specific
+1. Install Node, Python2, and JDK onto Windows machine (Reccomendation: Use Chocolatey package manager, open terminal, and type: choco install -y nodejs.install python2 openjdk8)
+2. Download and install Android Studio onto Windows machine
+3. On Android Studio installation wizard, check Android SDK, Android SDK Platform, Android Virtual Device
+4. On the Welcome Screen, download Android 10 (Q) for React Native applications by clicking "Configure" then "SDK Manager"
+5. Configure Android Studio PATH on Windows (USE: https://reactnative.dev/docs/0.60/enviroment-setup?msclkid=5f11a429c7cd11eca16de427e70756ea for guidance)
+6. Download application from SD_Flextend repository onto local machine (Git Clone or Download zip file)
+7. Navigate inside project folder using Windows Command Prompt
+8. Run Metro JavaScript bundler by typing: npx react-native start
+9. Run Flextend application by typing: npx react-native run-android
+
+Note: For a virtual machine, additional steps are required (USE: https://developer.android.com/studio/run/managing-avds for guidance)
+<br />
+Note: For a phyical device, ensure USB Debugging is enabled (USE: https://developer.android.com/studio/debug/dev-options for guidance)
+
 ### React Native Dependencies 
 All dependencies that need to be installed for this project are listed in the *requirements.txt* file and can be installed using `npm install --save -r requirements`
 
