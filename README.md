@@ -10,10 +10,10 @@ The goals of this project were to:
 - Create a mobile cross-platform application that will automate user progress tracking and goal setting. 
 - Develop a system that has an exceptional user experience for patients of any age or background.  
 
-The electrical component includes an Arduino Nano IoT, 2 MPU6050 units, a buzzer, a 9V battery. Read more details in the [Hardware-Readme](LINK TO HW README).
+The electrical component includes an Arduino Nano IoT, 2 MPU6050 units, a buzzer, a 9V battery. Read more details in the [Hardware-Readme]()
 
 The software component is a cross-platform mobile application powered by React Native. 
-Details are included in the [Software-Readme]()
+Details are included in the [Software-Readme](https://github.com/carmenhg/SD_Flextend/blob/main/README_Software.md)
 
 ## Status of the project 
 The device works as intended with minor errors. The mobile application successfully connects to the device and works as intended. 
