@@ -86,6 +86,7 @@ This component includes four slides that appear when a new user registers to the
 ### HomeScreen 
 This component is the primary view when the user logs into the application. Fro here the user can navigate to all the rest of the functionalities. This screen is also connected to Firebase to pull "Goals" for the user and display on screen. 
 
+todo: INDICATE FLOW CHART OF DEPENDENCIES OF THESE THREE MODULES 
 ### LiveMeasureScreen
 ### BLEScreen
 ### DeviceScreen
