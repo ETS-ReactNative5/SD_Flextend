@@ -1,16 +1,11 @@
 import React from 'react';
 import {useState, useEffect} from 'react';
-import { TouchableOpacity, Text, View, Image, ScrollView, ActivityIndicator, ImageBackground} from 'react-native';
-import { Avatar } from 'react-native-elements';
-import UserAvatar from 'react-native-user-avatar';
-
+import { TouchableOpacity, Text, View, ScrollView, ActivityIndicator, ImageBackground} from 'react-native';
 import { firebase } from '@react-native-firebase/auth'
 import styles from '../styles/HomeStyle';
 import auth from '@react-native-firebase/auth'
 import CheckboxList from 'rn-checkbox-list';
-
 import firestore from '@react-native-firebase/firestore';
-
 import { useFocusEffect } from '@react-navigation/native';
 
 export default function Home({navigation}) {
@@ -28,10 +23,13 @@ export default function Home({navigation}) {
     const [goalsData, setGoalsData] = useState();
     const userID = auth().currentUser.phoneNumber;
 
+    //Pulls Goals data from Firebase to display. Updates every time a new goal is added and user 
+    //navigates to home screen
     useFocusEffect(
         React.useCallback(() => {
             let isActive = true;
 
+            //Querying the database 
             const pull_data = async () => {
                 try {
                     const documentSnapshot = await firestore()
@@ -64,16 +62,15 @@ export default function Home({navigation}) {
         }, [])
     );
 
+    //TODO: FIX THE IMAGES ISSUE///////////////////////////////////////
     //loading background image 
     const loadImage = async () =>{
         const image = await require('../images/home-background.png')
         setIsLoading(false)
     }
-
     useEffect(() => {
         loadImage()
     }, [])
-
     if(isLoading){
         return (
         <View>
@@ -81,6 +78,7 @@ export default function Home({navigation}) {
         </View>
         )
     }
+    /////////////////////////////////////////////////////////////////////
 
     return (
         <View>

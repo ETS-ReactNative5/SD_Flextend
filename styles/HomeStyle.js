@@ -21,7 +21,7 @@ export default StyleSheet.create({
     },
     welcome_message: {
         fontSize: 30,
-        marginTop: 80,
+        marginTop: 70,
         fontWeight: 'bold',
         fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
         alignSelf: "center",
@@ -112,7 +112,7 @@ export default StyleSheet.create({
     goals: {
         flex: 1,
         justifyContent: "center",
-        backgroundColor: 'rgba(255, 155, 0, 0.6)',
+        backgroundColor: 'rgba(255, 155, 0, 0.9)',
         marginTop: 20,
         borderRadius: 30,
         marginRight: 40,

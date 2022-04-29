@@ -1,8 +1,8 @@
 import { Platform, StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
-  scroll: {
-    // backgroundColor: "white",
+  container: {
+    backgroundColor: "#87CEFA",
     flex: 1,
   },
   imageBackdrop: {
@@ -99,7 +99,7 @@ export default StyleSheet.create({
     padding: 15,
   },
   modalView: {
-    // backgroundColor: 'white',
+    backgroundColor: '#87CEFA',
     borderRadius: 30
   },
   textInput: {

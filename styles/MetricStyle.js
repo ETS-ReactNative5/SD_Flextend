@@ -10,6 +10,10 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         color: 'black'
     },
+    container:{
+        flex:1,
+        backgroundColor: '#87CEFA'
+    },
     info_text: {
         marginTop: 10, 
         marginBottom: 15,
@@ -42,7 +46,7 @@ export default StyleSheet.create({
     chartContainer: {
         marginTop: 20,
         backgroundColor: 'rgba(255,255,255,0.8)',
-        borderRadius: 80,
+        borderRadius: 20,
         marginLeft: 20,
         marginRight: 20
     }

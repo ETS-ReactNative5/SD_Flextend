@@ -115,7 +115,7 @@ class LoginScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-      <ImageBackground source={require('../images/login-background.png')} style={{width: '100%', height: '100%', resizeMode:'contain'}}  >
+      <ImageBackground source={require('../images/register-background.png')} style={{width: '100%', height: '100%', resizeMode:'contain'}}  >
         {/* <View> */}
             {/* <Image 
               style = {styles.image} 

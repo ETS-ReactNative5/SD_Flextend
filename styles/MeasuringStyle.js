@@ -3,6 +3,7 @@ import { Platform, StyleSheet } from 'react-native';
 export default StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: '#87CEFA'
         // backgroundImage: '../images/home-background.png' 
     },
     container2: {
@@ -63,7 +64,8 @@ export default StyleSheet.create({
         margin: 30,
     },
     button1: {
-        backgroundColor: '#87ceeb',
+        //backgroundColor: '#87ceeb',
+        backgroundColor: '#FFA500',
         marginLeft: 30,
         marginRight: 30,
         marginTop: 100,
@@ -73,7 +75,7 @@ export default StyleSheet.create({
         justifyContent: 'center'
     },
     button2: {
-        backgroundColor: '#87ceeb',
+        backgroundColor: '#FFA500',
         marginLeft: 30,
         marginRight: 30,
         marginTop: 20,
@@ -84,7 +86,7 @@ export default StyleSheet.create({
         justifyContent: 'center'
     },
     button3: {
-        backgroundColor: '#87ceeb',
+        backgroundColor: '#FFA500',
         marginLeft: 30,
         marginRight: 30,
         marginTop: 20,
