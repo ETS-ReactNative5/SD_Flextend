@@ -1,5 +1,6 @@
-import React, {useState, useEffect} from 'react';
-import { TouchableOpacity, Text, View, Button, Image, ImageBackground, Platform } from 'react-native';
+// import needed libs
+import React from 'react';
+import { TouchableOpacity, Text, View, Button, Platform } from 'react-native';
 import { BleManager, Device } from 'react-native-ble-plx';
 import base64 from 'react-native-base64';
 
@@ -7,6 +8,8 @@ import firestore from '@react-native-firebase/firestore'
 import auth, {firebase} from '@react-native-firebase/auth'
 import styles from '../styles/MeasuringStyle';
 
+
+// intialize global variables and BleManager
 const manager = new BleManager();
 let disconnect_subscription;
 let flexion_subscription;
@@ -17,8 +20,6 @@ let device_id;
 let service_id;
 let extension_id = "extension_transaction";
 let flexion_id = "flexion_transaction";
-// let service_transaction = "service_transaction";
-let degree_num = 0;
 
 export default class HomeScreen extends React.Component {
 
@@ -26,6 +27,7 @@ export default class HomeScreen extends React.Component {
         title: 'Measure Now',
     };
 
+    // adding some state values to keep track of flexion, extension, date, whether the device is connected, and whether a disconnect was intentional or not.
     constructor(props) {
         super(props);
         this.state = {
@@ -37,32 +39,30 @@ export default class HomeScreen extends React.Component {
         };
     }
 
+    // asynchronous function to disconnect from Flextend device
     disconnectFromFlextend = async () => {
-        if (this.state.isConnected)
+        if (this.state.isConnected) //only disconnect if device is connected
         {
             await manager.cancelDeviceConnection(device_id);
         }
     }
 
+    // main asynchronous function to connect to the device
     connectToFlextend = async () => {
-
-        // display the Activityindicator
-        // setIsLoading(true);
-        // return_device = "";
-        console.log(this.state.date)
-        // scan devices
-        manager.startDeviceScan(null, null, async (error, device) => {
+        // begin scanning for devices
+        manager.startDeviceScan(null, null, async (error, device) => { 
             if (error) {
                 console.warn(error);
                 return;
             }
 
-            if (device) {
-                if (device.name == "Flextend"){
-                    manager.stopDeviceScan();
-                    await device.connect().then( async (device) => {
+            if (device) { //if any device is found
+                if (device.name == "Flextend"){ //if that device has name Flextend, then connect
+                    manager.stopDeviceScan(); // stop scanning when Flextend device is found
+                    await device.connect().then( async (device) => { //attemps to connect to device; when this is done, perform operations with device
                         alert("Device connected successfully! You can now begin measuring.")
 
+                        //function to handle disconnects; if component sees that device did not disconnect intentionally, this code is run.
                         disconnect_subscription = device.onDisconnected((error, disconnectedDevice) => {
                             if (!this.state.intendedDisconnect)
                             {
@@ -77,49 +77,49 @@ export default class HomeScreen extends React.Component {
                                 this.props.navigation.navigate('Home')
                             }
                         })
-
+                        
+                        // set state values
                         this.setState({ isConnected: true });
                         device_id = device.id;
-
                         
                         if (device.isConnected())
                         {
+                            //read characteristics and services for Flextend device
                             const allServicesAndCharacteristics = await device.discoverAllServicesAndCharacteristics();
+                            //find all services for device
                             const discoveredServices = await allServicesAndCharacteristics.services();
                             let flextendService;
+                            // strange bug with BLE on Android vs. iOS; there are more services read on Android that are hidden on iOS
+                            // on iOS, the first service is our Flextend Service for reading flexion and extension
                             if (Platform.OS == 'ios')
                             {
                                 flextendService = discoveredServices[0];
                             }
-                            else
+                            else // on Android, there are two extra services that we do not need, so read the third one
                             {
                                 flextendService = discoveredServices[2];
                             }
+                            // store Flextend service ID
                             service_id = flextendService.uuid;
+                            // reading all characteristics for this service that we need
                             const all_characteristics = await flextendService.characteristics();
-                            // console.log("Printing characteristic uuids: ")
-                            console.log(service_id)
-                            // console.log(all_characteristics[1])
-                            // console.log(all_characteristics)
-                            // console.log(all_characteristics)
                             const flexionCharacteristic = all_characteristics[0];
                             const extensionCharacteristic = all_characteristics[1];
                             const measuringCharacteristic = all_characteristics[2];
                             const calibrationCharacteristic = all_characteristics[3];
+                            // storing these characteristic IDs in global variables to be used by other functions
                             measuringCharacteristicID = measuringCharacteristic.uuid;
                             calibrationCharacteristicID = calibrationCharacteristic.uuid;
-                            // console.log(calibrationCharacteristicID);
                             const flexion_characteristicUUID = flexionCharacteristic.uuid;
                             const extension_characteristicUUID = extensionCharacteristic.uuid;
+                            // now we monitor the Flexion and Extension characteristics for any changes. When a change is noticed, put this value into the state.
                             flexion_subscription = flextendService.monitorCharacteristic(flexion_characteristicUUID, async (error, characteristic) => {
                                 let printVal = base64.decode(characteristic.value);
                                 this.setState({ flexion: printVal });
-                                console.log(printVal);
                             }, flexion_id);
                             extension_subscription = flextendService.monitorCharacteristic(extension_characteristicUUID, async (error, characteristic) => {
                                 let printVal = base64.decode(characteristic.value);
                                 this.setState({ extension: printVal });
-                                console.log(printVal);
                             }, extension_id);
                         }
                     });
@@ -134,12 +134,14 @@ export default class HomeScreen extends React.Component {
     }
 
     beginMeasuring = () => {
-        if (!this.state.isConnected)
+        // first, check if device is indeed connected before continuing
+        if (!this.state.isConnected) // if not connected navigate back to home to make user have to reconnect device to use screen
         {
             alert("Device is not connected! Please restart Flextend device and navigate to Start Tracking to reestablish connection.")
             this.props.navigation.navigate('Home')
         }
-        else
+        else // if device is connected, we write the value MEASURING to this characteristic. The Flextend device is, as well, monitoring this change
+        // in the measuringCharacteristic value, and will begin measuring when it sees this value written.
         {
             manager.writeCharacteristicWithResponseForDevice(device_id, service_id, measuringCharacteristicID, base64.encode('MEASURING'))
             alert("Flextend device is now measuring! Begin extending and flexing your knee. When done, press Stop Measuring.")
@@ -147,12 +149,14 @@ export default class HomeScreen extends React.Component {
     }
 
     stopMeasuring = () => {
-        if (!this.state.isConnected)
+        // again, check if device is connected
+        if (!this.state.isConnected) //if not, alert user device is not connected and navigate back to home
         {
             alert("Device is not connected! Please restart Flextend device and navigate to Start Tracking to reestablish connection.")
             this.props.navigation.navigate('Home')
         }
-        else
+        else //now the value "NOTMEASURING" is written to communicate with the Flextend device that we are no longer measuring and to push the
+        // flexion and extension values to the app.
         {
             manager.writeCharacteristicWithResponseForDevice(device_id, service_id, measuringCharacteristicID, base64.encode('NOTMEASURING'))
             alert("Flextend device no longer measuring. Your flexion and extension results will appear on this page!")
@@ -161,6 +165,7 @@ export default class HomeScreen extends React.Component {
     }
 
     calibrate = () => {
+        // same process here as beginMeasuring and stopMeasuring
         if (!this.state.isConnected)
         {
             alert("Device is not connected! Please restart Flextend device and navigate to Start Tracking to reestablish connection.")
@@ -173,21 +178,27 @@ export default class HomeScreen extends React.Component {
         }
     }
 
+    // connect to the device when we enter this page
     async componentDidMount() {
         await this.connectToFlextend()
     } 
 
 
+    // handle some operations when we navigate away from this page
     async componentWillUnmount() {
+        // first, push the read values to firebase for the user who is logged in
         firestore().collection('knee health').doc(auth().currentUser.phoneNumber).set(
             {[this.state.date]: {flexion: this.state.flexion, extension: this.state.extension} }, {merge: true})
+        // cancel transactions and subscriptions when we disconnect
         manager.cancelTransaction(flexion_id);
         manager.cancelTransaction(extension_id);
         disconnect_subscription.remove();
         flexion_subscription.remove();
         extension_subscription.remove();
+        // reset some state variables
         this.setState({ isConnected: false });
         this.setState({ intendedDisconnect: false });
+        // finally, disconnect from the device
         await this.disconnectFromFlextend();
     }
 
@@ -196,7 +207,6 @@ export default class HomeScreen extends React.Component {
 
         return (
             <View style={styles.container}>
-                {/* <ImageBackground source={require('../images/measure-background.png')} style={{width: '100%', height: '100%', resizeMode:'contain'}}  > */}
                     <Text style={styles.welcome_message}> Start Measuring</Text>
                     <View style={styles.container2}>
                         <Text style={styles.text}>Flexion: {this.state.flexion}</Text>
@@ -205,7 +215,6 @@ export default class HomeScreen extends React.Component {
                     <TouchableOpacity onPress={() => this.beginMeasuring()} style={styles.button1}><Text style={styles.buttonTitle}>Begin Measuring</Text></TouchableOpacity>
                     <TouchableOpacity onPress={() => this.stopMeasuring()} style={styles.button2}><Text style={styles.buttonTitle}>Stop Measuring</Text></TouchableOpacity>
                     <TouchableOpacity onPress={() => this.calibrate()} style={styles.button2}><Text style={styles.buttonTitle}>Calibrate</Text></TouchableOpacity>
-                {/* </ImageBackground> */}
             </View>
 
         );
