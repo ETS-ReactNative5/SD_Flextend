@@ -25,12 +25,12 @@ import ReportScreen from "./components/ReportScreen";
 
 LogBox.ignoreAllLogs(true)
 
-
 //main stack 
 const Stack = createNativeStackNavigator();
 
 const App = () =>{
 
+  //Checks for an authenticated user and changes the navigation stack 
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();
 
@@ -38,12 +38,13 @@ const App = () =>{
     setUser(user);
     if (initializing) setInitializing(false);
   }
-
+  //Using firebase .auth component
   useEffect(() => {
     const subscriber = firebase.auth().onAuthStateChanged(onAuthStateChanged);
     return subscriber; 
   }, []);
 
+  //Pulls the name of the current user to be used in the avatar 
   if(auth().currentUser != null){
       const name = firebase.auth().currentUser.displayName;
       var first_name = ''
@@ -61,13 +62,14 @@ const App = () =>{
   if (initializing) return null;
 
   if(user){
+    //authenticated user stack 
     return (
       <NavigationContainer>
         <Stack.Navigator screenOptions={{headerTransparent: true, headerTitleStyle: {
             fontWeight: 'bold',
           }}}>
           <Stack.Screen name="Home" component={HomeScreen} 
-           options={({route, navigation}) => ({ // get reference to navigation
+           options={({route, navigation}) => ({ 
             headerRight: () => (
                 <Button
                   onPress={() => navigation.navigate('Guide')} 
@@ -92,7 +94,7 @@ const App = () =>{
           <Stack.Screen name="Previous Results" component={PreviousResults}/>
           <Stack.Screen name="Progress" component={ProgressScreen} 
             options={({route, navigation }) => 
-              ({ // get reference to navigation
+              ({ 
                 headerRight: () => (
                     <Button
                       onPress={() => navigation.navigate('Report')} 
@@ -114,6 +116,7 @@ const App = () =>{
     );
   }
 
+  //No authenticated user stack 
   return (
       <NavigationContainer>
         <Stack.Navigator screenOptions={{headerTransparent: true,}}>

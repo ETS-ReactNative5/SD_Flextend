@@ -40,44 +40,23 @@ const slides = [
 
 const IntroSlider = ({navigation}) => {
 
-  ///////////////////////////// Animating the slides ////////////////////////////////////////////////
-  const startValue = new Animated.Value(1);
-  const endValue = 1.1;
-  const duration = 2000;
-
-  useEffect(() => {
-    Animated.timing(startValue, {
-      toValue: endValue,
-      duration: duration,
-      useNativeDriver: true,
-    }).start();
-  }, [startValue, endValue, duration]);
-
-  
-
   const renderItem = ({ item }) => {
     return (
       <View style={{ flex:1, backgroundColor: item.backgroundColor}}>
-        <ImageBackground source={item.image} style={{width: '100%', height: '100%', resizeMode:'contain'}}>
-          {/* <Text style={styles.title}>{item.title}</Text>
-          <Animated.View style={[styles.container, {transform: [ {scale: startValue,}, ], }, ]}>
-            <Image style={styles.image} source={item.image} />
-          </Animated.View>
-          <Text style={styles.text}>{item.text}</Text> */}
-        </ImageBackground>
-        
+        <ImageBackground source={item.image} style={{width: '100%', height: '100%', resizeMode:'contain'}}/>
       </View>
     );
+
   }
 
   
   const onDone = () => {
-    // const navigate = this.props.navigation.navigate;
+    // navigate to home screen
     navigation.navigate('Home')
   }
 
   const onSkip = () => {
-    // const navigate = this.props.navigation.navigate;
+    // navigate to home screen
     navigation.navigate('Home')
   }
 
