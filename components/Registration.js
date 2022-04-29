@@ -11,6 +11,7 @@ export default class RegistrationScreen extends React.Component {
         title: 'Register New User',
     };
 
+    //Initializing states needed for user registration
     state = {
         phone: '+1 ',
         firstName: '',
@@ -20,11 +21,13 @@ export default class RegistrationScreen extends React.Component {
         userID: ''
     }
 
+    //Function to check user phone number input using regular expressions
     validPhoneNumber = () => {
         var regEx = /^\+[0-9]?()[0-9](\s|\S)(\d[0-9]{8,16})$/
         return regEx.test(this.state.phone)
     }
 
+    //Function to sign in a user to Google Firebase 
     registerUser = () => {
         if (this.validPhoneNumber() && this.state.firstName != '' && this.state.lastName != '')
         {
@@ -45,6 +48,7 @@ export default class RegistrationScreen extends React.Component {
         }
     }
 
+    //Function to create a user profile in Firebase Auth & Firestore
     handleVerifyCode = () => {
         const {confirmResult, verificationCode} = this.state
         if (verificationCode.length == 6) {
@@ -96,6 +100,7 @@ export default class RegistrationScreen extends React.Component {
         }
       }
 
+    //Render the screen to include the verification code text box
     renderConfirmationView = () => {
         return (
           <KeyboardAwareScrollView>
@@ -120,6 +125,7 @@ export default class RegistrationScreen extends React.Component {
         )
     }
 
+    //Render login screen function 
     render () {
         return (
           <View>

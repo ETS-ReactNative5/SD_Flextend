@@ -8,10 +8,12 @@ import firestore from '@react-native-firebase/firestore';
 
 export default function PreviousResults() {
     
+    //Variables flexion, extension, and userID
     const [flexion, setFlexion] = useState(0);
     const [extension, setExtension] = useState(0);
     const userID = auth().currentUser.phoneNumber;
 
+    //Get the specified user knee health data from Firestore
     const getUser = async () => {
         try {
             const documentSnapshot = await firestore()
@@ -44,24 +46,26 @@ export default function PreviousResults() {
         getUser();
     }, [])
 
+    //Initialize noData to be false
     var noData = false;
 
-    console.log(flexion)
-    console.log(extension)
-
+    //If flexion and extension read 0...set noData to true
     if (flexion == 0 && extension == 0)
     {
         noData = true;
     }
     
+    //Divide flexion by 120 to get the percentage value
     var flexion_data = {
         data: [flexion / 120]
     }
 
+    //Subtract extension from 100 and divide by 100 to get the percentage value
     var extension_data = {
         data: [100 - extension / 100]
     }
 
+    //If there was no user data...set flexion and extension to 0 in the data field for the progress chat
     if (noData == true) {
         flexion_data = {
             data: [0]
@@ -72,17 +76,21 @@ export default function PreviousResults() {
         }
     }
     
+    //Get the screen width 
     const screenWidth = Dimensions.get("window").width;
 
+    //Get the name from the user profile
     const name = auth().currentUser.displayName;
     var first_name = ''
     var last_name = ''
 
+    //Combine first and last name and add a space between
     var n = name.indexOf(' ')
         
     first_name = name.substring(0, n)
     last_name = name.substring((n - 1) + 2)
 
+    //Return function displays the screen
     return (
         <View>
         <ImageBackground source={require('../images/graphs.png')} style={{width: '100%', height: '100%', resizeMode:'contain'}}  >

@@ -8,9 +8,11 @@ import firestore from '@react-native-firebase/firestore';
 
 export default function Progress() {
     
+    //Variables data and userID
     const [data, setData] = useState({})
     const userID = auth().currentUser.phoneNumber;
 
+    //Get the specified user knee health data from Firestore
     const getUser = async () => {
         try {
             const documentSnapshot = await firestore()
@@ -37,30 +39,35 @@ export default function Progress() {
         getUser();
     }, [])
 
+    //Get the data and store in user_data variable
     const user_data = data;
     const user_keys = Object.keys(user_data).sort()
-    console.log(user_keys)
     
+    //Initialize arrays for the x-axis labels, flexion, and extension
     var labels = []
     var flexion_array = []
     var extension_array = []
 
+    //Add timestamps to the labels array
     var i = 0
     for (i; i < user_keys.length; i++) {
         var date = user_keys[i]
         labels.push(date.substring(5, 10))
     }
 
+    //Add flexion data to the flexion array
     var j = 0;
     for (j; j < user_keys.length; j++) {
         flexion_array.push(user_data[user_keys[j]]["flexion"]) 
     }
 
+    //Add extension data to the extension array
     var k = 0;
     for (k; k < user_keys.length; k++) {
         extension_array.push(user_data[user_keys[k]]["extension"])
     }
 
+    //If the three arrays exceed 5 items, remove the most outdated item and add the newest item
     if (labels.length > 5)
     {
         labels = labels.reverse()
@@ -81,17 +88,21 @@ export default function Progress() {
         extension_array = extension_array.reverse()
     }
 
+    //Get the name from the user profile
     const name = auth().currentUser.displayName;
     var first_name = ''
     var last_name = ''
 
+    //Combine first and last name and add a space between
     var n = name.indexOf(' ')
         
     first_name = name.substring(0, n)
     last_name = name.substring((n - 1) + 2)
 
+    //Get the screen width 
     const screenWidth = Dimensions.get("window").width;
 
+    //Return function displays the screen
     return (
         <View>
         <ImageBackground source={require('../images/graphs.png')} style={{width: '100%', height: '100%', resizeMode:'contain'}}  >
@@ -165,6 +176,7 @@ export default function Progress() {
     )
 }
 
+//Style Sheet specific to the bar graphs
 const bar_styles = StyleSheet.create({
     graphStyle: {
         flex: 1,

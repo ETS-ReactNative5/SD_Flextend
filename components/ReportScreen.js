@@ -7,10 +7,12 @@ import firestore from '@react-native-firebase/firestore'
 
 export default function ReportScreen() {
 
+    //Variables data, metrics, and userID
     const [data, setData] = useState({})
     const [metrics, setMetrics] = useState({})
     const userID = auth().currentUser.phoneNumber;
 
+    //Get the user knee health data from Firestore
     const getUser = async () => {
         try {
             const documentSnapshot = await firestore()
@@ -33,6 +35,7 @@ export default function ReportScreen() {
         }
     }
 
+    //Get the user information from Firestore
     const getUserMetrics = async () => {
         try {
             const documentSnapshot = await firestore()
@@ -60,33 +63,38 @@ export default function ReportScreen() {
         getUserMetrics();
     }, [])
 
+    //Store the knee health data in user_data
     const user_data = data;
     const user_keys = Object.keys(user_data).sort()
 
+    //Get the age from the user information 
     const age = metrics["age"]
-    const height = metrics["height"]
-    const weight = metrics["weight"]
     
+    //Initialize array for x-axis labels, flexion, and extension
     var labels = []
     var flexion_array = []
     var extension_array = []
 
+    //Add timestamps to the labels array
     var i = 0
     for (i; i < user_keys.length; i++) {
         var date = user_keys[i]
         labels.push(date.substring(4, 10))
     }
 
+    //Add flexion data to the flexion array
     var j = 0;
     for (j; j < user_keys.length; j++) {
         flexion_array.push(user_data[user_keys[j]]["flexion"]) 
     }
 
+    //Add extension data to the extension array
     var k = 0;
     for (k; k < user_keys.length; k++) {
         extension_array.push(user_data[user_keys[k]]["extension"])
     }
 
+    //Find the best flexion value
     var l = 0;
     var smallest = 180;
     for (l; l < flexion_array.length; l++)
@@ -97,6 +105,7 @@ export default function ReportScreen() {
         }
     }
 
+    //Find the best extension value
     var m = 0;
     var largest = 0;
     for (m; m < extension_array.length; m++)
@@ -107,6 +116,7 @@ export default function ReportScreen() {
         }
     }
 
+    //Display messages based on the flexion/extension value
     var flexion_age_message = ""
     var extension_age_message = ""
     if (age <= 8)
@@ -192,6 +202,7 @@ export default function ReportScreen() {
        }
     }
 
+    //Return function displays the screen
     return (
         <View>
         <ImageBackground  style={{width: '100%', height: '100%', resizeMode:'contain'}} source={require("../images/report-background.png")} >  
@@ -204,8 +215,6 @@ export default function ReportScreen() {
                 <Text style={styles.section_text}>Extension</Text>
                 <Text style={styles.info_text}>{extension_age_message}</Text>
             </View>
-            {/* <Text style={styles.Title}>Age: {age} </Text> */}
-            
         </ImageBackground>
         </View>
     )
