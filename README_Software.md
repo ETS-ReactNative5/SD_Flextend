@@ -88,8 +88,11 @@ This component is the primary view when the user logs into the application. Fro 
 
 todo: INDICATE FLOW CHART OF DEPENDENCIES OF THESE THREE MODULES 
 ### LiveMeasureScreen
-### BLEScreen
-### DeviceScreen
+This component is the main screen where users will interact with the Flextend device. The intended use for this screen is the following sequence:
+1. User powers on the Flextend device
+2. From the home screen, user presses "Live Measure" button. Upon pressing this, this component will attempt to pair to the Flextend device and navigate to the LiveMeasureScreen.
+3. If the pairing was successful, the user will see an alert saying that they connected successfully.
+From there, the user has a few options to use the device, namely "Begin Measuring", "Stop Measuring", and "Calibrate". When the user powers on the device and pairs to the application, they have the option to calibrate the device with "Calibrate", which ensures that the readings taken on the knee are accurate. This calibration should be done when the device is on a flat surface such that the device is reading 0 degrees. Next, the user can put on the device and press the "Begin Measuring" button. An alert will notify the user that the device is in measuring mode, and the user can move their knee back and forth to measure their full range of motion. Once done measuring, the user can press "Stop Measuring". When this is pressed, the Flextend device stops measuring degree values and sends the proper Flexion and Extension values back to the app. These results are displayed in the Flexion and Extension text boxes. If the user is unhappy with their result and would like to do another, the user can simply begin the "Begin Measuring" and "Stop Measuring" process again. Finally, upon navigating back to the Home page, the application will unpair from the Flextend device and push the Flexion and Extension results to Firebase, where the user can then see these results in the other pages of the app.
 
 ### PreviousResultsScreen
 This component displays the most recent measurment results for the user. These results are displayed via progress rings. The user values for flexion and extension are compared to the perfect flexion and extension values (0 degrees extension and 120 degrees flexion). Using simple addition, subtraction, and division, percentages are calculated to show how close the user values are to the perfect values. The progress rings are filled based on the percentage. The numerical value is also displayed to the right. The progress rings updates in real-time. If the user completes a new measurment, the progress rings will automatically use the newest values. Here is an image showing the functionality of the progress rings:
