@@ -2,33 +2,21 @@ import { useState, useEffect, useReducer }from "react";
 import * as React from "react";
 import { StatusBar, StyleSheet, View, ImageBackground, TouchableOpacity, Text, ScrollView, Switch, TextInput, AsyncStorage, } from "react-native";
 import { CheckBox, Avatar } from 'react-native-elements'
-
 import {Picker} from '@react-native-picker/picker';
-
 import  ImagePicker  from "react-native-image-crop-picker";
-// import { Avatar } from "../Profile_components/Avatar";
 import storage from '@react-native-firebase/storage';
-
 import Modal from "react-native-modal";
 import styles from '../styles/HomeStyle';
 import styles2 from '../styles/MetricStyle';
 import styles1 from '../styles/ProfileStyle';
-
 import auth, { firebase } from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore';
-
-
 import * as AddCalendarEvent from 'react-native-add-calendar-event';
 import moment from 'moment';
 
-// import AnimatedSplash from "react-native-animated-splash-screen";
 
 
 const Profile = ({navigation}) => {
-
-
-    ////////////////////////////////////////Loading screen ///////////////////////////////////////////////////////////////////////////////
-
 
     ////////////////////////////////////////For modal state///////////////////////////////////////////////////////////////////////////////
 
@@ -47,8 +35,10 @@ const Profile = ({navigation}) => {
     //input for weight state
     const [selectedStatus, setSelectedStatus] = useState(false);
 
+    //input for goal state 
     const [goal, setGoal] = useState('')
 
+    //function to push metrics to firebase collection
     const metricsToFirebase = () => {
         firestore().collection('users').doc(auth().currentUser.phoneNumber).update(
             {'age':selectedAge}
@@ -64,6 +54,7 @@ const Profile = ({navigation}) => {
         metricsToFirebase()
     }
 
+    //updates the goals in firebase collection
     const renderGoals = (goal) => {
         toggleModal()
         firestore().collection('users').doc(auth().currentUser.phoneNumber).update(
@@ -77,12 +68,12 @@ const Profile = ({navigation}) => {
         setType(type);
     }
 
+    //renders the view of the modal depending on user action
     const renderModalContent = (type) => {
         switch(type) {
             case BODY_METRICS: {
                 return (
                     <View style={styles1.modalView}>
-                    {/* <ImageBackground  style={{width: '100%', height: '100%', resizeMode:'contain'}} source={require("../images/graphs.png")} > */}
                     <Text style={styles1.modal_title}>Add Metrics</Text>
                     {/* add text input fields or drop down options */}
                     <View style={styles1.switchRow}>
@@ -117,14 +108,12 @@ const Profile = ({navigation}) => {
                     </View>
                     
                     <TouchableOpacity onPress={() => renderBodyMetrics()}style={styles1.button4} title="Done"><Text style={styles.buttonTitle}>Done</Text></TouchableOpacity>
-                    {/* </ImageBackground> */}
                     </View>
                 )
             }
             case GOALS: {
                 return (
                     <View style={styles1.modalView}>
-                    {/* <ImageBackground  style={{width: '100%', height: '100%', resizeMode:'contain'}} source={require("../images/graphs.png")} > */}
                         <Text style={styles1.modal_title}>Goals</Text>
                         <Text style={styles1.modal_text}>Use this feature to add your specific goals!</Text>
                         <Text></Text>
@@ -138,41 +127,32 @@ const Profile = ({navigation}) => {
                             onChangeText = {newGoal => setGoal(newGoal)}
                         />
                         <TouchableOpacity onPress={() => renderGoals(goal)}style={styles1.button4} title="Done"><Text style={styles.buttonTitle}>Done</Text></TouchableOpacity>
-                        {/* </ImageBackground> */}
                     </View>
                 )
             }
             case REMINDERS: {
                 return (
                     <View style={styles1.modalView}>
-                    {/* <ImageBackground  style={{width: '100%', height: '100%', resizeMode:'contain'}} source={require("../images/graphs.png")} > */}
                     <Text style={styles1.modal_title}>Reminders</Text>
                     <Text style={styles1.modal_text}>Use this feature to add events to your calendar to keep measuring with Flextend!</Text>
                     {eventId? <TouchableOpacity onPress={() => editCalendarEventWithId(eventId)} style={styles.button2Reminder}><Text style={styles.buttonTitle}>Edit</Text></TouchableOpacity> 
                     : 
                     <TouchableOpacity onPress={() => addEventToCalendar()} style={styles.button2Reminder}><Text style={styles.buttonTitle}>Add</Text></TouchableOpacity>}
                     <TouchableOpacity onPress={() => toggleModal()}style={styles1.button4} title="Hide modal"><Text style={styles.buttonTitle}>Done</Text></TouchableOpacity>
-                    {/* </ImageBackground> */}
                     </View>
                 )
             }
             case PROGRESS: {
                 return (
                     <View style={styles1.modalView}>
-                    {/* <ImageBackground  style={{width: '100%', height: '100%', resizeMode:'contain'}} source={require("../images/graphs.png")} > */}
                     <Text>progress</Text>
                     <TouchableOpacity onPress={() => toggleModal()}style={styles.button1} title="Hide modal"><Text style={styles.buttonTitle}>Close Screen</Text></TouchableOpacity>
-                    {/* </ImageBackground> */}
                     </View>
                 )
             }
         }
     }
     
-
-
-    
-
     ////////////////////////////////////////////// CALENDAR Reminders ////////////////////////////////////////////////////////////////////////
 
     //Helper function for adding to personal calendar
@@ -183,11 +163,7 @@ const Profile = ({navigation}) => {
 
     //function that add the event
     //need to save event info somewhere so the user is able to edit later
-    //how to have multiple, will we even need multiple??? 
     const [eventId, setEventId] = useState()
-
-    // var for reminder event details, used to display on screen for user NEED TO FINISH IMPLEMENTING
-    // const [eventInfoText, setEventInfoText] = useState()
   
     //retrieve eventId when re render 
     const asyncFetch = async () => {
@@ -201,6 +177,7 @@ const Profile = ({navigation}) => {
         asyncFetch();
     }, []);
 
+    //saves the id of the remonder event in local storage
     const asyncStore = async () => {
         
         if(eventId){
@@ -213,6 +190,7 @@ const Profile = ({navigation}) => {
         asyncStore();
     }, [eventId]);
 
+    //creates the event of the reminder 
     const addEventToCalendar= (title, startDateUTC) => {
         const eventConfig = {
             title: "Measure with Flextend",
@@ -236,7 +214,6 @@ const Profile = ({navigation}) => {
     //function to edit the event in calendar 
     //edits last event that was created 
     const editCalendarEventWithId = () => {
-        // getEventId()
         const eventConfig = {
         eventId,
         };
@@ -286,11 +263,10 @@ const Profile = ({navigation}) => {
         }).then((image) => {
         setUri(image.path);
         store_new_image()
-        // user.updateProfile({photoURL: image.path});
         });
     };
 
-    //NEED TO DO: Stall user while image loads
+    //stores the profile picture to firestore 
     const store_new_image = () =>{
         const image_upload = storage()
         .ref(auth().currentUser.displayName)
@@ -320,9 +296,6 @@ const Profile = ({navigation}) => {
         last_name = name.substring((n - 1) + 2)
     }
         
-    // retunr the loading screen to wait for all components to render
-    
-    //after timeout for rendering components is done return the profile view
     return (
         <View>
             <ImageBackground  style={styles1.imageBackdrop} source={require("../images/profile-background.png")} >
