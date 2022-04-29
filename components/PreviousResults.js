@@ -55,11 +55,11 @@ export default function PreviousResults() {
     }
     
     var flexion_data = {
-        data: [(90 - flexion) / 90]
+        data: [flexion / 120]
     }
 
     var extension_data = {
-        data: [extension / 180]
+        data: [100 - extension / 100]
     }
 
     if (noData == true) {
