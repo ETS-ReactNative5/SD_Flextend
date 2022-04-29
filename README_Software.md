@@ -78,9 +78,6 @@ This module is the index component of the mobile application. Navigation stack c
 ### LoginScreen
 This is the first component that the user will see when initializing the Flextend application. The purpose of this component is to authenticate the user using a valid US mobile phone number. The user is asked to imput their number into a text box. Regular expressions are used to determine if the user input is a 10-digit value. Any invalid inputs will trigger an alert for the user to try again. After entering a valid 10-digit number, Google Firebase will run an reCAPTCHA analysis to ensure that the user is not a robot. Firebase will also check if the phone number is already registered into the system. Any errors will generate an alert for the user to try again or navigate to the Registration Screen if the user is new to Flextend. A successful reCAPTCHA analysis will display a new text box for the user to enter a 6-digit verification code sent via SMS. After entering the code, the user is logged into the app.
 
-![login](/images/login-screen.png)
-<img src="/images/login-screen.png" height = "400" width="200"/>
-
 ### RegistrationScreen
 This component is required for new Flextend users. The user must create an account in Google Firebase to access the application. After navigating to the Registration Screen, the user will see three text boxes: first name, last name, and phone number. The user will need to enter this information as part of the registration process. The first and last name text boxes will accept any entry, as these parameters are only used for display in the application. The phone number text box has the same functionality as the Login Screen. Regular expressions are used to determine if the user input is a 10-digit value. If sucessfull, Google Firebase will run an reCAPTCHA analysis to determine that the user is not a robot. A successfull reCAPTCHA analysis will display a new text box for the user to enter a 6-digit verification code sent via SMS. After entering the code, the user is navigated back to the Login Screen. At this point, the user has an account in Google Firebase and can use the Login Screen for all future authentication attempts.
 
@@ -90,7 +87,8 @@ This component includes four slides that appear when a new user registers to the
 ### HomeScreen 
 This component is the primary view when the user logs into the application. Fro here the user can navigate to all the rest of the functionalities. This screen is also connected to Firebase to pull "Goals" for the user and display on screen. 
 
-![home](/images/home-screen.png)
+<!-- ![home](/images/home-screen.png) -->
+<img src="/images/home-screen.png" height = "400" width="200"/>
 
 ### LiveMeasureScreen
 This component is the main screen where users will interact with the Flextend device. The intended use for this screen is the following sequence:
@@ -100,7 +98,8 @@ This component is the main screen where users will interact with the Flextend de
 
 From there, the user has a few options to use the device, namely "Begin Measuring", "Stop Measuring", and "Calibrate". When the user powers on the device and pairs to the application, they have the option to calibrate the device with "Calibrate", which ensures that the readings taken on the knee are accurate. This calibration should be done when the device is on a flat surface such that the device is reading 0 degrees. Next, the user can put on the device and press the "Begin Measuring" button. An alert will notify the user that the device is in measuring mode, and the user can move their knee back and forth to measure their full range of motion. Once done measuring, the user can press "Stop Measuring". When this is pressed, the Flextend device stops measuring degree values and sends the proper Flexion and Extension values back to the app. These results are displayed in the Flexion and Extension text boxes. If the user is unhappy with their result and would like to do another, the user can simply begin the "Begin Measuring" and "Stop Measuring" process again. Finally, upon navigating back to the Home page, the application will unpair from the Flextend device and push the Flexion and Extension results to Firebase, where the user can then see these results in the other pages of the app.
 
-![home](/images/measure-screen.png)
+<!-- ![home](/images/measure-screen.png) -->
+<img src="/images/measure-screen.png" height = "400" width="200"/>
 
 ### PreviousResultsScreen
 This component displays the most recent measurment results for the user. These results are displayed via progress rings. The user values for flexion and extension are compared to the perfect flexion and extension values (0 degrees extension and 120 degrees flexion). Using simple addition, subtraction, and division, percentages are calculated to show how close the user values are to the perfect values. The progress rings are filled based on the percentage. The numerical value is also displayed to the right. The progress rings updates in real-time. If the user completes a new measurment, the progress rings will automatically use the newest values. Here is an image showing the functionality of the progress rings:
@@ -115,12 +114,14 @@ This component includes a variety of functions for the user. The screen itself i
 - Set and edit reminders. The user can set up calendar events reminders to use the application. This utilizes a 3rd party module that connects to the mobile phone's calendar (apple calendar or google calendar) and the user can customize the frequency, times, and notifications.
 - See progress charts. The user can see their past measurements of knee flexion and extension in a bar graph format and see how it has changed through time. 
 
-![home](/images/profile-screen.png)
+<!-- ![home](/images/profile-screen.png) -->
+<img src="/images/profile-screen.png" height = "400" width="200"/>
 
 ### ReportScreen
 This component will extract all user measurments from the Google Firebase "knee health" collection. Using additional metrics given by the user, age and recent knee surgery status, a detailed progress report will be generated for the user. Using data from the CDC, the user will see how their results compare to other users of a similar age range. There are two possibilities for both flexion and extension: the user is above the national average or below the national average for their age range. Using data provided by our client, users with a recent knee surgery will have their own results and reccomendations, separate from users who have not had a recent knee surgery.  
 
-![home](/images/report-screen.png)
+<!-- ![home](/images/report-screen.png) -->
+<img src="/images/report-screen.png" height = "400" width="200"/>
 
 ### ProgressScreen
 This component will show the past five measurments to the user in two bar graphs: a flexion bar graph and an extension bar graph. The x-axis is measured in increasing time. Each bar will have a unique timestamp for the month and day of the measurment. It is represented in the format mm dd. The first bar graph will have a y-axis that measures flexion in degrees. The second bar graph will have a y-axis that measures extension in degrees. The graphs update in real-time. If the user completes a new measurment, the bar closest to the origin will be deleted and the other four bars will shift to the left. The newest measurment will be added in to the right of the other bars. Here is an image showing the functionality of the bar graphs:
