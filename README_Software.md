@@ -12,8 +12,37 @@ The goals of this project were to:
 
 The electrical component includes an Arduino Nano IoT, 2 MPU6050 units, a buzzer, a 9V battery. Read more [Here](LINK TO HW README).
 
-On the software side, we built a cross-platform mobile application powered by React Native. The backend database service is [Google Firebase](https://console.firebase.google.com/u/0/project/flextend-c4648/overview). The appication communicates with the elctrical device via Bluetooth BLE on the Arduino nano IoT. 
+On the software side, we built a cross-platform mobile application powered by React Native. The backend database service is [Google Firebase](https://console.firebase.google.com/u/0/project/flextend-c4648/overview) (Keep in mind permissions are needed to collaborate). The appication communicates with the elctrical device via Bluetooth BLE on the Arduino nano IoT. 
 The application allows the user to see measurement results instantly and save the data for progress vieweing later. It also allows for reminder and goal setting.  
+
+## Set Up and Deployment 
+TODO: Add react installation and how to run the project 
+JACK TODO
+
+### iOS Specific
+1. Install Node version >= 14 and Watchman `brew install node` `brew install watchman`
+2. Install Xcode version >= 10 via the App Store.
+3. Install Command Line Tools. Follow instructions [here](https://reactnative.dev/docs/environment-setup) under *Command Line Tools* 
+4. Install CocoaPods `sudo gem install cocoapods`
+5. Download iPhone simulators or run the app on your own device. 
+
+### Android Specific
+1. Install Node, Python2, and JDK onto Windows machine (Reccomendation: Use Chocolatey package manager, open terminal, and type: choco install -y nodejs.install python2 openjdk8)
+2. Download and install Android Studio onto Windows machine
+3. On Android Studio installation wizard, check Android SDK, Android SDK Platform, Android Virtual Device
+4. On the Welcome Screen, download Android 10 (Q) for React Native applications by clicking "Configure" then "SDK Manager"
+5. Configure Android Studio PATH on Windows (USE: https://reactnative.dev/docs/0.60/enviroment-setup?msclkid=5f11a429c7cd11eca16de427e70756ea for guidance)
+6. Download application from SD_Flextend repository onto local machine (Git Clone or Download zip file)
+7. Navigate inside project folder using Windows Command Prompt
+8. Run Metro JavaScript bundler by typing: npx react-native start
+9. Run Flextend application by typing: npx react-native run-android
+
+Note: For a virtual machine, additional steps are required (USE: https://developer.android.com/studio/run/managing-avds for guidance)
+<br />
+Note: For a phyical device, ensure USB Debugging is enabled (USE: https://developer.android.com/studio/debug/dev-options for guidance)
+
+### React Native Dependencies 
+All dependencies that need to be installed for this project are listed in the *requirements.txt* file and can be installed using `npm install --save -r requirements`
 
 ### System diagram and flow chart 
 Below is an image of the flow of the application. Dashed arrows indicate the data flow direction. Solid arrows indicate screen navigation. Screens are labeled. The main points to notice are that the Bluetooth conection to the arduino is only active when the user is inside the Measuring Screen, and that the connection to Firebase is through WiFi. 
@@ -39,29 +68,6 @@ Here is an image of the users collection in Firestore:
 
 ![#2](https://user-images.githubusercontent.com/73702777/165970506-187a32fd-6dae-45dc-970a-11234eebb900.JPG)
 
-## Deployment 
-TODO: Add react installation and how to run the eproject 
-
-### iOS Specific
-
-### Android Specific
-1. Install Node, Python2, and JDK onto Windows machine (Reccomendation: Use Chocolatey package manager, open terminal, and type: choco install -y nodejs.install python2 openjdk8)
-2. Download and install Android Studio onto Windows machine
-3. On Android Studio installation wizard, check Android SDK, Android SDK Platform, Android Virtual Device
-4. On the Welcome Screen, download Android 10 (Q) for React Native applications by clicking "Configure" then "SDK Manager"
-5. Configure Android Studio PATH on Windows (USE: https://reactnative.dev/docs/0.60/enviroment-setup?msclkid=5f11a429c7cd11eca16de427e70756ea for guidance)
-6. Download application from SD_Flextend repository onto local machine (Git Clone or Download zip file)
-7. Navigate inside project folder using Windows Command Prompt
-8. Run Metro JavaScript bundler by typing: npx react-native start
-9. Run Flextend application by typing: npx react-native run-android
-
-Note: For a virtual machine, additional steps are required (USE: https://developer.android.com/studio/run/managing-avds for guidance)
-<br />
-Note: For a phyical device, ensure USB Debugging is enabled (USE: https://developer.android.com/studio/debug/dev-options for guidance)
-
-### React Native Dependencies 
-All dependencies that need to be installed for this project are listed in the *requirements.txt* file and can be installed using `npm install --save -r requirements`
-
 ## Overview of Modules 
 The project main components are separated under the *Components* folder.
 
@@ -78,6 +84,8 @@ This component is required for new Flextend users. The user must create an accou
 This component includes four slides that appear when a new user registers to the mobile application. These slides show the user the main features of our application. 
 
 ### HomeScreen 
+This component is the primary view when the user logs into the application. Fro here the user can navigate to all the rest of the functionalities. This screen is also connected to Firebase to pull "Goals" for the user and display on screen. 
+
 ### LiveMeasureScreen
 ### BLEScreen
 ### DeviceScreen
