@@ -12,7 +12,7 @@ export default StyleSheet.create({
       // marginTop: 2
     },
     textInput: {
-      backgroundColor: 'rgba(255,255,255, 0.6)',
+      backgroundColor: 'rgba(255,255,255, 0.9)',
       marginLeft: 30,
       marginRight: 30,
       marginTop: 20,
@@ -26,7 +26,7 @@ export default StyleSheet.create({
       fontWeight: 'bold'
     },
     text: {
-      marginTop: Platform.OS === 'ios' ? 300 : 300,
+      marginTop: Platform.OS === 'ios' ? 100 : 300,
       fontSize: 24,
       textAlign: 'center',
       paddingLeft: 10,

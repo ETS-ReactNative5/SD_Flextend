@@ -82,7 +82,7 @@ const Profile = ({navigation}) => {
             case BODY_METRICS: {
                 return (
                     <View style={styles1.modalView}>
-                    <ImageBackground  style={{width: '100%', height: '100%', resizeMode:'contain'}} source={require("../images/graphs.png")} >
+                    {/* <ImageBackground  style={{width: '100%', height: '100%', resizeMode:'contain'}} source={require("../images/graphs.png")} > */}
                     <Text style={styles1.modal_title}>Add Metrics</Text>
                     {/* add text input fields or drop down options */}
                     <View style={styles1.switchRow}>
@@ -117,52 +117,52 @@ const Profile = ({navigation}) => {
                     </View>
                     
                     <TouchableOpacity onPress={() => renderBodyMetrics()}style={styles1.button4} title="Done"><Text style={styles.buttonTitle}>Done</Text></TouchableOpacity>
-                    </ImageBackground>
+                    {/* </ImageBackground> */}
                     </View>
                 )
             }
             case GOALS: {
                 return (
-                    <View >
-                    <ImageBackground  style={{width: '100%', height: '100%', resizeMode:'contain'}} source={require("../images/graphs.png")} >
-                    <Text style={styles1.modal_title}>Goals</Text>
-                    <Text style={styles1.modal_text}>Use this feature to add your specific goals!</Text>
-                    <Text></Text>
-                    <Text style={styles1.modal_text}>Navigate to the Home Page to see your goals!</Text>
-                    <TextInput 
-                        style = {styles1.goalInput}
-                        placeholder = ' Enter your goal here'
-                        textAlign ='left'
-                        keyboardType = 'default'
-                        value = {goal}
-                        onChangeText = {newGoal => setGoal(newGoal)}
-                    />
-                    <TouchableOpacity onPress={() => renderGoals(goal)}style={styles1.button4} title="Done"><Text style={styles.buttonTitle}>Done</Text></TouchableOpacity>
-                    </ImageBackground>
+                    <View style={styles1.modalView}>
+                    {/* <ImageBackground  style={{width: '100%', height: '100%', resizeMode:'contain'}} source={require("../images/graphs.png")} > */}
+                        <Text style={styles1.modal_title}>Goals</Text>
+                        <Text style={styles1.modal_text}>Use this feature to add your specific goals!</Text>
+                        <Text></Text>
+                        <Text style={styles1.modal_text}>Navigate to the Home Page to see your goals!</Text>
+                        <TextInput 
+                            style = {styles1.goalInput}
+                            placeholder = ' Enter your goal here'
+                            textAlign ='left'
+                            keyboardType = 'default'
+                            value = {goal}
+                            onChangeText = {newGoal => setGoal(newGoal)}
+                        />
+                        <TouchableOpacity onPress={() => renderGoals(goal)}style={styles1.button4} title="Done"><Text style={styles.buttonTitle}>Done</Text></TouchableOpacity>
+                        {/* </ImageBackground> */}
                     </View>
                 )
             }
             case REMINDERS: {
                 return (
-                    <View>
-                    <ImageBackground  style={{width: '100%', height: '100%', resizeMode:'contain'}} source={require("../images/graphs.png")} >
+                    <View style={styles1.modalView}>
+                    {/* <ImageBackground  style={{width: '100%', height: '100%', resizeMode:'contain'}} source={require("../images/graphs.png")} > */}
                     <Text style={styles1.modal_title}>Reminders</Text>
                     <Text style={styles1.modal_text}>Use this feature to add events to your calendar to keep measuring with Flextend!</Text>
                     {eventId? <TouchableOpacity onPress={() => editCalendarEventWithId(eventId)} style={styles.button2Reminder}><Text style={styles.buttonTitle}>Edit</Text></TouchableOpacity> 
                     : 
                     <TouchableOpacity onPress={() => addEventToCalendar()} style={styles.button2Reminder}><Text style={styles.buttonTitle}>Add</Text></TouchableOpacity>}
                     <TouchableOpacity onPress={() => toggleModal()}style={styles1.button4} title="Hide modal"><Text style={styles.buttonTitle}>Done</Text></TouchableOpacity>
-                    </ImageBackground>
+                    {/* </ImageBackground> */}
                     </View>
                 )
             }
             case PROGRESS: {
                 return (
-                    <View>
-                    <ImageBackground  style={{width: '100%', height: '100%', resizeMode:'contain'}} source={require("../images/graphs.png")} >
+                    <View style={styles1.modalView}>
+                    {/* <ImageBackground  style={{width: '100%', height: '100%', resizeMode:'contain'}} source={require("../images/graphs.png")} > */}
                     <Text>progress</Text>
                     <TouchableOpacity onPress={() => toggleModal()}style={styles.button1} title="Hide modal"><Text style={styles.buttonTitle}>Close Screen</Text></TouchableOpacity>
-                    </ImageBackground>
+                    {/* </ImageBackground> */}
                     </View>
                 )
             }

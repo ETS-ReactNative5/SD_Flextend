@@ -93,8 +93,8 @@ export default function Progress() {
     const screenWidth = Dimensions.get("window").width;
 
     return (
-        <View>
-        <ImageBackground source={require('../images/graphs.png')} style={{width: '100%', height: '100%', resizeMode:'contain'}}  >
+        <View style={styles.container}>
+        {/* <ImageBackground source={require('../images/graphs.png')} style={{width: '100%', height: '100%', resizeMode:'contain'}}  > */}
         <ScrollView>
             <Text style={styles.title}>Hello {first_name} {last_name}</Text>
             <View style={styles.chartContainer}>
@@ -160,7 +160,7 @@ export default function Progress() {
                 <Text style={bar_styles.xlabel1}>Time</Text>
             </View>
         </ScrollView>
-        </ImageBackground>
+        {/* </ImageBackground> */}
         </View>
     )
 }
@@ -171,7 +171,7 @@ const bar_styles = StyleSheet.create({
         paddingTop: 10,
     },
     xlabel1: {
-        marginTop: 10, 
+        marginTop: 20, 
         marginBottom: 15,
         fontSize: 14,
         textAlign: 'center',

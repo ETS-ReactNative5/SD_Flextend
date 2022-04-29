@@ -193,8 +193,8 @@ export default function ReportScreen() {
     }
 
     return (
-        <View>
-        <ImageBackground  style={{width: '100%', height: '100%', resizeMode:'contain'}} source={require("../images/report-background.png")} >  
+        <View style={styles.container}>
+        {/* <ImageBackground  style={{width: '100%', height: '100%', resizeMode:'contain'}} source={require("../images/report-background.png")} >   */}
             <Text style={styles.Title}>Here is Your Generated Report</Text>
             <View style={styles.container2}>
                 <Text style={styles.text}>Best Flexion Value Overall: {smallest}</Text>
@@ -206,7 +206,7 @@ export default function ReportScreen() {
             </View>
             {/* <Text style={styles.Title}>Age: {age} </Text> */}
             
-        </ImageBackground>
+        {/* </ImageBackground> */}
         </View>
     )
 }

@@ -178,8 +178,8 @@ export default class HomeScreen extends React.Component {
         const navigate = this.props.navigation.navigate;
 
         return (
-            <View>
-                <ImageBackground source={require('../images/measure-background.png')} style={{width: '100%', height: '100%', resizeMode:'contain'}}  >
+            <View style={styles.container}>
+                {/* <ImageBackground source={require('../images/measure-background.png')} style={{width: '100%', height: '100%', resizeMode:'contain'}}  > */}
                     <Text style={styles.welcome_message}> Start Measuring</Text>
                     <View style={styles.container2}>
                         <Text style={styles.text}>Flexion: {this.state.flexion}</Text>
@@ -188,7 +188,7 @@ export default class HomeScreen extends React.Component {
                     <TouchableOpacity onPress={() => this.beginMeasuring()} style={styles.button1}><Text style={styles.buttonTitle}>Begin Measuring</Text></TouchableOpacity>
                     <TouchableOpacity onPress={() => this.stopMeasuring()} style={styles.button2}><Text style={styles.buttonTitle}>Stop Measuring</Text></TouchableOpacity>
                     <TouchableOpacity onPress={() => this.calibrate()} style={styles.button2}><Text style={styles.buttonTitle}>Calibrate</Text></TouchableOpacity>
-                </ImageBackground>
+                {/* </ImageBackground> */}
             </View>
 
         );

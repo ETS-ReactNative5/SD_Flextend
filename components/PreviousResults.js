@@ -84,8 +84,8 @@ export default function PreviousResults() {
     last_name = name.substring((n - 1) + 2)
 
     return (
-        <View>
-        <ImageBackground source={require('../images/graphs.png')} style={{width: '100%', height: '100%', resizeMode:'contain'}}  >
+        <View style={styles.container}>
+        {/* <ImageBackground source={require('../images/graphs.png')} style={{width: '100%', height: '100%', resizeMode:'contain'}}  > */}
         <ScrollView>
             <Text style={styles.title}>Hello {first_name} {last_name}</Text>
             <Text style={styles.info_text}>Here are your most recent results:</Text>
@@ -143,7 +143,7 @@ export default function PreviousResults() {
                 />
             </View>
         </ScrollView>
-        </ImageBackground>
+        {/* </ImageBackground> */}
     </View>
     );  
 }
