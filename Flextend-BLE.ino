@@ -1,38 +1,34 @@
 /*
-  LED
+  Below is the source code for the Flextend device, which uses an Arduino Nano 33 IoT as the microcontroller
 
-  This example creates a BLE peripheral with service that contains a
-  characteristic to control an LED.
+  There are four characteristics for the flextendService
+  1. flexionCharacteristic (reports the flexion values measured)
+  2. extensionCharacteristic (reports the extension values measured)
+  3. measureCharacteristic (characteristic which is written to from app to indicate when to measure)
+  4. calibrationCharacteristic (characteristic which is written to from app to indicate when to calibrate)
 
-  The circuit:
-  - Arduino MKR WiFi 1010, Arduino Uno WiFi Rev2 board, Arduino Nano 33 IoT,
-    Arduino Nano 33 BLE, or Arduino Nano 33 BLE Sense board.
-
-  You can use a generic BLE central app, like LightBlue (iOS and Android) or
-  nRF Connect (Android), to interact with the services and characteristics
-  created in this sketch.
-
-  This example code is in the public domain.
+  In addition, this code also uses two MPU6050s to measure the angle of the knee by taking the difference between the two angles measured relative to ground.
+  To extract flexion and extension values, we simply take the minimum and maximum of the measured degrees, respectively, and pass those to the app.
+  This could be improved to be more accurate.
 */
 
 #include <ArduinoBLE.h>
 #include <Wire.h>
 
-BLEService flextendService("19B10000-E8F2-537E-4F6C-D104768A1214"); // BLE LED Service
+// initialize service and characteristics with unique UUIDs
+BLEService flextendService("19B10000-E8F2-537E-4F6C-D104768A1214");
 
-// BLE LED Switch Characteristic - custom 128-bit UUID, read and writable by central
 BLEStringCharacteristic flexionCharacteristic("19B10001-E8F2-537E-4F6C-D104768A1214", BLERead | BLENotify, 10);
 BLEStringCharacteristic extensionCharacteristic("C5CA3B17-A86F-44DB-AD39-D248FB05D0BD", BLERead | BLENotify, 10);
 BLEStringCharacteristic measureCharacteristic("ADFD6F66-2A72-42DD-B1D6-7B27832FA025", BLERead | BLEWriteWithoutResponse | BLEWrite, 20);
 BLEStringCharacteristic calibrationCharacteristic("77B25143-5A38-4B8A-AAA0-BF28E09C4B18", BLERead | BLEWriteWithoutResponse | BLEWrite, 20);
 
-//const int ledPin = LED_BUILTIN; // pin to use for the LED
-
 const int MPU_addr1 = 0x68;
 const int MPU_addr2 = 0x69;
+int buzzer = 3;
 
 
-int findMin(int data[] , int s)
+int findMin(int data[] , int s) //function to extract flexion value from array of measured degrees
 {
   int min_val = data[0]; // assume 1 element in array
   for (int i = 1; i < s; i++)
@@ -45,7 +41,7 @@ int findMin(int data[] , int s)
   return min_val;
 }
 
-int findMax(int data[] , int s)
+int findMax(int data[] , int s) //function to extract extension value from array of measured degrees
 {
   int max_val = data[0]; // assume 1 element in array
   for (int i = 1; i < s; i++)
@@ -59,37 +55,43 @@ int findMax(int data[] , int s)
 }
 
 void setup() {
+  // init for first MPU
   Wire.begin();
   Wire.beginTransmission(MPU_addr1);
   Wire.write(0x6B);
   Wire.write(0);
   Wire.endTransmission(true);
-//  Serial.begin(9600);
 
+  // init for second MPU
   Wire.begin();
   Wire.beginTransmission(MPU_addr2);
   Wire.write(0x6B);  // PWR_MGMT_1 register
   Wire.write(0);     // set to zero (wakes up the MPU-6050)
   Wire.endTransmission(true);
-//  Serial.begin(9600);
-//  while (!Serial);
 
-  // set LED pin to output mode
-  //  pinMode(ledPin, OUTPUT);
-
-  // begin initialization
+  // begin BLE
   if (!BLE.begin()) {
-//    Serial.println("starting BLE failed!");
 
     while (1);
   }
+
+  
+  pinMode(Cbutton, INPUT);
+  digitalWrite(Cbutton, LOW);
+
+  // init buzzer and play a tone to indicate device is on and functioning
+  pinMode(buzzer, OUTPUT);
+
+  tone(buzzer, 2500);
+  delay(500);
+  noTone(buzzer);
 
   // set advertised local name and service UUID:
   BLE.setDeviceName("Flextend");
   BLE.setLocalName("Flextend");
   BLE.setAdvertisedService(flextendService);
 
-  // add the characteristic to the service
+  // add the characteristics to the service
   flextendService.addCharacteristic(flexionCharacteristic);
   flextendService.addCharacteristic(extensionCharacteristic);
   flextendService.addCharacteristic(measureCharacteristic);
@@ -98,9 +100,7 @@ void setup() {
   // add service
   BLE.addService(flextendService);
 
-  // set the initial value for the characeristic:
-  //  String message(i);
-  //  degreesCharacteristic.writeValue(message);
+  // set the initial value for the characeristics:
   String measuring("NOTMEASURING");
   String calibrating("NOTCALIBRATING");
   measureCharacteristic.writeValue(measuring);
@@ -108,8 +108,6 @@ void setup() {
 
   // start advertising
   BLE.advertise();
-
-//  Serial.println("Flextend BLE Peripheral");
 }
 
 void loop() {
@@ -118,12 +116,10 @@ void loop() {
 
   // if a central is connected to peripheral:
   if (central) {
-//    Serial.print("Connected to central: ");
-    // print the central's MAC address:
-//    Serial.println(central.address());
 
     // while the central is still connected to peripheral:
     while (central.connected()) {
+      // reset state variables and init variables
       bool isMeasuring = false;
       bool isCalibrating = false;
 
@@ -136,6 +132,7 @@ void loop() {
 
       double raw1, raw2, x1, x2, Angle, OFF1, OFF2, sum1, sum2;
 
+      // used to measure degrees
       int degrees_array[2000]; // assume no more than 2000 entries are measured
       for (int i = 0; i < 2000; i++)
       {
@@ -143,6 +140,7 @@ void loop() {
       }
       int i = 0;
 
+      // sets state values to indicate when to calibrate
       if (calibrationCharacteristic.value() == "CALIBRATING")
       {
         isCalibrating = true;
@@ -152,7 +150,7 @@ void loop() {
         isCalibrating = false;
       }
 
-      if (isCalibrating)
+      if (isCalibrating) //begin calibration code
       {
         float v1[20], v2[20], t1, t2;
         //Calibration Code
@@ -166,6 +164,7 @@ void loop() {
 
         while (count < 20) {
 
+          // read values from first MPU
           Wire.beginTransmission(MPU_addr1);
           Wire.write(0x3B);
           Wire.endTransmission(false);
@@ -176,8 +175,9 @@ void loop() {
           int xAng1 = map(AcX1, minVal, maxVal, -90, 90);
           int yAng1 = map(AcY1, minVal, maxVal, -90, 90);
           int zAng1 = map(AcZ1, minVal, maxVal, -90, 90);
+          
 
-
+          // convert to degrees and offset
           t1 = RAD_TO_DEG * (atan2(-yAng1, -zAng1) + PI);
 
           if (t1 < 180) {
@@ -190,7 +190,7 @@ void loop() {
             v1[count] = t1;
           }
 
-
+          // read from second MPU
           Wire.beginTransmission(MPU_addr2);
           Wire.write(0x3B);
           Wire.endTransmission(false);
@@ -202,6 +202,7 @@ void loop() {
           int yAng2 = map(AcY2, minVal, maxVal, -90, 90);
           int zAng2 = map(AcZ2, minVal, maxVal, -90, 90);
 
+          //convert to degrees and offset
           t2 = RAD_TO_DEG * (atan2(-yAng2, -zAng2) + PI);
 
           if (t2 < 180) {
@@ -216,6 +217,7 @@ void loop() {
           count++;
         }
 
+        // find the offsets for both MPUs
         sum1 = 0;
         sum2 = 0;
 
@@ -226,13 +228,13 @@ void loop() {
   
         OFF1 = 360 - (sum1 / 20);
         OFF2 = 360 - (sum2 / 20);
-//        Serial.println(OFF1);
-//        Serial.println(OFF2);
+        // reset calibration variables
         String calibrating("NOTCALIBRATING");
         calibrationCharacteristic.writeValue(calibrating);
         isCalibrating = false;
       }
 
+      // set measuring state when we read measuring from app
       if (measureCharacteristic.value() == "MEASURING")
       {
         isMeasuring = true;
@@ -251,28 +253,18 @@ void loop() {
         double raw1, raw2, x1, x2, Angle, OFF1, OFF2, sum1, sum2;
 
         
-        if (central.connected())
+        if (central.connected()) //check this to make sure connection is still working
         {
-//          Serial.println("CONNECTED");
         }
         if (measureCharacteristic.written())
         {
-//          Serial.println("WRITTEN");
         }
-        if (measureCharacteristic.value() == "NOTMEASURING")
-        {
-//          Serial.println("Done Measuring");
-//          for (int i = 0; i < 2000; i++)
-//          {
-//            Serial.println(i);
-//            Serial.println(degrees_array[i]);
-//          }
+        if (measureCharacteristic.value() == "NOTMEASURING") // check if the characteristic changes while in measuring state
+        {                                                    // if so, find flexion and extension and write to characteristics as well as reset degrees array
           int min_val = findMin(degrees_array, i);
           int max_val = findMax(degrees_array, i);
           String min_string(min_val);
           String max_string(max_val);
-//          Serial.println(min_string);
-//          Serial.println(max_string);
           flexionCharacteristic.writeValue(min_string);
           extensionCharacteristic.writeValue(max_string);
           isMeasuring = false;
@@ -282,6 +274,8 @@ void loop() {
             degrees_array[i] = 0;
           }
         }
+
+        // same code as calibration, except now we use offset in recording the degrees and do not find an offset (as we already have it)
         Wire.beginTransmission(MPU_addr1);
         Wire.write(0x3B);
         Wire.endTransmission(false);
@@ -332,14 +326,12 @@ void loop() {
         else {
           Angle = abs ( 180 - abs(abs(x1) + abs(x2)) );
         }
+        // write value to degrees array
         degrees_array[i] = Angle;
-//        Serial.println(degrees_array[i]);
         i++;
+        //delay so that not too many degree values are measured
         delay(200);
       }
     }
-    // when the central disconnects, print it out:
-//    Serial.print(F("Disconnected from central: "));
-//    Serial.println(central.address());
   }
 }
