@@ -119,7 +119,11 @@ export default function ReportScreen() {
     //Display messages based on the flexion/extension value
     var flexion_age_message = ""
     var extension_age_message = ""
-    if (age <= 8)
+    if (age == ""){
+        flexion_age_message = "Enter your age in the metrics screen to see your report"
+        extension_age_message = "Return to this screen after!"
+    }
+    else if (age <= 8)
     {
         if (largest >= 125)
         {

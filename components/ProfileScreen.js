@@ -56,10 +56,11 @@ const Profile = ({navigation}) => {
 
     //updates the goals in firebase collection
     const renderGoals = (goal) => {
-        toggleModal()
+        // toggleModal()
         firestore().collection('users').doc(auth().currentUser.phoneNumber).update(
             {goals: firebase.firestore.FieldValue.arrayUnion(goal)}
         )
+        alert("Goal saved!")
     }
     
     //function to open and close modal
@@ -126,7 +127,8 @@ const Profile = ({navigation}) => {
                             value = {goal}
                             onChangeText = {newGoal => setGoal(newGoal)}
                         />
-                        <TouchableOpacity onPress={() => renderGoals(goal)}style={styles1.button4} title="Done"><Text style={styles.buttonTitle}>Done</Text></TouchableOpacity>
+                        <TouchableOpacity onPress={() => renderGoals(goal)}style={styles1.button4} title="Done"><Text style={styles.buttonTitle}>Add</Text></TouchableOpacity>
+                        <TouchableOpacity onPress={() => toggleModal()}style={styles1.button4} title="Done"><Text style={styles.buttonTitle}>Done</Text></TouchableOpacity>
                     </View>
                 )
             }

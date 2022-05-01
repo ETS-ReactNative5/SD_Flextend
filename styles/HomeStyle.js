@@ -111,7 +111,7 @@ export default StyleSheet.create({
     },
     goals: {
         flex: 1,
-        justifyContent: "center",
+        // justifyContent: "center",
         backgroundColor: 'rgba(255, 155, 0, 0.9)',
         marginTop: 20,
         borderRadius: 30,
