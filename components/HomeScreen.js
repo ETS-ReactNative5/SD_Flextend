@@ -87,18 +87,35 @@ export default function Home({navigation}) {
                     <TouchableOpacity onPress={() => navigation.navigate( 'Live Measure' )} style={styles.button1}><Text style={styles.buttonTitle}>Start Tracking</Text></TouchableOpacity>
                     <TouchableOpacity onPress={() => navigation.navigate( 'Previous Results' )} style={styles.button3}><Text style={styles.buttonTitle}>Previous Results</Text></TouchableOpacity>
                     <TouchableOpacity onPress={() => logout()} style={styles.button2}><Text style={styles.buttonTitle}>Sign Out</Text></TouchableOpacity>
-                    <Text style={styles.welcome_message}> My Goals</Text>
+                    {/* <Text style={styles.welcome_message}> My Goals</Text> */}
                     {/* Goals Checklist */}
                     <View style= {styles.goals}>
                         <CheckboxList
                             theme="green"
+                            headerName="My Goals"
+                            headerStyle = {{
+                                padding: 10,
+                                flexDirection: 'row',
+                                borderRadius: 30,
+                                alignItems: 'center',
+                                backgroundColor: 'rgba(255, 155, 0, 0.9)',
+                                text: {
+                                    color: 'black',
+                                    fontWeight: 'bold',
+                                    fontSize: 24,
+                                },
+                            }}
                             listItems={goalsData}
                             listItemStyle={{  
                                 borderBottomWidth: 0, 
                                 marginTop: 10,
                                 marginLeft: 35,
                                 marginBottom: 10,
-                                color: "#191970",
+                                // text: {
+                                //     color: 'black',
+                                //     fontWeight: 'bold',
+                                //     fontSize: 24,
+                                // }
                                 }}
                             style={styles.dayCheckBox}
                         />

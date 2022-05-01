@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { View, Text, Button, LogBox } from 'react-native';
+import { View, Text, Button, LogBox, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -15,10 +15,8 @@ import ProgressScreen from "./components/ProgressScreen";
 import BLEScreen from "./components/BLEScreen";
 import LoginScreen from "./components/LoginScreen";
 import DeviceScreen from "./components/DeviceScreen";
-import DeviceCard from "./BLE_components/DeviceCard";
 import IntroSlider from "./components/IntroSlider";
 import ProfileScreen from "./components/ProfileScreen";
-import CalendarEventTEST from "./components/CalendarEventTEST";
 import RegistrationScreen from "./components/Registration";
 import ReportScreen from "./components/ReportScreen";
 
@@ -71,11 +69,11 @@ const App = () =>{
           <Stack.Screen name="Home" component={HomeScreen} 
            options={({route, navigation}) => ({ 
             headerRight: () => (
-                <Button
-                  onPress={() => navigation.navigate('Guide')} 
-                  title="Guide"
-                  color="red"
-                />
+              <Button
+                onPress={() => navigation.navigate('Guide')} 
+                title="Guide"
+                color="Black"
+              />
             ),
             headerLeft: () => (
                 <Avatar
@@ -109,7 +107,6 @@ const App = () =>{
           <Stack.Screen name="BLE" component={BLEScreen} />
           <Stack.Screen name="Device" component={DeviceScreen} />
           <Stack.Screen name="Profile" component={ProfileScreen} />
-          <Stack.Screen name="Events" component={CalendarEventTEST}  />
           <Stack.Screen name="Report" component={ReportScreen} />
         </Stack.Navigator>
       </NavigationContainer>

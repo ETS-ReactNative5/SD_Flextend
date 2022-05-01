@@ -165,23 +165,44 @@ const Profile = ({navigation}) => {
     //need to save event info somewhere so the user is able to edit later
     const [eventId, setEventId] = useState()
   
-    //retrieve eventId when re render 
+    //retrieve eventId when re render from firebase collection 
     const asyncFetch = async () => {
             const eventIdent = await AsyncStorage.getItem("eventID");
             if (eventIdent) {
                 // setter from useState
                 setEventId(JSON.parse(eventIdent));
             }
+
+        try {
+            const documentSnapshot = await firestore()
+                .collection('users')
+                .doc(auth().currentUser.phoneNumber)
+                .get()
+            
+            if (documentSnapshot.data() == null)
+            {
+                console.log("No calendar event found")
+            }
+            else 
+            {
+                const event = documentSnapshot.data()["eventId"];
+                setEventId(event)
+            }
+        }
+        catch {
+    
+        }
     };
     useEffect(() => {
         asyncFetch();
     }, []);
 
-    //saves the id of the remonder event in local storage
+    //saves the id of the remonder event in firebase users collection 
     const asyncStore = async () => {
         
         if(eventId){
-            await AsyncStorage.setItem("eventID", JSON.stringify(eventId));
+            // await AsyncStorage.setItem("eventID", JSON.stringify(eventId));
+            firestore().collection('users').doc(auth().currentUser.phoneNumber).update({"eventId" : eventId})
         }
     };
 

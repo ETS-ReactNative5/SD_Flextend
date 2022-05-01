@@ -95,10 +95,11 @@ export default StyleSheet.create({
       marginTop: 30
     },
     image: {
-        width: Dimensions.get("window").width,
+        width: Dimensions.get("window").width - 20,
+        paddingLeft: 10,
         marginTop: Platform.OS === 'ios' ? 100 : 90,
         height: 85,
-        backgroundColor: 'white',
+        borderRadius: 10,
         resizeMode: 'contain',
     }
 })

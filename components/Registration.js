@@ -11,6 +11,11 @@ export default class RegistrationScreen extends React.Component {
         title: 'Register New User',
     };
 
+    //loading background image 
+    // componentWillMount() {
+    //   this.image = (<ImageBackground source={require('../images/graphs.png')} style={{width: '100%', height: '100%', resizeMode:'contain'}} />);
+    // }
+
     //Initializing states needed for user registration
     state = {
         phone: '+1 ',
@@ -129,7 +134,8 @@ export default class RegistrationScreen extends React.Component {
     render () {
         return (
           <View>
-          <ImageBackground source={require('../images/register-background.png')} style={{width: '100%', height: '100%', resizeMode:'contain'}}  >
+            {/* {this.image} */}
+          <ImageBackground source={require('../images/graphs.png')} style={{width: '100%', height: '100%', resizeMode:'contain'}} >
             <ScrollView style={styles.container}>
                 <Text style = {styles.textRegister}>Please Enter the Information Below to Register</Text>
                 <TextInput 
