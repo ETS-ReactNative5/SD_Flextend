@@ -57,12 +57,12 @@ export default function PreviousResults() {
     
     //Divide flexion by 120 to get the percentage value
     var flexion_data = {
-        data: [flexion / 120]
+        data: [flexion / 150]
     }
 
     //Subtract extension from 100 and divide by 100 to get the percentage value
     var extension_data = {
-        data: [100 - extension / 100]
+        data: [(100 - extension) / 100]
     }
 
     //If there was no user data...set flexion and extension to 0 in the data field for the progress chat
@@ -114,12 +114,14 @@ export default function PreviousResults() {
                         color: (opacity = 1) => `rgba(255,140,0, ${opacity})`,
                         style: {
                         borderRadius: 16,
+                        marginRight: 400
                         },
                     }}
                     style={{
                         marginVertical: 24,
                         borderRadius: 20,
-                        borderColor: 'black'
+                        borderColor: 'blue',
+                        paddingRight: 400
                     }}
                 />
             </View>
