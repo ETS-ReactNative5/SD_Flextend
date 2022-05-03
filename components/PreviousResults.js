@@ -167,12 +167,14 @@ export default function PreviousResults() {
                         color: (opacity = 1) => `rgba(255,140,0, ${opacity})`,
                         style: {
                         borderRadius: 16,
+                        marginRight: 400
                         },
                     }}
                     style={{
                         marginVertical: 24,
                         borderRadius: 20,
-                        borderColor: 'black'
+                        borderColor: 'blue',
+                        paddingRight: 400
                     }}
                 />
             </View>
