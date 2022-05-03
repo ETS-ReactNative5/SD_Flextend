@@ -79,7 +79,6 @@ export default StyleSheet.create({
         marginLeft: 30,
         marginRight: 30,
         marginTop: 20,
-        marginBottom: 15,
         height: 40,
         borderRadius: 5,
         alignItems: "center",

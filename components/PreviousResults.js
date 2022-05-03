@@ -8,9 +8,10 @@ import firestore from '@react-native-firebase/firestore';
 
 export default function PreviousResults() {
     
-    //Variables flexion, extension, and userID
+    //Variables flexion, extension, metrics, and userID
     const [flexion, setFlexion] = useState(0);
     const [extension, setExtension] = useState(0);
+    const [metrics, setMetrics] = useState({})
     const userID = auth().currentUser.phoneNumber;
 
     //Get the specified user knee health data from Firestore
@@ -27,13 +28,9 @@ export default function PreviousResults() {
             }
             else {
                 const user_data = documentSnapshot.data();
-                console.log(user_data)
                 const user_keys = Object.keys(user_data).sort().reverse()
-                console.log(user_keys)
                 const recent = user_keys[0]
-                console.log(recent)
                 const values = user_data[recent.toString()]
-                console.log(values)
                 setFlexion(values["flexion"]);
                 setExtension(values["extension"]);
             }
@@ -42,31 +39,87 @@ export default function PreviousResults() {
         }
     };
 
+    //Get the user information from Firestore
+    const getUserMetrics = async () => {
+        try {
+            const documentSnapshot = await firestore()
+                .collection('users')
+                .doc(auth().currentUser.phoneNumber)
+                .get()
+            
+            if (documentSnapshot.data() == null)
+            {
+                const user_metrics = {"0":0}
+            }
+            else 
+            {
+                const user_metrics = documentSnapshot.data();
+                setMetrics(user_metrics)
+            }
+        }
+        catch {
+
+        }
+    }
+
     useEffect(() => {
         getUser();
+        getUserMetrics();
     }, [])
 
     //Initialize noData to be false
     var noData = false;
+
+    const surgery = metrics["recent_surgery"]
 
     //If flexion and extension read 0...set noData to true
     if (flexion == 0 && extension == 0)
     {
         noData = true;
     }
-    
-    //Divide flexion by 120 to get the percentage value
-    var flexion_data = {
-        data: [flexion / 120]
-    }
 
-    //Subtract extension from 100 and divide by 100 to get the percentage value
-    var extension_data = {
-        data: [100 - extension / 100]
+    //If the user has not had a recent knee surgery...
+    if (surgery == false)
+    {
+        //Divide flexion by 150 to get the percentage value
+        var flexion_data = {
+            data: [flexion / 150]
+        }
+
+        //Subtract extension from 100 and divide by 100 to get the percentage value
+        var extension_data = {
+            data: [(100 - extension) / 100]
+        }
+    }
+    //If the user has had a recent knee surgery...
+    else 
+    {
+        var new_flexion = flexion
+        var new_extension = extension
+
+        if (flexion > 120)
+        {
+            new_flexion = 120
+        }
+        if (extension < 20)
+        {
+            new_extension = 20
+        }
+
+        //Divide flexion by 120 to get the percentage value
+        var flexion_data = {
+            data: [new_flexion / 120]
+        }
+
+        //Subtract extension from 100 and divide by 100 to get the percentage value
+        var extension_data = {
+            data: [(100 - new_extension) / 80]
+        }
     }
 
     //If there was no user data...set flexion and extension to 0 in the data field for the progress chat
     if (noData == true) {
+
         flexion_data = {
             data: [0]
         }
