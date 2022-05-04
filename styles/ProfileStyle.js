@@ -33,7 +33,7 @@ export default StyleSheet.create({
     color: 'white', 
     fontSize: 30, 
     marginTop: 20, 
-    marginBottom: Platform.OS == "ios" ? 0 : -70,
+    marginBottom: Platform.OS == "ios" ? 0 : -10,
     fontWeight: 'bold',
     alignSelf: 'center'
   },
@@ -45,7 +45,7 @@ export default StyleSheet.create({
     backgroundColor: '#87ceeb',
     marginLeft: 30,
     marginRight: 30,
-    marginTop: 80,
+    marginTop: Platform.OS === 'android' ? 30 : 80,
     marginBottom: 20,
     height: 40,
     borderRadius: 5,

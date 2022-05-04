@@ -117,7 +117,7 @@ export default function Progress() {
         <ScrollView>
             <Text style={styles.title}>Hello {first_name} {last_name}</Text>
             <View style={styles.chartContainer}>
-                <Text style={styles.info_text}>Flexion Progress Over Time</Text>
+                <Text style={bar_styles.flexionInfo}>Flexion Progress Over Time</Text>
                 <BarChart
                     data={{
                         labels: labels,
@@ -211,5 +211,15 @@ const bar_styles = StyleSheet.create({
         fontFamily: 'arial',
         fontWeight: 'bold',
         color: '#ff0000'
+    },
+    flexionInfo: {
+        marginTop: 25, 
+        marginBottom: 15,
+        fontSize: 20,
+        textAlign: 'center',
+        paddingLeft: 10,
+        fontFamily: 'arial',
+        fontWeight: 'bold',
+        color: '#aa00ff'
     },
 })

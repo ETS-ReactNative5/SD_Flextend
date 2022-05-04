@@ -26,6 +26,7 @@ export default StyleSheet.create({
         marginTop: 20,
         fontWeight: 'bold',
         fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
+        marginBottom: Platform.OS === 'android' ? -20 : 0,
         alignSelf: "center",
         color: 'black',
         // #191970

@@ -48,6 +48,6 @@ export default StyleSheet.create({
         backgroundColor: 'rgb(255,255,255)',
         borderRadius: 20,
         marginLeft: 20,
-        marginRight: 20
+        marginRight: Platform.OS === 'android' ? 12 : 20
     }
 })

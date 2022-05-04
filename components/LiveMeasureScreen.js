@@ -202,8 +202,11 @@ export default class HomeScreen extends React.Component {
     // handle some operations when we navigate away from this page
     async componentWillUnmount() {
         // first, push the read values to firebase for the user who is logged in
-        firestore().collection('knee health').doc(auth().currentUser.phoneNumber).set(
-            {[this.state.date]: {flexion: this.state.flexion, extension: this.state.extension} }, {merge: true})
+        if (this.state.flexion != "0" && this.state.extension != "0")
+        {
+            firestore().collection('knee health').doc(auth().currentUser.phoneNumber).set(
+                {[this.state.date]: {flexion: this.state.flexion, extension: this.state.extension} }, {merge: true})
+        }
         // cancel transactions and subscriptions when we disconnect
         manager.cancelTransaction(flexion_id);
         manager.cancelTransaction(extension_id);

@@ -98,6 +98,7 @@ export default StyleSheet.create({
         width: Dimensions.get("window").width - 20,
         // paddingLeft: 50,
         marginTop: Platform.OS === 'ios' ? 100 : 90,
+        marginBottom: Platform.OS === 'android' ? -40 : 0,
         height: 60,
         alignSelf: 'center',
         // borderRadius: 10,

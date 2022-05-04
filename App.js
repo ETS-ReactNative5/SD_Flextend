@@ -72,7 +72,7 @@ const App = () =>{
               <Button
                 onPress={() => navigation.navigate('Guide')} 
                 title="Guide"
-                color="Red"
+                color="black"
               />
             ),
             headerLeft: () => (

@@ -335,7 +335,7 @@ const Profile = ({navigation}) => {
                     source={{uri}}
                     size="xlarge"
                     rounded
-                    containerStyle={{alignSelf: "center", marginTop: 150}}
+                    containerStyle={{alignSelf: "center", marginTop: Platform.OS === 'android' ? 70 : 150 }}
                     />
                     <Text style={styles1.nameText}>{first_name} {last_name}</Text>
                 </View>
