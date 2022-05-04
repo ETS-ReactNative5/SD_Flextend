@@ -67,29 +67,29 @@ export default function Progress() {
     }
 
     //If the three arrays exceed 4 items, remove the most outdated item and add the newest item
-    if (labels.length > 4)
+    if (labels.length > 5)
     {
         labels = labels.reverse()
-        while (labels.length != 4)
+        while (labels.length != 5)
         {
             labels.pop()
         }
         labels = labels.reverse()
     }
-    if (flexion_array.length > 4)
+    if (flexion_array.length > 5)
     {
         flexion_array = flexion_array.reverse()
-        while (flexion_array.length != 4)
+        while (flexion_array.length != 5)
         {
             flexion_array.pop()
         }
         flexion_array = flexion_array.reverse()
     }
 
-    if (extension_array.length > 4)
+    if (extension_array.length > 5)
     {
         extension_array = extension_array.reverse()
-        while (extension_array.length != 4)
+        while (extension_array.length != 5)
         {
             extension_array.pop()
         }
@@ -189,8 +189,8 @@ const bar_styles = StyleSheet.create({
     graphStyle: {
         flex: 1,
         paddingTop: 10,
-        resizeMode: 'contain'
-        // paddingRight: 30
+        resizeMode: 'contain',
+        // paddingLeft: 5
     },
     xlabel1: {
         marginTop: 20, 

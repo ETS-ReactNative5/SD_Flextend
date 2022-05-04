@@ -57,10 +57,15 @@ const Profile = ({navigation}) => {
     //updates the goals in firebase collection
     const renderGoals = (goal) => {
         // toggleModal()
-        firestore().collection('users').doc(auth().currentUser.phoneNumber).update(
-            {goals: firebase.firestore.FieldValue.arrayUnion(goal)}
-        )
-        alert("Goal saved!")
+        if(goal == ""){
+            alert("Goal cannot be empty.")
+        }
+        else{
+            firestore().collection('users').doc(auth().currentUser.phoneNumber).update(
+                {goals: firebase.firestore.FieldValue.arrayUnion(goal)}
+            )
+            alert("Goal saved!")
+        }
     }
     
     //function to open and close modal
@@ -264,6 +269,7 @@ const Profile = ({navigation}) => {
         try {
             const user_ref = storage().ref(auth().currentUser.displayName);
             const userPhoto = await user_ref.getDownloadURL();
+            setUri(userPhoto)
         } catch {
             console.log("No user photo saved in Firebase")
             const placeholder_ref = storage().ref('profile_placeholder.png');
@@ -285,15 +291,15 @@ const Profile = ({navigation}) => {
         cropping: true,
         }).then((image) => {
         setUri(image.path);
-        store_new_image()
+        store_new_image(image.path)
         });
     };
 
     //stores the profile picture to firestore 
-    const store_new_image = () =>{
+    const store_new_image = (path) =>{
         const image_upload = storage()
         .ref(auth().currentUser.displayName)
-        .putFile(uri.toString())
+        .putFile(path.toString())
         .then((snapshot) => {
             //After uploading the picture then update profile 
             // const reference = storage().ref(uri.toString());

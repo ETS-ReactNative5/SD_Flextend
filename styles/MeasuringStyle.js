@@ -18,6 +18,15 @@ export default StyleSheet.create({
         marginTop:50,
         borderRadius: 30
     },
+    alertBox: {
+        // flex: 1,
+        backgroundColor: '#9acd32',
+        marginLeft: 50,
+        marginRight: 50,
+        marginTop:30,
+        borderRadius: 20,
+        height: 80
+    },
     device_content: {
         backgroundColor: "white",
         borderRadius: 10,
@@ -35,6 +44,15 @@ export default StyleSheet.create({
     text: {
         fontSize: 26,
         // marginTop: 20,
+        fontWeight: 'bold',
+        fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
+        alignSelf: "center",
+        color: 'black',
+        // marginBottom: 40,
+    },
+    textBox: {
+        fontSize: 26,
+        marginTop: 10,
         fontWeight: 'bold',
         fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
         alignSelf: "center",

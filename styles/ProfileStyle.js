@@ -13,14 +13,15 @@ export default StyleSheet.create({
   container2: {
     // flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    // justifyContent: 'center',
     backgroundColor: 'rgb(255,255,255)',
     paddingTop: Platform.OS === 'ios' ? 30 : 40,
     paddingBottom: Platform.OS === 'ios' ? 30 : 40,
     marginLeft: 20,
     marginRight: 20,
-    marginTop:50,
-    borderRadius: 30
+    marginTop:30,
+    borderRadius: 30,
+    height: 500
   },
   userRow: {
     alignItems: "center",
@@ -144,6 +145,7 @@ export default StyleSheet.create({
     fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
     fontWeight: 'bold',
     color: '#ff8c00',
+    marginTop: 10
   },
   info_text: {
     textAlign: 'center',

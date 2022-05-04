@@ -123,7 +123,7 @@ export default StyleSheet.create({
     goals: {
         flex: 1,
         // justifyContent: "center",
-        backgroundColor: 'rgba(255,165,0, 0.8)',
+        backgroundColor: 'rgb(255,165,0)',
         
         // 'rgba(255, 155, 0, 0.9)'
         marginTop: 20,

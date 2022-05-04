@@ -36,7 +36,9 @@ export default class HomeScreen extends React.Component {
             flexion: 0,
             extension : 0,
             date: firebase.firestore.Timestamp.now().toDate().toISOString(),
-            deviceNotFound: false
+            deviceNotFound: false,
+            startMeasuring: false,
+            stopMeasuring: false
         };
     }
 
@@ -62,13 +64,14 @@ export default class HomeScreen extends React.Component {
                 if (device.name == "Flextend"){ //if that device has name Flextend, then connect
                     manager.stopDeviceScan(); // stop scanning when Flextend device is found
                     await device.connect().then( async (device) => { //attemps to connect to device; when this is done, perform operations with device
-                        alert("Device connected successfully! You can now begin measuring.")
+                        alert("Device connected successfully!")
 
                         //function to handle disconnects; if component sees that device did not disconnect intentionally, this code is run.
                         disconnect_subscription = device.onDisconnected((error, disconnectedDevice) => {
                             if (!this.state.intendedDisconnect)
                             {
-                                alert("Device lost connection. Please restart the Flextend device and navigate back to Start Tracking to reestablish connection.")
+                                // alert("Device lost connection. Please restart the Flextend device and navigate back to Start Tracking to reestablish connection.")
+                                alert("Device lost connection.")
                                 manager.cancelTransaction(flexion_id);
                                 manager.cancelTransaction(extension_id);
                                 disconnect_subscription.remove();
@@ -126,19 +129,12 @@ export default class HomeScreen extends React.Component {
                         }
                     });
                 }
-                else{
-                    this.state.deviceNotFound = true
-                }
             }
         });
 
         // stop scanning devices after 1000 miliseconds
         setTimeout(() => {
             manager.stopDeviceScan();
-            // if(this.state.deviceNotFound == true){
-            //     //alert if device was not found
-            //     alert('Device not found. Turn on the device.')
-            // }
         }, 1000);
 
         
@@ -148,14 +144,18 @@ export default class HomeScreen extends React.Component {
         // first, check if device is indeed connected before continuing
         if (!this.state.isConnected) // if not connected navigate back to home to make user have to reconnect device to use screen
         {
-            alert("Device is not connected! Please restart Flextend device and navigate to Start Tracking to reestablish connection.")
+            // alert("Device is not connected! Please restart Flextend device and navigate to Start Tracking to reestablish connection.")
+            alert("Device is not connected!")
             this.props.navigation.navigate('Home')
         }
         else // if device is connected, we write the value MEASURING to this characteristic. The Flextend device is, as well, monitoring this change
         // in the measuringCharacteristic value, and will begin measuring when it sees this value written.
         {
+            this.setState({ startMeasuring: true });
+            this.setState({ stopMeasuring: false });
             manager.writeCharacteristicWithResponseForDevice(device_id, service_id, measuringCharacteristicID, base64.encode('MEASURING'))
-            alert("Flextend device is now measuring! Begin extending and flexing your knee. When done, press Stop Measuring.")
+            // alert("Flextend device is now measuring! Begin extending and flexing your knee. When done, press Stop Measuring.")
+            
         }
     }
 
@@ -163,15 +163,18 @@ export default class HomeScreen extends React.Component {
         // again, check if device is connected
         if (!this.state.isConnected) //if not, alert user device is not connected and navigate back to home
         {
-            alert("Device is not connected! Please restart Flextend device and navigate to Start Tracking to reestablish connection.")
+            // alert("Device is not connected! Please restart Flextend device and navigate to Start Tracking to reestablish connection.")
+            alert("Device is not connected!")
             this.props.navigation.navigate('Home')
         }
         else //now the value "NOTMEASURING" is written to communicate with the Flextend device that we are no longer measuring and to push the
         // flexion and extension values to the app.
         {
+            this.setState({ startMeasuring: false });
+            this.setState({ stopMeasuring: true });
             manager.writeCharacteristicWithResponseForDevice(device_id, service_id, measuringCharacteristicID, base64.encode('NOTMEASURING'))
-            alert("Flextend device no longer measuring. Your flexion and extension results will appear on this page!")
-
+            // alert("Flextend device no longer measuring. Your flexion and extension results will appear on this page!")
+            
         }
     }
 
@@ -179,7 +182,8 @@ export default class HomeScreen extends React.Component {
         // same process here as beginMeasuring and stopMeasuring
         if (!this.state.isConnected)
         {
-            alert("Device is not connected! Please restart Flextend device and navigate to Start Tracking to reestablish connection.")
+            // alert("Device is not connected! Please restart Flextend device and navigate to Start Tracking to reestablish connection.")
+            alert("Device is not connected!")
             this.props.navigation.navigate('Home')
         }
         else
@@ -215,7 +219,8 @@ export default class HomeScreen extends React.Component {
 
     render() {
         const navigate = this.props.navigation.navigate;
-
+        const startMeasuring = this.state.startMeasuring;
+        const stopMeasuring = this.state.stopMeasuring;
         return (
             <View style={styles.container}>
                     <Text style={styles.welcome_message}> Start Measuring</Text>
@@ -226,6 +231,14 @@ export default class HomeScreen extends React.Component {
                     <TouchableOpacity onPress={() => this.beginMeasuring()} style={styles.button1}><Text style={styles.buttonTitle}>Begin Measuring</Text></TouchableOpacity>
                     <TouchableOpacity onPress={() => this.stopMeasuring()} style={styles.button2}><Text style={styles.buttonTitle}>Stop Measuring</Text></TouchableOpacity>
                     <TouchableOpacity onPress={() => this.calibrate()} style={styles.button2}><Text style={styles.buttonTitle}>Calibrate</Text></TouchableOpacity>
+                    {startMeasuring
+                        ? <View style={styles.alertBox}><Text style={styles.textBox}> You are now measuring! </Text></View>
+                        : null
+                    }
+                    {stopMeasuring
+                        ? <View style={styles.alertBox}><Text style={styles.textBox}> You stopped measuring! </Text></View>
+                        : null
+                    }
             </View>
 
         );

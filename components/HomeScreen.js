@@ -23,6 +23,12 @@ export default function Home({navigation}) {
     const [goalsData, setGoalsData] = useState();
     const userID = auth().currentUser.phoneNumber;
 
+    //get user first name to display on screen 
+    const name = auth().currentUser.displayName;
+    var first_name = ''
+    var n = name.indexOf(' ')
+    first_name = name.substring(0, n)
+
     //Pulls Goals data from Firebase to display. Updates every time a new goal is added and user 
     //navigates to home screen
     useFocusEffect(
@@ -42,7 +48,6 @@ export default function Home({navigation}) {
                         console.log("Data is null")
                     }
                     else{
-                        console.log(documentSnapshot.data()["goals"])
                         data = []
                         for(let i = 0; i < documentSnapshot.data()["goals"].length; i++){
                             data.push({id: i+1, name: documentSnapshot.data()["goals"][i]})
@@ -61,6 +66,16 @@ export default function Home({navigation}) {
                 };
         }, [])
     );
+
+    //Clears goals from firebase, only goals that are selected 
+    const [clearGoal, setClearGoal] = useState(false)
+    const clearGoals = () => {
+        firestore().collection('users').doc(userID).update({
+            goals: firestore.FieldValue.delete(),
+        });
+        setClearGoal(true)
+
+    }
 
     //TODO: FIX THE IMAGES ISSUE///////////////////////////////////////
     //loading background image 
@@ -91,7 +106,7 @@ export default function Home({navigation}) {
                 style = {styles.image} 
                 source = {require('../images/Logo.png')}
                 />
-                <Text style={styles.welcome_message}> Welcome to the Platform! </Text>
+                <Text style={styles.welcome_message}> Welcome {first_name}! </Text>
                     <TouchableOpacity onPress={() => navigation.navigate( 'Live Measure' )} style={styles.button1}><Text style={styles.buttonTitle}>Start Tracking</Text></TouchableOpacity>
                     <TouchableOpacity onPress={() => navigation.navigate( 'Previous Results' )} style={styles.button3}><Text style={styles.buttonTitle}>Previous Results</Text></TouchableOpacity>
                     <TouchableOpacity onPress={() => logout()} style={styles.button2}><Text style={styles.buttonTitle1}>Sign Out</Text></TouchableOpacity>
@@ -127,6 +142,7 @@ export default function Home({navigation}) {
                                 }}
                             style={styles.dayCheckBox}
                         />
+                        {/* <TouchableOpacity style={styles.button2} onPress={() => clearGoals()}><Text>Clear Selected Goals</Text></TouchableOpacity> */}
                     </View>
                 </ScrollView> 
             </ImageBackground>
