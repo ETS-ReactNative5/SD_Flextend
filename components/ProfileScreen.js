@@ -1,6 +1,6 @@
 import { useState, useEffect, useReducer }from "react";
 import * as React from "react";
-import { StatusBar, StyleSheet, View, ImageBackground, TouchableOpacity, Text, ScrollView, Switch, TextInput, AsyncStorage, } from "react-native";
+import { StatusBar, StyleSheet, View, ImageBackground, TouchableOpacity, Text, ScrollView, Switch, TextInput, AsyncStorage, Platform, } from "react-native";
 import { CheckBox, Avatar } from 'react-native-elements'
 import {Picker} from '@react-native-picker/picker';
 import  ImagePicker  from "react-native-image-crop-picker";

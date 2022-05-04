@@ -33,6 +33,7 @@ export default StyleSheet.create({
     color: 'white', 
     fontSize: 30, 
     marginTop: 20, 
+    marginBottom: Platform.OS == "ios" ? 0 : -70,
     fontWeight: 'bold',
     alignSelf: 'center'
   },

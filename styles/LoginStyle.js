@@ -26,7 +26,7 @@ export default StyleSheet.create({
       fontWeight: 'bold'
     },
     text: {
-      marginTop: Platform.OS === 'ios' ? 100 : 300,
+      marginTop: Platform.OS === 'ios' ? 100 : 80,
       fontSize: 24,
       textAlign: 'center',
       paddingLeft: 10,

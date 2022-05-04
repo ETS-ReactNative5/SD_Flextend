@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { View, Text, Button, LogBox, TouchableOpacity } from 'react-native';
+import { View, Text, Button, LogBox, TouchableOpacity, Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -78,7 +78,7 @@ const App = () =>{
             headerLeft: () => (
                 <Avatar
                   size={50}
-                  containerStyle={{backgroundColor: '#ff8c00'}}
+                  containerStyle={{backgroundColor: '#ff8c00', marginRight: Platform.OS == "android" ? 20 : 0}}
                   // rounded
                   title={first_name[0] + last_name[0]}
                   //on press navigate to profile screen 
@@ -97,7 +97,7 @@ const App = () =>{
                     <Button
                       onPress={() => navigation.navigate('Report')} 
                       title="Generate Report"
-                      color="red"
+                      color="black"
                     />
                 )
               })
