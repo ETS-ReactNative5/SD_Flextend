@@ -1,6 +1,6 @@
 import { useState, useEffect, useReducer }from "react";
 import * as React from "react";
-import { StatusBar, StyleSheet, View, ImageBackground, TouchableOpacity, Text, ScrollView, Switch, TextInput, AsyncStorage, } from "react-native";
+import { StatusBar, StyleSheet, View, ImageBackground, TouchableOpacity, Text, ScrollView, Switch, TextInput, AsyncStorage, Platform, } from "react-native";
 import { CheckBox, Avatar } from 'react-native-elements'
 import {Picker} from '@react-native-picker/picker';
 import  ImagePicker  from "react-native-image-crop-picker";
@@ -328,7 +328,7 @@ const Profile = ({navigation}) => {
                 source={{uri}}
                 size="xlarge"
                 rounded
-                containerStyle={{alignSelf: "center", marginTop: 150}}
+                containerStyle={{alignSelf: "center", marginTop: Platform.OS == "ios" ? 150 : 70}}
                 />
                 <Text style={styles1.nameText}>{first_name} {last_name}</Text>
                 <TouchableOpacity onPress={() => toggleModal(BODY_METRICS)} style={styles1.button1}><Text style={styles1.buttonTitle}>Set Metrics</Text></TouchableOpacity>
