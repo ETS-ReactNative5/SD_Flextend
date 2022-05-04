@@ -22,7 +22,7 @@ export default StyleSheet.create({
         paddingLeft: 10,
         fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
         fontWeight: 'bold',
-        color: '#191970'
+        color: 'black'
     },
     chart_title: {
         marginTop: 10, 
@@ -33,7 +33,7 @@ export default StyleSheet.create({
         fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
         fontStyle: 'italic',
         fontWeight: 'bold',
-        color: '#191970'
+        color: 'black'
     },
     result_text: {
         marginTop: 10,
@@ -45,7 +45,7 @@ export default StyleSheet.create({
     },
     chartContainer: {
         marginTop: 20,
-        backgroundColor: 'rgba(255,255,255,0.8)',
+        backgroundColor: 'rgb(255,255,255)',
         borderRadius: 20,
         marginLeft: 20,
         marginRight: 20

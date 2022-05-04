@@ -3,7 +3,7 @@ import { StyleSheet, Platform, Dimensions } from 'react-native'
 export default StyleSheet.create({
     container: {
       flex: 1,
-      // backgroundColor: '#87cefa'
+      backgroundColor: 'white'
     },
     page: {
       flex: 3,
@@ -72,7 +72,7 @@ export default StyleSheet.create({
       borderRadius: 10
     },
     themeButtonRegister: {
-      backgroundColor: '#FFD700', 
+      backgroundColor: 'orange', 
       marginLeft: 30,
       marginRight: 30,
       marginTop: 20,
@@ -96,10 +96,11 @@ export default StyleSheet.create({
     },
     image: {
         width: Dimensions.get("window").width - 20,
-        paddingLeft: 10,
+        // paddingLeft: 50,
         marginTop: Platform.OS === 'ios' ? 100 : 90,
-        height: 85,
-        borderRadius: 10,
+        height: 60,
+        alignSelf: 'center',
+        // borderRadius: 10,
         resizeMode: 'contain',
     }
 })

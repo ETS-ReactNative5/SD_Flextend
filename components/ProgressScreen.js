@@ -119,7 +119,7 @@ export default function Progress() {
                             }
                         ]
                     }}
-                    width={screenWidth}
+                    width={screenWidth-40}
                     height={200}
                     withInnerLines={false}
                     yAxisSuffix='&ordm;'
@@ -150,7 +150,7 @@ export default function Progress() {
                             }
                         ]
                     }}
-                    width={screenWidth}
+                    width={screenWidth-40}
                     height={200}
                     withInnerLines={false}
                     yAxisSuffix='&ordm;'
@@ -181,6 +181,8 @@ const bar_styles = StyleSheet.create({
     graphStyle: {
         flex: 1,
         paddingTop: 10,
+        resizeMode: 'contain'
+        // paddingRight: 30
     },
     xlabel1: {
         marginTop: 20, 
@@ -193,7 +195,7 @@ const bar_styles = StyleSheet.create({
         color: 'black'
     },
     extensionInfo: {
-        marginTop: -5, 
+        marginTop: 25, 
         marginBottom: 15,
         fontSize: 20,
         textAlign: 'center',

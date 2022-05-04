@@ -35,7 +35,8 @@ export default class HomeScreen extends React.Component {
             intendedDisconnect: false,
             flexion: 0,
             extension : 0,
-            date: firebase.firestore.Timestamp.now().toDate().toISOString()
+            date: firebase.firestore.Timestamp.now().toDate().toISOString(),
+            deviceNotFound: false
         };
     }
 
@@ -47,6 +48,7 @@ export default class HomeScreen extends React.Component {
         }
     }
 
+    //
     // main asynchronous function to connect to the device
     connectToFlextend = async () => {
         // begin scanning for devices
@@ -124,13 +126,22 @@ export default class HomeScreen extends React.Component {
                         }
                     });
                 }
+                else{
+                    this.state.deviceNotFound = true
+                }
             }
         });
 
         // stop scanning devices after 1000 miliseconds
         setTimeout(() => {
             manager.stopDeviceScan();
+            // if(this.state.deviceNotFound == true){
+            //     //alert if device was not found
+            //     alert('Device not found. Turn on the device.')
+            // }
         }, 1000);
+
+        
     }
 
     beginMeasuring = () => {

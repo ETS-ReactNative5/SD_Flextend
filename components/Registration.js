@@ -135,8 +135,8 @@ export default class RegistrationScreen extends React.Component {
         return (
           <View>
             {/* {this.image} */}
-          <ImageBackground source={require('../images/graphs.png')} style={{width: '100%', height: '100%', resizeMode:'contain'}} >
-            <ScrollView style={styles.container}>
+          <ImageBackground source={require('../images/home-background.png')} style={{width: '100%', height: '100%', resizeMode:'contain'}} >
+            <ScrollView >
                 <Text style = {styles.textRegister}>Please Enter the Information Below to Register</Text>
                 <TextInput 
                     style = {styles.textInput}

@@ -2,7 +2,7 @@ import { Platform, StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
   container: {
-    backgroundColor: "#87CEFA",
+    backgroundColor: "rgba(255,165,0, 0.8)",
     flex: 1,
   },
   imageBackdrop: {
@@ -14,7 +14,7 @@ export default StyleSheet.create({
     // flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(255,255,255,0.8)',
+    backgroundColor: 'rgb(255,255,255)',
     paddingTop: Platform.OS === 'ios' ? 30 : 40,
     paddingBottom: Platform.OS === 'ios' ? 30 : 40,
     marginLeft: 20,
@@ -25,7 +25,8 @@ export default StyleSheet.create({
   userRow: {
     alignItems: "center",
     padding: 15,
-    marginTop: 80,
+    // marginTop: 20,
+    backgroundColor: 'orange'
   },
   nameText: {
     color: 'white', 
@@ -42,7 +43,7 @@ export default StyleSheet.create({
     backgroundColor: '#87ceeb',
     marginLeft: 30,
     marginRight: 30,
-    marginTop: 150,
+    marginTop: 80,
     marginBottom: 20,
     height: 40,
     borderRadius: 5,
@@ -71,7 +72,7 @@ export default StyleSheet.create({
     justifyContent: 'center'
   },
   button4: {
-    backgroundColor: '#ff8c00',
+    backgroundColor: 'orange',
     marginLeft: 30,
     marginRight: 30,
     marginTop: 20,
@@ -127,7 +128,7 @@ export default StyleSheet.create({
     paddingLeft: 10,
     fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
     fontWeight: 'bold',
-    color: '#191970'
+    color: 'black'
   },
   avatar: {
     paddingTop: 20,

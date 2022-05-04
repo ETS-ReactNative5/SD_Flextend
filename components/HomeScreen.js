@@ -1,6 +1,6 @@
 import React from 'react';
 import {useState, useEffect} from 'react';
-import { TouchableOpacity, Text, View, ScrollView, ActivityIndicator, ImageBackground} from 'react-native';
+import { TouchableOpacity, Text, View, ScrollView, ActivityIndicator, ImageBackground, Image} from 'react-native';
 import { firebase } from '@react-native-firebase/auth'
 import styles from '../styles/HomeStyle';
 import auth from '@react-native-firebase/auth'
@@ -81,12 +81,20 @@ export default function Home({navigation}) {
     /////////////////////////////////////////////////////////////////////
 
     return (
+        // <View style={styles.container}>
         <View>
+            {/* <View> */}
+            {/* </View>  */}
             <ImageBackground source={require('../images/home-background.png')} style={{width: '100%', height: '100%', resizeMode:'contain'}}  >
                 <ScrollView style= {styles.container}>
+                <Image 
+                style = {styles.image} 
+                source = {require('../images/Logo.png')}
+                />
+                <Text style={styles.welcome_message}> Welcome to the Platform! </Text>
                     <TouchableOpacity onPress={() => navigation.navigate( 'Live Measure' )} style={styles.button1}><Text style={styles.buttonTitle}>Start Tracking</Text></TouchableOpacity>
                     <TouchableOpacity onPress={() => navigation.navigate( 'Previous Results' )} style={styles.button3}><Text style={styles.buttonTitle}>Previous Results</Text></TouchableOpacity>
-                    <TouchableOpacity onPress={() => logout()} style={styles.button2}><Text style={styles.buttonTitle}>Sign Out</Text></TouchableOpacity>
+                    <TouchableOpacity onPress={() => logout()} style={styles.button2}><Text style={styles.buttonTitle1}>Sign Out</Text></TouchableOpacity>
                     {/* <Text style={styles.welcome_message}> My Goals</Text> */}
                     {/* Goals Checklist */}
                     <View style= {styles.goals}>
@@ -98,7 +106,7 @@ export default function Home({navigation}) {
                                 flexDirection: 'row',
                                 borderRadius: 30,
                                 alignItems: 'center',
-                                backgroundColor: 'rgba(255, 155, 0, 0.9)',
+                                backgroundColor: 'rgba(255,165,0, 0.8)',
                                 text: {
                                     color: 'black',
                                     fontWeight: 'bold',

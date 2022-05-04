@@ -1,9 +1,11 @@
-import { Platform, StyleSheet } from 'react-native';
+import { StyleSheet, Platform, Dimensions } from 'react-native'
 
 export default StyleSheet.create({
     container: {
         flex: 1,
         // backgroundImage: '../images/home-background.png' 
+        // backgroundColor: 'white'
+        
     },
     container2: {
         flex: 1,
@@ -21,11 +23,12 @@ export default StyleSheet.create({
     },
     welcome_message: {
         fontSize: 30,
-        marginTop: 70,
+        marginTop: 20,
         fontWeight: 'bold',
         fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
         alignSelf: "center",
-        color: '#191970',
+        color: 'black',
+        // #191970
     },
     italic: {
         fontSize: 15,
@@ -41,19 +44,21 @@ export default StyleSheet.create({
         margin: 30,
     },
     button1: {
-        backgroundColor: '#87ceeb',
+        backgroundColor: '#87CEFA',
+        
+        // '#87ceeb'
         marginLeft: 30,
         marginRight: 30,
-        marginTop: 350,
+        marginTop: 70,
         height: 40,
         borderRadius: 5,
         alignItems: "center",
         justifyContent: 'center'
     },
     button2: {
-        backgroundColor: '#87ceeb',
-        marginLeft: 30,
-        marginRight: 30,
+        backgroundColor: 'rgb(255,99,71)',
+        marginLeft: 90,
+        marginRight: 90,
         marginTop: 20,
         marginBottom: 15,
         height: 40,
@@ -62,7 +67,7 @@ export default StyleSheet.create({
         justifyContent: 'center'
     },
     button3: {
-        backgroundColor: '#87ceeb',
+        backgroundColor: '#87CEFA',
         marginLeft: 30,
         marginRight: 30,
         marginTop: 20,
@@ -74,6 +79,12 @@ export default StyleSheet.create({
     buttonTitle: {
         color: 'black',
         fontSize: 24,
+        fontFamily: Platform.OS == 'ios' ? 'Arial' : 'sans-serif'
+    },
+    buttonTitle1: {
+        color: 'black',
+        fontSize: 24,
+        fontWeight: 'bold',
         fontFamily: Platform.OS == 'ios' ? 'Arial' : 'sans-serif'
     },
     textContent: {
@@ -112,7 +123,9 @@ export default StyleSheet.create({
     goals: {
         flex: 1,
         // justifyContent: "center",
-        backgroundColor: 'rgba(255, 155, 0, 0.9)',
+        backgroundColor: 'rgba(255,165,0, 0.8)',
+        
+        // 'rgba(255, 155, 0, 0.9)'
         marginTop: 20,
         borderRadius: 30,
         marginRight: 40,
@@ -120,5 +133,14 @@ export default StyleSheet.create({
         // shadowOffset: { width: 50, height: 0}
         // paddingRight: SIZES.padding,
         // paddingBottom: SIZES.radius,
+    },
+    image: {
+        width: Dimensions.get("window").width - 20,
+        // paddingLeft: 50,
+        marginTop: Platform.OS === 'ios' ? 100 : 90,
+        height: 60,
+        alignSelf: 'center',
+        // borderRadius: 10,
+        resizeMode: 'contain',
     }
 })

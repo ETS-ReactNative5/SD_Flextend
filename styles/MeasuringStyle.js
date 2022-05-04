@@ -10,7 +10,7 @@ export default StyleSheet.create({
         // flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'rgba(255,255,255,0.6)',
+        backgroundColor: 'rgb(255,255,255)',
         paddingTop: Platform.OS === 'ios' ? 30 : 40,
         paddingBottom: Platform.OS === 'ios' ? 30 : 40,
         marginLeft: 50,
@@ -30,7 +30,7 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
         alignSelf: "center",
-        color: '#191970',
+        color: 'black',
     },
     text: {
         fontSize: 26,
@@ -38,7 +38,7 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
         alignSelf: "center",
-        color: '#191970',
+        color: 'black',
         // marginBottom: 40,
     },
      text2: {
@@ -47,7 +47,7 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
         alignSelf: "center",
-        color: '#191970',
+        color: 'black',
         // marginBottom: 40,
     },
     italic: {

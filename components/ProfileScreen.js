@@ -321,28 +321,32 @@ const Profile = ({navigation}) => {
         
     return (
         <View>
-            <ImageBackground  style={styles1.imageBackdrop} source={require("../images/profile-background.png")} >
+            {/* <ImageBackground  style={styles1.imageBackdrop} source={require("../images/profile-background.png")} > */}
             <ScrollView style={styles1.scroll}>
-                <Avatar
-                onPress={() =>pickPicture()}
-                source={{uri}}
-                size="xlarge"
-                rounded
-                containerStyle={{alignSelf: "center", marginTop: 150}}
-                />
-                <Text style={styles1.nameText}>{first_name} {last_name}</Text>
-                <TouchableOpacity onPress={() => toggleModal(BODY_METRICS)} style={styles1.button1}><Text style={styles1.buttonTitle}>Set Metrics</Text></TouchableOpacity>
-                <TouchableOpacity onPress={() => toggleModal(GOALS)} style={styles1.button2}><Text style={styles1.buttonTitle}>Set Goals</Text></TouchableOpacity>
-                <TouchableOpacity onPress={() => toggleModal(REMINDERS)} style={styles1.button2}><Text style={styles1.buttonTitle}>Set Reminders</Text></TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate("Progress")} style={styles1.button2}><Text style={styles1.buttonTitle}>Progress</Text></TouchableOpacity>
-                
-                <Modal isVisible={isShowing} style={styles1.modalView} >
-                    <View>
-                        {renderModalContent(type)}
-                    </View>
-                </Modal>
+                <View style={styles1.userRow} >
+                    <Avatar
+                    onPress={() =>pickPicture()}
+                    source={{uri}}
+                    size="xlarge"
+                    rounded
+                    containerStyle={{alignSelf: "center", marginTop: 150}}
+                    />
+                    <Text style={styles1.nameText}>{first_name} {last_name}</Text>
+                </View>
+                <View style={styles1.content}>
+                    <TouchableOpacity onPress={() => toggleModal(BODY_METRICS)} style={styles1.button1}><Text style={styles1.buttonTitle}>Set Metrics</Text></TouchableOpacity>
+                    <TouchableOpacity onPress={() => toggleModal(GOALS)} style={styles1.button2}><Text style={styles1.buttonTitle}>Set Goals</Text></TouchableOpacity>
+                    <TouchableOpacity onPress={() => toggleModal(REMINDERS)} style={styles1.button2}><Text style={styles1.buttonTitle}>Set Reminders</Text></TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate("Progress")} style={styles1.button2}><Text style={styles1.buttonTitle}>Progress</Text></TouchableOpacity>
+                    
+                    <Modal isVisible={isShowing} style={styles1.modalView} >
+                        <View>
+                            {renderModalContent(type)}
+                        </View>
+                    </Modal>
+                </View>
             </ScrollView>
-            </ImageBackground>
+            {/* </ImageBackground> */}
         </View>
     );
 }

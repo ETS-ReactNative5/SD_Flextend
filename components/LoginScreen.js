@@ -122,14 +122,14 @@ class LoginScreen extends Component {
   //Render login screen function 
   render() {
     return (
-      <View style={styles.container}>
-      <ImageBackground source={require('../images/graphs.png')} style={{width: '100%', height: '100%', resizeMode:'contain'}}  >
-        {/* <View>
+      <View >
+      <ImageBackground source={require('../images/home-background.png')} style={{width: '100%', height: '100%', resizeMode:'contain'}}  >
+        <View>
             <Image 
               style = {styles.image} 
               source = {require('../images/Logo.png')}
             />
-        </View>  */}
+        </View> 
         <KeyboardAwareScrollView  keyboardShouldPersistTaps={'always'} style={{flex:1}} showsVerticalScrollIndicator={false}>
           <View  contentContainerStyle={styles.page}>
               <Text style = {styles.text}>Please Enter Your Phone Number to Login</Text>
