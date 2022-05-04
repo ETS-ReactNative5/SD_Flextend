@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { Text, View, ImageBackground } from 'react-native';
+import { Text, View, ImageBackground, ScrollView } from 'react-native';
 import styles from '../styles/ProfileStyle';
 
 import auth from '@react-native-firebase/auth'
@@ -96,23 +96,23 @@ export default function ReportScreen() {
 
     //Find the best flexion value
     var l = 0;
-    var smallest = 180;
+    var largest = 90;
     for (l; l < flexion_array.length; l++)
     {
-        if (flexion_array[l] < smallest)
+        if (flexion_array[l] > largest)
         {
-            smallest = flexion_array[l]
+            largest = flexion_array[l]
         }
     }
 
     //Find the best extension value
     var m = 0;
-    var largest = 0;
+    var smallest = 90;
     for (m; m < extension_array.length; m++)
     {
-        if (extension_array[m] > largest)
+        if (extension_array[m] < smallest)
         {
-            largest = extension_array[m]
+            smallest = extension_array[m]
         }
     }
 
@@ -125,7 +125,7 @@ export default function ReportScreen() {
     }
     else if (age <= 8)
     {
-        if (largest >= 125)
+        if (largest >= 148)
         {
             flexion_age_message = "Great job! Your knee flexion is within the national average for other users your age!"
         }
@@ -145,7 +145,7 @@ export default function ReportScreen() {
     }
     else if (age >= 9 && age <= 19)
     {
-        if (largest >= 120)
+        if (largest >= 142)
         {
             flexion_age_message = "Great job! Your knee flexion is within the national average for other users your age!"
         }
@@ -154,7 +154,7 @@ export default function ReportScreen() {
             flexion_age_message = "Your knee flexion is below the national average for other users your age. Keep trying! You got it!"
         }
 
-        if (smallest <= 7)
+        if (smallest <= 8)
         {
             extension_age_message = "Great job! Your knee extension is within the national average for other users your age!"
         }
@@ -165,7 +165,7 @@ export default function ReportScreen() {
     }
     else if (age >= 20 && age <= 44)
     {
-        if (largest >= 114)
+        if (largest >= 136)
         {
             flexion_age_message = "Great job! Your knee flexion is within the national average for other users your age!"
         }
@@ -185,8 +185,7 @@ export default function ReportScreen() {
     }
     else if (age >= 45)
     {
-       console.log(largest)
-       if (largest >= 105)
+       if (largest >= 130)
        {
             flexion_age_message = "Great job! Your knee flexion is within the national average for other users your age!"
        }
@@ -195,8 +194,7 @@ export default function ReportScreen() {
             flexion_age_message = "Your knee flexion is below the national average for other users your age. Keep trying! You got it!"
        }
 
-       console.log(smallest)
-       if (smallest <= 24)
+       if (smallest <= 20)
        {
             extension_age_message = "Great job! Your knee extension is within the national average for other users your age!"
        }
@@ -209,18 +207,19 @@ export default function ReportScreen() {
     //Return function displays the screen
     return (
         <View style={styles.container}>
+        <ScrollView>
         {/* <ImageBackground  style={{width: '100%', height: '100%', resizeMode:'contain'}} source={require("../images/report-background.png")} >   */}
             <Text style={styles.Title}>Here is Your Generated Report</Text>
             <View style={styles.container2}>
-                <Text style={styles.text}>Best Flexion Value Overall: {smallest}</Text>
-                <Text style={styles.text}>Best Extension Value Overall: {largest}</Text>
+                <Text style={styles.text}>Best Flexion Value Overall: {largest}</Text>
+                <Text style={styles.text}>Best Extension Value Overall: {smallest}</Text>
                 <Text style={styles.section_text}>Flexion</Text>
                 <Text style={styles.info_text}>{flexion_age_message}</Text>
                 <Text style={styles.section_text}>Extension</Text>
                 <Text style={styles.info_text}>{extension_age_message}</Text>
             </View>
             {/* <Text style={styles.Title}>Age: {age} </Text> */}
-            
+        </ScrollView>   
         {/* </ImageBackground> */}
         </View>
     )

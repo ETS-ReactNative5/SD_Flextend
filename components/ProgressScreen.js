@@ -20,9 +20,8 @@ export default function Progress() {
                 .doc(userID)
                 .get()
 
-            if (documentSnapshot.data() == null)
+            if (documentSnapshot.data() == {})
             {
-                const user_data = {"0":0}
                 alert("Start Your First Measurment!\nNavigate to the Live Measurement Screen.")
             }
             else 
@@ -67,24 +66,33 @@ export default function Progress() {
         extension_array.push(user_data[user_keys[k]]["extension"])
     }
 
-    //If the three arrays exceed 5 items, remove the most outdated item and add the newest item
-    if (labels.length > 5)
+    //If the three arrays exceed 4 items, remove the most outdated item and add the newest item
+    if (labels.length > 4)
     {
         labels = labels.reverse()
-        labels.pop()
+        while (labels.length != 4)
+        {
+            labels.pop()
+        }
         labels = labels.reverse()
     }
-    if (flexion_array.length > 5)
+    if (flexion_array.length > 4)
     {
         flexion_array = flexion_array.reverse()
-        flexion_array.pop()
+        while (flexion_array.length != 4)
+        {
+            flexion_array.pop()
+        }
         flexion_array = flexion_array.reverse()
     }
 
-    if (extension_array.length > 5)
+    if (extension_array.length > 4)
     {
         extension_array = extension_array.reverse()
-        extension_array.pop()
+        while (extension_array.length != 4)
+        {
+            extension_array.pop()
+        }
         extension_array = extension_array.reverse()
     }
 
