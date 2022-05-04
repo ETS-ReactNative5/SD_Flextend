@@ -25,7 +25,7 @@ BLEStringCharacteristic calibrationCharacteristic("77B25143-5A38-4B8A-AAA0-BF28E
 
 const int MPU_addr1 = 0x68;
 const int MPU_addr2 = 0x69;
-int buzzer = 3;
+int buzzer = 4;
 
 
 int findMin(int data[] , int s) //function to extract flexion value from array of measured degrees
@@ -76,8 +76,8 @@ void setup() {
   }
 
   
-  pinMode(Cbutton, INPUT);
-  digitalWrite(Cbutton, LOW);
+//  pinMode(Cbutton, INPUT);
+//  digitalWrite(Cbutton, LOW);
 
   // init buzzer and play a tone to indicate device is on and functioning
   pinMode(buzzer, OUTPUT);
