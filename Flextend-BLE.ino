@@ -274,6 +274,19 @@ void loop() {
             degrees_array[i] = 0;
           }
         }
+        //THIS ELSE DIDN'T USE TO BE HERE: CARMEN EDIT
+        else{
+          //While it is measuring keep sending min and max values to the app
+          //the app should display them if it receives them
+          int min_val = findMin(degrees_array, i);
+          int max_val = findMax(degrees_array, i);
+          String min_string(min_val);
+          String max_string(max_val);
+          flexionCharacteristic.writeValue(min_string);
+          extensionCharacteristic.writeValue(max_string);
+          //need to check on the app side if the values that we are getting are flexion or extension
+          //only display one value at a time live since two are a time are not possible
+        }
 
         // same code as calibration, except now we use offset in recording the degrees and do not find an offset (as we already have it)
         Wire.beginTransmission(MPU_addr1);
