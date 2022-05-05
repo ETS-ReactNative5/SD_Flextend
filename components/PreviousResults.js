@@ -82,14 +82,32 @@ export default function PreviousResults() {
     if (surgery == false)
     {
         //Divide flexion by 150 to get the percentage value
-        var flexion_data = {
-            data: [flexion / 150]
+        if(flexion == 0){
+            var flexion_data = {
+                data:[0]
+            }
         }
+        else{
+            var flexion_data = {
+                data: [(100-flexion) / 90]
+            }
+        }
+        
 
         //Subtract extension from 100 and divide by 100 to get the percentage value
-        var extension_data = {
-            data: [(100 - extension) / 100]
+        if(extension == 0){
+            var extension_data = {
+                data:[0]
+            }
         }
+        else{
+            var extension_data = {
+
+                data: [(extension -90) / 90]
+                
+            }
+        }
+        
     }
     //If the user has had a recent knee surgery...
     else 

@@ -265,8 +265,23 @@ void loop() {
           int max_val = findMax(degrees_array, i);
           String min_string(min_val);
           String max_string(max_val);
-          flexionCharacteristic.writeValue(min_string);
-          extensionCharacteristic.writeValue(max_string);
+          //IF THE VALUES DON'T MAKE SENSE THEN SEND A ZERO 
+          if(min_val > 90){
+            //send nothing because the knee was not flexed
+            flexionCharacteristic.writeValue("No value");
+          }
+          else if (min_val <=90){
+            flexionCharacteristic.writeValue(min_string);
+          }
+          
+          if(max_val <= 90){
+            //send nothing because the knee was not flexed
+            extensionCharacteristic.writeValue("No value");
+          }
+          else if (max_val >90){
+            extensionCharacteristic.writeValue(max_string);
+          }
+          
           isMeasuring = false;
           i = 0;
           for (int i = 0; i < 2000; i++)

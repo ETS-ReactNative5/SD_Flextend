@@ -23,11 +23,20 @@ export default function Home({navigation}) {
     const [goalsData, setGoalsData] = useState();
     const userID = auth().currentUser.phoneNumber;
 
-    //get user first name to display on screen 
-    const name = auth().currentUser.displayName;
+    //Pulls the name of the current user to be displayed in welcome message
+  if(auth().currentUser != null){
+    const name = firebase.auth().currentUser.displayName;
     var first_name = ''
-    var n = name.indexOf(' ')
-    first_name = name.substring(0, n)
+    var last_name = ''
+
+    if (name != null)
+    {
+        var n = name.indexOf(' ')
+    
+        first_name = name.substring(0, n)
+        last_name = name.substring((n - 1) + 2)
+    }
+}
 
     //Pulls Goals data from Firebase to display. Updates every time a new goal is added and user 
     //navigates to home screen
@@ -67,32 +76,49 @@ export default function Home({navigation}) {
         }, [])
     );
 
+    //Querying the database 
+    // const pull_data = async () => {
+    //     try {
+    //         const documentSnapshot = await firestore()
+    //             .collection('users')
+    //             .doc(userID)
+    //             .get();
+
+    //         if (documentSnapshot.data() == null )
+    //         {
+    //             setGoalsData(null)
+    //         }
+    //         else{
+    //             data = []
+    //             for(let i = 0; i < documentSnapshot.data()["goals"].length; i++){
+    //                 data.push({id: i+1, name: documentSnapshot.data()["goals"][i]})
+    //             }
+    //             setGoalsData(data)
+    //         }
+    //     }
+    //     catch {
+    //     }
+    // }
+
+
+    // useEffect(() => {
+    //     pull_data()
+    // }, []);
+
     //Clears goals from firebase, only goals that are selected 
-    const [clearGoal, setClearGoal] = useState(false)
-    const clearGoals = () => {
-        firestore().collection('users').doc(userID).update({
-            goals: firestore.FieldValue.delete(),
-        });
-        setClearGoal(true)
+    //need to reload goal component 
+    // const [clearGoal, setClearGoal] = useState(false)
+    // const clearGoals = () => {
+    //     firestore().collection('users').doc(userID).update({
+    //         goals: firestore.FieldValue.delete(),
+    //     });
+    //     setClearGoal(true)
+    // }
 
-    }
+    // useEffect(() => {
+    //     pull_data()
+    // }, [clearGoal]);
 
-    //TODO: FIX THE IMAGES ISSUE///////////////////////////////////////
-    //loading background image 
-    const loadImage = async () =>{
-        const image = await require('../images/home-background.png')
-        setIsLoading(false)
-    }
-    useEffect(() => {
-        loadImage()
-    }, [])
-    if(isLoading){
-        return (
-        <View>
-            <ActivityIndicator size="large" />
-        </View>
-        )
-    }
     /////////////////////////////////////////////////////////////////////
 
     return (

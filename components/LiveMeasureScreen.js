@@ -37,8 +37,6 @@ export default class HomeScreen extends React.Component {
             extension : 0,
             date: firebase.firestore.Timestamp.now().toDate().toISOString(),
             deviceNotFound: false,
-            startMeasuring: false,
-            stopMeasuring: false
         };
     }
 
@@ -121,6 +119,7 @@ export default class HomeScreen extends React.Component {
                             flexion_subscription = flextendService.monitorCharacteristic(flexion_characteristicUUID, async (error, characteristic) => {
                                 let printVal = base64.decode(characteristic.value);
                                 this.setState({ flexion: printVal });
+
                             }, flexion_id);
                             extension_subscription = flextendService.monitorCharacteristic(extension_characteristicUUID, async (error, characteristic) => {
                                 let printVal = base64.decode(characteristic.value);
@@ -151,8 +150,6 @@ export default class HomeScreen extends React.Component {
         else // if device is connected, we write the value MEASURING to this characteristic. The Flextend device is, as well, monitoring this change
         // in the measuringCharacteristic value, and will begin measuring when it sees this value written.
         {
-            this.setState({ startMeasuring: true });
-            this.setState({ stopMeasuring: false });
             manager.writeCharacteristicWithResponseForDevice(device_id, service_id, measuringCharacteristicID, base64.encode('MEASURING'))
             // alert("Flextend device is now measuring! Begin extending and flexing your knee. When done, press Stop Measuring.")
             
@@ -170,8 +167,6 @@ export default class HomeScreen extends React.Component {
         else //now the value "NOTMEASURING" is written to communicate with the Flextend device that we are no longer measuring and to push the
         // flexion and extension values to the app.
         {
-            this.setState({ startMeasuring: false });
-            this.setState({ stopMeasuring: true });
             manager.writeCharacteristicWithResponseForDevice(device_id, service_id, measuringCharacteristicID, base64.encode('NOTMEASURING'))
             // alert("Flextend device no longer measuring. Your flexion and extension results will appear on this page!")
             
@@ -204,8 +199,20 @@ export default class HomeScreen extends React.Component {
         // first, push the read values to firebase for the user who is logged in
         if (this.state.flexion != "0" && this.state.extension != "0")
         {
-            firestore().collection('knee health').doc(auth().currentUser.phoneNumber).set(
-                {[this.state.date]: {flexion: this.state.flexion, extension: this.state.extension} }, {merge: true})
+            //then push the values after correction
+            if (this.state.flexion == "No value"){
+                firestore().collection('knee health').doc(auth().currentUser.phoneNumber).set(
+                    {[this.state.date]: {flexion: "0", extension: this.state.extension} }, {merge: true})
+            }
+            else if(this.state.extension == "No value"){
+                firestore().collection('knee health').doc(auth().currentUser.phoneNumber).set(
+                    {[this.state.date]: {flexion: this.state.flexion, extension: "0"} }, {merge: true})
+            }
+            else{
+                firestore().collection('knee health').doc(auth().currentUser.phoneNumber).set(
+                    {[this.state.date]: {flexion: this.state.flexion, extension: this.state.extension} }, {merge: true})
+            }
+            
         }
         // cancel transactions and subscriptions when we disconnect
         manager.cancelTransaction(flexion_id);
@@ -234,14 +241,6 @@ export default class HomeScreen extends React.Component {
                     <TouchableOpacity onPress={() => this.beginMeasuring()} style={styles.button1}><Text style={styles.buttonTitle}>Begin Measuring</Text></TouchableOpacity>
                     <TouchableOpacity onPress={() => this.stopMeasuring()} style={styles.button2}><Text style={styles.buttonTitle}>Stop Measuring</Text></TouchableOpacity>
                     <TouchableOpacity onPress={() => this.calibrate()} style={styles.button2}><Text style={styles.buttonTitle}>Calibrate</Text></TouchableOpacity>
-                    {startMeasuring
-                        ? <View style={styles.alertBox}><Text style={styles.textBox}> You are now measuring! </Text></View>
-                        : null
-                    }
-                    {stopMeasuring
-                        ? <View style={styles.alertBox}><Text style={styles.textBox}> You stopped measuring! </Text></View>
-                        : null
-                    }
             </View>
 
         );

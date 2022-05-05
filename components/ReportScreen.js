@@ -97,22 +97,22 @@ export default function ReportScreen() {
     //Find the best flexion value
     var l = 0;
     var largest = 90;
-    for (l; l < flexion_array.length; l++)
+    for (l; l < extension_array.length; l++)
     {
-        if (flexion_array[l] > largest)
+        if (extension_array[l] > largest)
         {
-            largest = flexion_array[l]
+            largest = extension_array[l]
         }
     }
 
     //Find the best extension value
     var m = 0;
     var smallest = 90;
-    for (m; m < extension_array.length; m++)
+    for (m; m < flexion_array.length; m++)
     {
-        if (extension_array[m] < smallest)
+        if (flexion_array[m] < smallest)
         {
-            smallest = extension_array[m]
+            smallest = flexion_array[m]
         }
     }
 
@@ -127,80 +127,81 @@ export default function ReportScreen() {
     {
         if (largest >= 148)
         {
-            flexion_age_message = "Great job! Your knee flexion is within the national average for other users your age!"
+            extension_age_message = "Great job! Your knee flexion is within the national average for other users your age!"
         }
         else 
         {
-            flexion_age_message = "Your knee flexion is below the national average for other users your age. Keep trying! You got it!"
+            extension_age_message = "Your knee flexion is below the national average for other users your age. Keep trying! You got it!"
         }
 
         if (smallest <= 2)
         {
-            extension_age_message = "Great job! Your knee extension is within the national average for other users your age!"
+            flexion_age_message = "Great job! Your knee extension is within the national average for other users your age!"
         }
         else 
         {
-            extension_age_message = "Your knee extension is below the national average for other users your age. Keep trying! You got it!"
+            flexion_age_message = "Your knee extension is below the national average for other users your age. Keep trying! You got it!"
         }
     }
     else if (age >= 9 && age <= 19)
     {
         if (largest >= 142)
         {
-            flexion_age_message = "Great job! Your knee flexion is within the national average for other users your age!"
+            extension_age_message = "Great job! Your knee flexion is within the national average for other users your age!"
         }
         else 
         {
-            flexion_age_message = "Your knee flexion is below the national average for other users your age. Keep trying! You got it!"
+            extension_age_message = "Your knee flexion is below the national average for other users your age. Keep trying! You got it!"
         }
 
         if (smallest <= 8)
         {
-            extension_age_message = "Great job! Your knee extension is within the national average for other users your age!"
+            flexion_age_message = "Great job! Your knee extension is within the national average for other users your age!"
         }
         else 
         {
-            extension_age_message = "Your knee extension is below the national average for other users your age. Keep trying! You got it!"
+            flexion_age_message = "Your knee extension is below the national average for other users your age. Keep trying! You got it!"
         }
     }
     else if (age >= 20 && age <= 44)
     {
         if (largest >= 136)
         {
-            flexion_age_message = "Great job! Your knee flexion is within the national average for other users your age!"
+            extension_age_message = "Great job! Your knee flexion is within the national average for other users your age!"
         }
         else 
         {
-            flexion_age_message = "Your knee flexion is below the national average for other users your age. Keep trying! You got it!"
+            console.log("ON THE ELSE")
+            extension_age_message = "Your knee flexion is below the national average for other users your age. Keep trying! You got it!"
         }
 
         if (smallest <= 15)
         {
-            extension_age_message = "Great job! Your knee extension is within the national average for other users your age!"
+            flexion_age_message = "Great job! Your knee extension is within the national average for other users your age!"
         }
         else 
         {
-            extension_age_message = "Your knee extension is below the national average for other users your age. Keep trying! You got it!"
+            flexion_age_message = "Your knee extension is below the national average for other users your age. Keep trying! You got it!"
         }
     }
     else if (age >= 45)
     {
        if (largest >= 130)
        {
-            flexion_age_message = "Great job! Your knee flexion is within the national average for other users your age!"
+            extension_age_message = "Great job! Your knee flexion is within the national average for other users your age!"
        }
        else 
        {
-            flexion_age_message = "Your knee flexion is below the national average for other users your age. Keep trying! You got it!"
+            extension_age_message = "Your knee flexion is below the national average for other users your age. Keep trying! You got it!"
        }
 
        if (smallest <= 20)
        {
-            extension_age_message = "Great job! Your knee extension is within the national average for other users your age!"
+            flexion_age_message = "Great job! Your knee extension is within the national average for other users your age!"
        }
        else
        {
-            extension_age_message = "Your knee extension is below the national average for other users your age. Keep trying! You got it!"
+            flexion_age_message = "Your knee extension is below the national average for other users your age. Keep trying! You got it!"
        }
     }
 
@@ -211,8 +212,8 @@ export default function ReportScreen() {
         {/* <ImageBackground  style={{width: '100%', height: '100%', resizeMode:'contain'}} source={require("../images/report-background.png")} >   */}
             <Text style={styles.Title}>Here is Your Generated Report</Text>
             <View style={styles.container2}>
-                <Text style={styles.text}>Best Flexion Value Overall: {largest}</Text>
-                <Text style={styles.text}>Best Extension Value Overall: {smallest}</Text>
+                <Text style={styles.text}>Best Flexion Value Overall: {smallest}</Text>
+                <Text style={styles.text}>Best Extension Value Overall: {largest}</Text>
                 <Text style={styles.section_text}>Flexion</Text>
                 <Text style={styles.info_text}>{flexion_age_message}</Text>
                 <Text style={styles.section_text}>Extension</Text>
