@@ -32,21 +32,58 @@ const Profile = ({navigation}) => {
     //input for age state
     const [selectedAge, setSelectedAge] = useState('');
 
-    //input for weight state
+    //input for surgery state
     const [selectedStatus, setSelectedStatus] = useState(false);
 
     //input for goal state 
     const [goal, setGoal] = useState('')
 
+    //retreieve age and surgery status to initialize state 
+    //retrieve eventId when re render from firebase collection 
+    const asyncFetchMetrics = async () => {
+        try {
+            const documentSnapshot = await firestore()
+                .collection('users')
+                .doc(auth().currentUser.phoneNumber)
+                .get()
+            
+            if (documentSnapshot.data() == null)
+            {
+                setSelectedAge("")
+                setSelectedStatus(false)
+            }
+            else 
+            {
+                const pulledage = documentSnapshot.data()["age"];
+                const pulledstatus = documentSnapshot.data()["recent_surgery"];
+                setSelectedAge(pulledage)
+                setSelectedStatus(pulledstatus)
+            }
+        }
+        catch {
+
+        }
+
+    };
+
+    useEffect(() => {
+        asyncFetchMetrics();
+    }, []);
+
     //function to push metrics to firebase collection
+    //only the metric that the user updates should be updated in firebase
     const metricsToFirebase = () => {
+        
         firestore().collection('users').doc(auth().currentUser.phoneNumber).update(
             {'age':selectedAge}
         )
+        
         firestore().collection('users').doc(auth().currentUser.phoneNumber).update(
             {'recent_surgery':selectedStatus}
         )
+       
     }
+
 
     //function to render body metrics screen after user inputs their metrics
     const renderBodyMetrics = () => {
@@ -174,11 +211,11 @@ const Profile = ({navigation}) => {
   
     //retrieve eventId when re render from firebase collection 
     const asyncFetch = async () => {
-            const eventIdent = await AsyncStorage.getItem("eventID");
-            if (eventIdent) {
-                // setter from useState
-                setEventId(JSON.parse(eventIdent));
-            }
+            // const eventIdent = await AsyncStorage.getItem("eventID");
+            // if (eventIdent) {
+            //     // setter from useState
+            //     setEventId(JSON.parse(eventIdent));
+            // }
 
         try {
             const documentSnapshot = await firestore()
@@ -188,7 +225,7 @@ const Profile = ({navigation}) => {
             
             if (documentSnapshot.data() == null)
             {
-                console.log("No calendar event found")
+                setEventId("")
             }
             else 
             {
@@ -235,7 +272,7 @@ const Profile = ({navigation}) => {
                 console.log(eventInfo)
             })
             .catch(error => {
-                alert('Error ', error);
+                
             });
     }
 

@@ -112,27 +112,50 @@ export default function PreviousResults() {
     //If the user has had a recent knee surgery...
     else 
     {
-        var new_flexion = flexion
-        var new_extension = extension
+        // var new_flexion = 55
+        // var new_extension = 180
 
-        if (flexion > 120)
-        {
-            new_flexion = 120
+        // if (flexion > 120)
+        // {
+        //     new_flexion = 120
+        // }
+        // if (extension < 20)
+        // {
+        //     new_extension = 20
+        // }
+
+        if(flexion == 0){
+            var flexion_data = {
+                data:[0]
+            }
         }
-        if (extension < 20)
-        {
-            new_extension = 20
+        else{
+            var flexion_data = {
+                data: [(100-flexion) / 55]
+            }
         }
 
+        if(extension == 0){
+            var extension_data = {
+                data:[0]
+            }
+        }
+        else{
+            var extension_data = {
+
+                data: [(extension -90) / 90]
+                
+            }
+        }
         //Divide flexion by 120 to get the percentage value
-        var flexion_data = {
-            data: [new_flexion / 120]
-        }
+        // var flexion_data = {
+        //     data: [new_flexion / 120]
+        // }
 
         //Subtract extension from 100 and divide by 100 to get the percentage value
-        var extension_data = {
-            data: [(100 - new_extension) / 80]
-        }
+        // var extension_data = {
+        //     data: [(100 - new_extension) / 80]
+        // }
     }
 
     //If there was no user data...set flexion and extension to 0 in the data field for the progress chat

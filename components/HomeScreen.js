@@ -158,15 +158,15 @@ export default function Home({navigation}) {
                             listItemStyle={{  
                                 borderBottomWidth: 0, 
                                 marginTop: 10,
-                                marginLeft: 35,
+                                marginLeft: 25,
                                 marginBottom: 10,
                                 // text: {
                                 //     color: 'black',
                                 //     fontWeight: 'bold',
                                 //     fontSize: 24,
-                                // }
+                                // },
                                 }}
-                            style={styles.dayCheckBox}
+                            // style={styles.dayCheckBox}
                         />
                         {/* <TouchableOpacity style={styles.button2} onPress={() => clearGoals()}><Text>Clear Selected Goals</Text></TouchableOpacity> */}
                     </View>

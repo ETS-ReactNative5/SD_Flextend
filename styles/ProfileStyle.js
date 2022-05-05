@@ -142,7 +142,7 @@ export default StyleSheet.create({
   text: {
     paddingLeft: 20,
     // paddingRight: 20,
-    fontSize: 20,
+    fontSize: 18,
     fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
     fontWeight: 'bold',
     color: '#ff8c00',

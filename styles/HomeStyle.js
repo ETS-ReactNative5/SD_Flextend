@@ -96,10 +96,10 @@ export default StyleSheet.create({
         alignSelf: "center",
     },
     dayCheckBox: {
-        backgroundColor: 'transparent',
-        borderRadius: 0,
-        borderColor: 'transparent',
-        justifyContent: 'flex-start'
+        // backgroundColor: 'transparent',
+        // borderRadius: 0,
+        // borderColor: 'transparent',
+        // justifyContent: 'flex-start'
     },
     welcome_message2: {
         fontSize: 30,

@@ -36,7 +36,7 @@ export default class HomeScreen extends React.Component {
             flexion: 0,
             extension : 0,
             date: firebase.firestore.Timestamp.now().toDate().toISOString(),
-            deviceNotFound: false,
+            deviceFound: false,
         };
     }
 
@@ -134,7 +134,12 @@ export default class HomeScreen extends React.Component {
         // stop scanning devices after 1000 miliseconds
         setTimeout(() => {
             manager.stopDeviceScan();
-        }, 1000);
+            //if it did not find flextend, alert the user that device might be off 
+            if(this.state.isConnected == false){
+                alert("Device was not found")
+                this.props.navigation.navigate('Home')
+            }
+        }, 2000);
 
         
     }

@@ -127,7 +127,7 @@ export default function ReportScreen() {
     {
         if (largest >= 148)
         {
-            extension_age_message = "Great job! Your knee flexion is within the national average for other users your age!"
+            extension_age_message = "Great job! \nYour knee flexion is within the national average for other users your age!"
         }
         else 
         {
@@ -167,7 +167,7 @@ export default function ReportScreen() {
     {
         if (largest >= 136)
         {
-            extension_age_message = "Great job! Your knee flexion is within the national average for other users your age!"
+            extension_age_message = "Great job!" + "\r\n" + "Your knee flexion is within the national average for other users your age!"
         }
         else 
         {
