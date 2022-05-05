@@ -24,10 +24,10 @@ export default function Home({navigation}) {
     const userID = auth().currentUser.phoneNumber;
 
     //get user first name to display on screen 
-    const name = auth().currentUser.displayName;
-    var first_name = ''
-    var n = name.indexOf(' ')
-    first_name = name.substring(0, n)
+    // const name = auth().currentUser.displayName;
+    // var first_name = ''
+    // var n = name.indexOf(' ')
+    // first_name = name.substring(0, n)
 
     //Pulls Goals data from Firebase to display. Updates every time a new goal is added and user 
     //navigates to home screen
@@ -106,7 +106,7 @@ export default function Home({navigation}) {
                 style = {styles.image} 
                 source = {require('../images/Logo.png')}
                 />
-                <Text style={styles.welcome_message}> Welcome {first_name}! </Text>
+                <Text style={styles.welcome_message}> Welcome! </Text>
                     <TouchableOpacity onPress={() => navigation.navigate( 'Live Measure' )} style={styles.button1}><Text style={styles.buttonTitle}>Start Tracking</Text></TouchableOpacity>
                     <TouchableOpacity onPress={() => navigation.navigate( 'Previous Results' )} style={styles.button3}><Text style={styles.buttonTitle}>Previous Results</Text></TouchableOpacity>
                     <TouchableOpacity onPress={() => logout()} style={styles.button2}><Text style={styles.buttonTitle1}>Sign Out</Text></TouchableOpacity>

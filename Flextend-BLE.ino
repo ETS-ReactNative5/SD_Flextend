@@ -251,7 +251,17 @@ void loop() {
         int maxVal = 402;
 
         double raw1, raw2, x1, x2, Angle, OFF1, OFF2, sum1, sum2;
-
+        //Constantly send angle for live viewing
+        int current_val = Angle;
+        String current_value(current_val);
+        //show it in extension area if it is an extension value
+        if(current_val > 90){
+          extensionCharacteristic.writeValue(current_value);
+        }
+        //show it in flexion area if it is a flexion value
+        if(current_val < 90){
+          flexionCharacteristic.writeValue(current_value);
+        }
         
         if (central.connected()) //check this to make sure connection is still working
         {

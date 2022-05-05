@@ -37,8 +37,6 @@ export default class HomeScreen extends React.Component {
             extension : 0,
             date: firebase.firestore.Timestamp.now().toDate().toISOString(),
             deviceNotFound: false,
-            startMeasuring: false,
-            stopMeasuring: false
         };
     }
 
@@ -151,8 +149,6 @@ export default class HomeScreen extends React.Component {
         else // if device is connected, we write the value MEASURING to this characteristic. The Flextend device is, as well, monitoring this change
         // in the measuringCharacteristic value, and will begin measuring when it sees this value written.
         {
-            this.setState({ startMeasuring: true });
-            this.setState({ stopMeasuring: false });
             manager.writeCharacteristicWithResponseForDevice(device_id, service_id, measuringCharacteristicID, base64.encode('MEASURING'))
             // alert("Flextend device is now measuring! Begin extending and flexing your knee. When done, press Stop Measuring.")
             
@@ -234,14 +230,14 @@ export default class HomeScreen extends React.Component {
                     <TouchableOpacity onPress={() => this.beginMeasuring()} style={styles.button1}><Text style={styles.buttonTitle}>Begin Measuring</Text></TouchableOpacity>
                     <TouchableOpacity onPress={() => this.stopMeasuring()} style={styles.button2}><Text style={styles.buttonTitle}>Stop Measuring</Text></TouchableOpacity>
                     <TouchableOpacity onPress={() => this.calibrate()} style={styles.button2}><Text style={styles.buttonTitle}>Calibrate</Text></TouchableOpacity>
-                    {startMeasuring
+                    {/* {startMeasuring
                         ? <View style={styles.alertBox}><Text style={styles.textBox}> You are now measuring! </Text></View>
                         : null
                     }
                     {stopMeasuring
                         ? <View style={styles.alertBox}><Text style={styles.textBox}> You stopped measuring! </Text></View>
                         : null
-                    }
+                    } */}
             </View>
 
         );
